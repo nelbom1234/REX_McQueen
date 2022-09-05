@@ -7,193 +7,196 @@ arlo = robot.Robot()
 
 print("Running ...")
 
-turnspeed = 1.5
+for i in range(10)
+  turnspeed = 1.5
 
-# send a go_diff command to drive forward
-leftSpeed = 64
-rightSpeed = 64
-print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
+  # send a go_diff command to drive forward
+  leftSpeed = 64
+  rightSpeed = 64
+  print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
 
-# Wait a bit while robot moves forward
-sleep(3)
+  # Wait a bit while robot moves forward
+  sleep(3)
 
-# send a stop command
-print(arlo.stop())
+  # send a stop command
+  print(arlo.stop())
 
-# Wait a bit before next command
-sleep(0.041)
+  # Wait a bit before next command
+  sleep(0.041)
 
-# send a go_diff command to drive backwards the same way we came from
-#print(arlo.go_diff(leftSpeed, rightSpeed, 0, 0))
+  # send a go_diff command to drive backwards the same way we came from
+  #print(arlo.go_diff(leftSpeed, rightSpeed, 0, 0))
 
-# Wait a bit while robot moves backwards
-#sleep(3)
+  # Wait a bit while robot moves backwards
+  #sleep(3)
 
-# send a stop command
-#print(arlo.stop())
+  # send a stop command
+  #print(arlo.stop())
 
-# Wait a bit before next command
-#sleep(0.041)
-
-
-
-# request to read Front sonar ping sensor
-print("Front sensor = ", arlo.read_front_ping_sensor())
-sleep(0.041)
-
-
-# request to read Back sonar ping sensor
-print("Back sensor = ", arlo.read_back_ping_sensor())
-sleep(0.041)
-
-# request to read Right sonar ping sensor
-print("Right sensor = ", arlo.read_right_ping_sensor())
-sleep(0.041)
-
-# request to read Left sonar ping sensor
-print("Left sensor = ", arlo.read_left_ping_sensor())
-sleep(0.041)
+  # Wait a bit before next command
+  #sleep(0.041)
 
 
 
-# send a go_diff command to drive forward in a curve turning right
-leftSpeed = 32
-rightSpeed = 32
-print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
+  # request to read Front sonar ping sensor
+  print("Front sensor = ", arlo.read_front_ping_sensor())
+  sleep(0.041)
 
-# Wait a bit while robot moves forward
-sleep(turnspeed)
 
-# send a stop command
-print(arlo.stop())
+  # request to read Back sonar ping sensor
+  print("Back sensor = ", arlo.read_back_ping_sensor())
+  sleep(0.041)
 
-# Wait a bit before next command
-#sleep(0.041)
+  # request to read Right sonar ping sensor
+  print("Right sensor = ", arlo.read_right_ping_sensor())
+  sleep(0.041)
 
-# send a go_diff command to drive backwards the same way we came from
-#print(arlo.go_diff(leftSpeed, rightSpeed, 0, 0))
+  # request to read Left sonar ping sensor
+  print("Left sensor = ", arlo.read_left_ping_sensor())
+  sleep(0.041)
 
-# Wait a bit while robot moves backwards
-#sleep(3)
 
-# send a stop command
-#print(arlo.stop())
 
-leftSpeed = 64
-rightSpeed = 64
-print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
+  # send a go_diff command to drive forward in a curve turning right
+  leftSpeed = 32
+  rightSpeed = 32
+  print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
 
-# Wait a bit while robot moves forward
-sleep(3)
+  # Wait a bit while robot moves forward
+  sleep(turnspeed)
 
-# send a stop command
-print(arlo.stop())
+  # send a stop command
+  print(arlo.stop())
 
-sleep(0.041)
+  # Wait a bit before next command
+  #sleep(0.041)
 
-# request to read Front sonar ping sensor
-print("Front sensor = ", arlo.read_front_ping_sensor())
-sleep(0.041)
+  # send a go_diff command to drive backwards the same way we came from
+  #print(arlo.go_diff(leftSpeed, rightSpeed, 0, 0))
 
-# request to read Back sonar ping sensor
-print("Back sensor = ", arlo.read_back_ping_sensor())
-sleep(0.041)
+  # Wait a bit while robot moves backwards
+  #sleep(3)
 
-# request to read Right sonar ping sensor
-print("Right sensor = ", arlo.read_right_ping_sensor())
-sleep(0.041)
+  # send a stop command
+  #print(arlo.stop())
 
-# request to read Left sonar ping sensor
-print("Left sensor = ", arlo.read_left_ping_sensor())
-sleep(0.041)
+  leftSpeed = 64
+  rightSpeed = 64
+  print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
 
-# send a go_diff command to drive forward in a curve turning right
-leftSpeed = 32
-rightSpeed = 32
-print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
+  # Wait a bit while robot moves forward
+  sleep(3)
 
-# Wait a bit while robot moves forward
-sleep(turnspeed)
+  # send a stop command
+  print(arlo.stop())
 
-# send a stop command
-print(arlo.stop())
+  sleep(0.041)
 
-leftSpeed = 64
-rightSpeed = 64
-print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
+  # request to read Front sonar ping sensor
+  print("Front sensor = ", arlo.read_front_ping_sensor())
+  sleep(0.041)
 
-# Wait a bit while robot moves forward
-sleep(3)
+  # request to read Back sonar ping sensor
+  print("Back sensor = ", arlo.read_back_ping_sensor())
+  sleep(0.041)
 
-# send a stop command
-print(arlo.stop())
+  # request to read Right sonar ping sensor
+  print("Right sensor = ", arlo.read_right_ping_sensor())
+  sleep(0.041)
 
-sleep(0.041)
+  # request to read Left sonar ping sensor
+  print("Left sensor = ", arlo.read_left_ping_sensor())
+  sleep(0.041)
 
-# request to read Front sonar ping sensor
-print("Front sensor = ", arlo.read_front_ping_sensor())
-sleep(0.041)
+  # send a go_diff command to drive forward in a curve turning right
+  leftSpeed = 32
+  rightSpeed = 32
+  print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
 
-# request to read Back sonar ping sensor
-print("Back sensor = ", arlo.read_back_ping_sensor())
-sleep(0.041)
+  # Wait a bit while robot moves forward
+  sleep(turnspeed)
 
-# request to read Right sonar ping sensor
-print("Right sensor = ", arlo.read_right_ping_sensor())
-sleep(0.041)
+  # send a stop command
+  print(arlo.stop())
 
-# request to read Left sonar ping sensor
-print("Left sensor = ", arlo.read_left_ping_sensor())
-sleep(0.041)
+  leftSpeed = 64
+  rightSpeed = 64
+  print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
 
-# send a go_diff command to drive forward in a curve turning right
-leftSpeed = 32
-rightSpeed = 32
-print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
+  # Wait a bit while robot moves forward
+  sleep(3)
 
-# Wait a bit while robot moves forward
-sleep(turnspeed)
+  # send a stop command
+  print(arlo.stop())
 
-# send a stop command
-print(arlo.stop())
+  sleep(0.041)
 
-sleep(0.041)
+  # request to read Front sonar ping sensor
+  print("Front sensor = ", arlo.read_front_ping_sensor())
+  sleep(0.041)
 
-leftSpeed = 64
-rightSpeed = 64
-print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
+  # request to read Back sonar ping sensor
+  print("Back sensor = ", arlo.read_back_ping_sensor())
+  sleep(0.041)
 
-# Wait a bit while robot moves forward
-sleep(3)
+  # request to read Right sonar ping sensor
+  print("Right sensor = ", arlo.read_right_ping_sensor())
+  sleep(0.041)
 
-# send a stop command
-print(arlo.stop())
+  # request to read Left sonar ping sensor
+  print("Left sensor = ", arlo.read_left_ping_sensor())
+  sleep(0.041)
 
-sleep(0.041)
+  # send a go_diff command to drive forward in a curve turning right
+  leftSpeed = 32
+  rightSpeed = 32
+  print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
 
-# request to read Front sonar ping sensor
-print("Front sensor = ", arlo.read_front_ping_sensor())
-sleep(0.041)
+  # Wait a bit while robot moves forward
+  sleep(turnspeed)
 
-# request to read Back sonar ping sensor
-print("Back sensor = ", arlo.read_back_ping_sensor())
-sleep(0.041)
+  # send a stop command
+  print(arlo.stop())
 
-# request to read Right sonar ping sensor
-print("Right sensor = ", arlo.read_right_ping_sensor())
-sleep(0.041)
+  sleep(0.041)
 
-# request to read Left sonar ping sensor
-print("Left sensor = ", arlo.read_left_ping_sensor())
-sleep(0.041)
+  leftSpeed = 64
+  rightSpeed = 64
+  print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
 
-# send a go_diff command to drive forward in a curve turning right
-leftSpeed = 32
-rightSpeed = 32
-print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
+  # Wait a bit while robot moves forward
+  sleep(3)
 
-# Wait a bit while robot moves forward
-sleep(turnspeed)
+  # send a stop command
+  print(arlo.stop())
+
+  sleep(0.041)
+
+  # request to read Front sonar ping sensor
+  print("Front sensor = ", arlo.read_front_ping_sensor())
+  sleep(0.041)
+
+  # request to read Back sonar ping sensor
+  print("Back sensor = ", arlo.read_back_ping_sensor())
+  sleep(0.041)
+
+  # request to read Right sonar ping sensor
+  print("Right sensor = ", arlo.read_right_ping_sensor())
+  sleep(0.041)
+
+  # request to read Left sonar ping sensor
+  print("Left sensor = ", arlo.read_left_ping_sensor())
+  sleep(0.041)
+
+  # send a go_diff command to drive forward in a curve turning right
+  leftSpeed = 32
+  rightSpeed = 32
+  print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
+
+  # Wait a bit while robot moves forward
+  sleep(turnspeed)
+
+
 
 
 print("Finished")
