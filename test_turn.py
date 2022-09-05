@@ -1,5 +1,4 @@
 from time import sleep
-from turtle import right
 
 import robot
 
@@ -14,6 +13,5 @@ print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
 sleep(3)
 print(arlo.stop())
 sleep(0.041)
-
 
 print("finished")
