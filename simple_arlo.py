@@ -7,7 +7,7 @@ arlo = robot.Robot()
 
 print("Running ...")
 
-for i in range(10)
+for i in range(10):
   turnspeed = 1.5
 
   # send a go_diff command to drive forward
