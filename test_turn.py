@@ -6,8 +6,8 @@ arlo = robot.Robot()
 
 print("Running ...")
 
-leftSpeed = 10
-rightSpeed = 10
+leftSpeed = 32
+rightSpeed = 32
 
 print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
 sleep(3)
