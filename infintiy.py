@@ -9,13 +9,13 @@ print("Running ...")
 
 leftSpeed = 64
 rightSpeed = 64
-print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
+print(arlo.go_diff(leftSpeed, rightSpeed, 0, 1))
 
 sleep(0.38)
 print(arlo.stop())
 
 for i in range(10):
-  turnspeed = 2
+  turnspeed = 5
 
   # send a go_diff command to drive forward
   leftSpeed = 64
