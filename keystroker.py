@@ -11,8 +11,8 @@ print("Running ...")
 
 
 # send a go_diff command to drive forward
-leftSpeed = 100
-rightSpeed = 100
+leftSpeed = 64
+rightSpeed = 63
 print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
 
 # Wait a bit while robot moves forward
@@ -56,7 +56,5 @@ def on_release(key):
 
 with Listener(on_press=on_press, on_release=on_release) as listener:  # Setup the listener
     listener.join()  # Join the thread to the main thread
-
-
-
+    
 print("Finished")

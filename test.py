@@ -7,13 +7,29 @@ arlo = robot.Robot()
 
 print("Running ...")
 
-leftSpeed = 10
-rightSpeed = 10
-
-print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
+leftSpeed = 64
+rightSpeed = 66
+print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
 sleep(3)
 print(arlo.stop())
-sleep(0.041)
+sleep(0.1)
 
+leftSpeed = 64
+rightSpeed = 64
+print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
+sleep(1.435)
+print(arlo.stop())
+sleep(0.1)
+
+leftSpeed = 64
+rightSpeed = 66
+print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
+sleep(3)
+sleep(0.1)
 
 print("finished")
+
+
+
+
+
