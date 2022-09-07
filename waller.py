@@ -19,7 +19,7 @@ go=True
 switch=0
 
 while(go==True):
-    if arlo.read_front_ping_sensor()<500 and arlo.read_left_ping_sensor()<500 and arlo.read_right_ping_sensor()<500:
+    if arlo.read_front_ping_sensor()<500 or arlo.read_left_ping_sensor()<500 or arlo.read_right_ping_sensor()<500:
         if switch==0:
             switch=1
             arlo.stop()
