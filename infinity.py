@@ -15,7 +15,7 @@ sleep(0.45)
 print(arlo.stop())
 
 for i in range(10):
-  turnspeed = 6
+  turnspeed = 4
 
   leftSpeed = 32
   rightSpeed = 75
