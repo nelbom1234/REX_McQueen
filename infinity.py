@@ -18,7 +18,7 @@ for i in range(10):
   turnspeed = 4.6
 
   leftSpeed = 32
-  rightSpeed = 76
+  rightSpeed = 75.5
   # send a go_diff command to drive forward in a curve turning right
 
   print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
