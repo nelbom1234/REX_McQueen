@@ -1,0 +1,24 @@
+from time import sleep
+
+import robot
+
+# Create a robot object and initialize
+arlo = robot.Robot()
+
+print("Running ...")
+
+
+# send a go_diff command to drive forward
+leftSpeed = 64
+rightSpeed = 63
+
+go=True
+
+while(go==True):
+    if arlo.read_front_ping_sensor()<2000:
+        print(arlo.stop())
+        print(arlo.read_front_ping_sensor)
+
+print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
+
+print("Finished")
