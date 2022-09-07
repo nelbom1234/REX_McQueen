@@ -11,11 +11,11 @@ leftSpeed = 64
 rightSpeed = 64
 print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
 
-sleep(0.45)
+sleep(0.55)
 print(arlo.stop())
 
 for i in range(10):
-  turnspeed = 4
+  turnspeed = 5
 
   leftSpeed = 32
   rightSpeed = 75
