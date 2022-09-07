@@ -12,12 +12,22 @@ print("Running ...")
 leftSpeed = 127
 rightSpeed = 127
 i=1
-while(i!=100):
+while(i!=10):
     print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
     sleep(0.5)
     print(arlo.stop())
     print(arlo.go_diff(leftSpeed, rightSpeed, 0, 0))
     sleep(0.5)
+    print(arlo.stop())
+    i=i+1
+
+i=1
+while(i!=10):
+    print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
+    sleep(10)
+    print(arlo.stop())
+    print(arlo.go_diff(leftSpeed, rightSpeed, 0, 1))
+    sleep(10)
     print(arlo.stop())
     i=i+1
 
