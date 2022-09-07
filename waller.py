@@ -15,6 +15,8 @@ rightSpeed = 66
 
 print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
 
+#go down
+
 go=True
 switch=0
 
