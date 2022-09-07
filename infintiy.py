@@ -12,7 +12,7 @@ rightSpeed = 64
 print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
 
 sleep(0.36)
-
+print(arlo.stop())
 
 for i in range(10):
   turnspeed = 2
