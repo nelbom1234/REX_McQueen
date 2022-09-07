@@ -15,20 +15,7 @@ sleep(0.38)
 print(arlo.stop())
 
 for i in range(10):
-  turnspeed = 4.5
-
-  # send a go_diff command to drive forward
-  leftSpeed = 64
-  rightSpeed = 32
-  print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
-
-  # Wait a bit while robot moves forward
-  sleep(turnspeed)
-
-  # send a stop command
-  print(arlo.stop())
-
-  sleep(1)
+  turnspeed = 5
 
   leftSpeed = 32
   rightSpeed = 64
