@@ -18,7 +18,7 @@ for i in range(10):
   turnspeed = 6
 
   leftSpeed = 32
-  rightSpeed = 64
+  rightSpeed = 75
   # send a go_diff command to drive forward in a curve turning right
 
   print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
@@ -31,7 +31,7 @@ for i in range(10):
   sleep(1)
 
   # send a go_diff command to drive forward
-  leftSpeed = 64
+  leftSpeed = 75
   rightSpeed = 32
   print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
 
