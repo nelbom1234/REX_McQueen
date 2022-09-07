@@ -15,7 +15,7 @@ sleep(0.38)
 print(arlo.stop())
 
 for i in range(10):
-  turnspeed = 10
+  turnspeed = 5
 
   # send a go_diff command to drive forward
   leftSpeed = 64
