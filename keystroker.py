@@ -11,8 +11,8 @@ print("Running ...")
 
 
 # send a go_diff command to drive forward
-leftSpeed = 64
-rightSpeed = 64
+leftSpeed = 100
+rightSpeed = 100
 print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
 
 # Wait a bit while robot moves forward
@@ -32,6 +32,14 @@ def on_press(key):
         print(arlo.go_diff(leftSpeed, rightSpeed, 0, 1))
     elif key == Key.right:
         print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
+    elif key == Key.space:
+        print("Status:")
+        print("Front sensor")
+        print(arlo.read_front_ping_sensor)
+        nuts=arlo.read_front_ping_sensor
+        if nuts<100:
+            print("go back")
+            print(arlo.go_diff(leftSpeed, rightSpeed, 0, 0))
     elif key == Key.escape:
         exit()
 
