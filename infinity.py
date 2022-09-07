@@ -28,10 +28,10 @@ for i in range(10):
 
   # send a stop command
   print(arlo.stop())
-  sleep(5)
+  sleep(3)
 
   # send a go_diff command to drive forward
-  leftSpeed = 70
+  leftSpeed = 71
   rightSpeed = 32
   print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
 
@@ -40,7 +40,7 @@ for i in range(10):
 
   # send a stop command
   print(arlo.stop())
-
+  sleep(3)
 
 
 print("Finished")
