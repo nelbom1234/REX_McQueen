@@ -9,29 +9,16 @@ print("Running ...")
 
 leftSpeed = 64
 rightSpeed = 64
-print(arlo.go_diff(leftSpeed, rightSpeed, 0, 1))
+print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
 
-sleep(0.38)
+sleep(0.7)
 print(arlo.stop())
 
 for i in range(10):
-  turnspeed = 5
-
-  # send a go_diff command to drive forward
-  leftSpeed = 64
-  rightSpeed = 32
-  print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
-
-  # Wait a bit while robot moves forward
-  sleep(turnspeed)
-
-  # send a stop command
-  print(arlo.stop())
-
-  sleep(1)
+  turnspeed = 4.6
 
   leftSpeed = 32
-  rightSpeed = 64
+  rightSpeed = 75.5
   # send a go_diff command to drive forward in a curve turning right
 
   print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
@@ -41,10 +28,10 @@ for i in range(10):
 
   # send a stop command
   print(arlo.stop())
-  sleep(1)
+  #sleep(3)
 
   # send a go_diff command to drive forward
-  leftSpeed = 64
+  leftSpeed = 71.8
   rightSpeed = 32
   print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
 
@@ -53,7 +40,7 @@ for i in range(10):
 
   # send a stop command
   print(arlo.stop())
-
+  #sleep(3)
 
 
 print("Finished")
