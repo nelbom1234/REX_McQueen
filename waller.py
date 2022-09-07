@@ -3,8 +3,6 @@ from time import sleep
 import robot
 import random
 
-random.randint(0, 9)
-
 # Create a robot object and initialize
 arlo = robot.Robot()
 
@@ -26,12 +24,13 @@ while(go==True):
             switch=1
             arlo.stop()
             print(arlo.read_front_ping_sensor)
-            sleep(3)
-            rand=random.randint(5, 15)/10
-            print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
+            sleep(1)
+            rand=random.randint(3, 18)/10
+            superspeed=100
+            print(arlo.go_diff(superspeed, superspeed, 1, 0))
             sleep(1.435*rand)
             print(arlo.stop())
-            sleep(3)
+            sleep(1)
             print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
             switch=0
 
