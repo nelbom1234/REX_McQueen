@@ -12,13 +12,13 @@ print("Running ...")
 leftSpeed = 64
 rightSpeed = 63
 
+print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
+
 go=True
 
 while(go==True):
     if arlo.read_front_ping_sensor()<2000:
         print(arlo.stop())
         print(arlo.read_front_ping_sensor)
-
-print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
 
 print("Finished")
