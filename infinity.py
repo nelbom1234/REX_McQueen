@@ -31,7 +31,7 @@ for i in range(10):
   sleep(3)
 
   # send a go_diff command to drive forward
-  leftSpeed = 71
+  leftSpeed = 72
   rightSpeed = 32
   print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
 
