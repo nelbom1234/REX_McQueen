@@ -1,0 +1,10 @@
+speed estimation: 3s, left: 64, right: 66
+    1. 122 cm
+    2. 122 cm
+    3. 123 cm
+    4. 121 cm
+    5. 120 cm
+    6. 121 cm
+    average: ~121.5 cm
+
+turn estimation: 1.435s, left: 64, right: 64
