@@ -17,7 +17,7 @@ sleep(0.041)
 leftSpeed = 64
 rightSpeed = 64
 print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
-sleep(1.5)
+sleep(1.35)
 print(arlo.stop())
 sleep(0.041)
 
@@ -28,3 +28,8 @@ sleep(3)
 sleep(0.041)
 
 print("finished")
+
+
+
+
+
