@@ -20,7 +20,7 @@ for i in range(4):
     sleep(0.041)
 
     print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
-    sleep(0.657)
+    sleep(0.650)
     print(arlo.stop())
     sleep(0.041)
 
