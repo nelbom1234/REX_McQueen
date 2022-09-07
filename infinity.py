@@ -9,7 +9,7 @@ print("Running ...")
 
 leftSpeed = 64
 rightSpeed = 64
-print(arlo.go_diff(leftSpeed, rightSpeed, 0, 1))
+print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
 
 sleep(0.38)
 print(arlo.stop())
