@@ -59,7 +59,7 @@ while(go==True):
         print(arlo.read_front_ping_sensor)
         sleep(1)
         square(1,2,"right")
-        square(2,2.5,"left")
+        square(2,2,"left")
         square(1,0,"right")
         print(arlo.stop())
         sleep(1)
