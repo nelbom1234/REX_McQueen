@@ -54,7 +54,7 @@ go=True
 switch=0
 
 while(go==True):
-    if arlo.read_front_ping_sensor()<250 or arlo.read_left_ping_sensor()<200:
+    if arlo.read_front_ping_sensor()<400 or arlo.read_left_ping_sensor()<250:
         arlo.stop()
         print(arlo.read_front_ping_sensor)
         sleep(1)
@@ -64,7 +64,7 @@ while(go==True):
         print(arlo.stop())
         sleep(1)
         print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
-    if arlo.read_right_ping_sensor()<200:
+    if arlo.read_right_ping_sensor()<250:
         arlo.stop()
         print(arlo.read_front_ping_sensor)
         sleep(1)
