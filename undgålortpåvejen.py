@@ -39,7 +39,7 @@ def square(corners=int,sizeofsquare=float,LeftOrRight=string):
 
     for i in range(corners):
         print(arlo.go_diff(leftTurn, rightTurn, leftwheel, rightwheel))
-        sleep(0.10)
+        sleep(0.637)
         print(arlo.stop())
         sleep(0.041)
 
