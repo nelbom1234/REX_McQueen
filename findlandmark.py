@@ -7,7 +7,7 @@ import robot
 
 # Create a robot object and initialize
 arlo = robot.Robot()
-camera1 = camera.Camera(camidx=1)
+camera1 = camera.Camera(camidx=1, robottype='arlo')
 
 print("Running ...")
 
