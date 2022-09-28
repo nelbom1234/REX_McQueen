@@ -142,8 +142,8 @@ class Camera(object):
             self.distortion_coeffs = np.asarray([1.1911006165076067e-01, -1.0003366233413549e+00,
                    1.9287903277399834e-02, -2.3728201444308114e-03, -2.8137265581326476e-01], dtype = np.float64)
         elif robottype == 'macbookpro':
-            #self.imageSize = (1280, 720)
-            self.imageSize = (1080, 720)
+            self.imageSize = (1280, 720)
+            #self.imageSize = (1080, 720)
             #self.intrinsic_matrix = np.asarray([ 8.6955302212233869e+02, 0., 5.2076864848745902e+02, 0.,
             #       8.7317664932843684e+02, 4.0331768178896669e+02, 0., 0., 1. ], dtype = np.float64)
             self.intrinsic_matrix = np.asarray([9.4328095162920715e+02, 0., 5.1673417797027605e+02, 0.,
