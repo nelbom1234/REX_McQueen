@@ -24,9 +24,9 @@ if (__name__=='__main__'):
     #cam = Camera(0, 'arlo', useCaptureThread = True)
     
     # Open a window
-    ##WIN_RF1 = "Camera view"
-    ##camera.cv2.namedWindow(WIN_RF1)
-    ##camera.cv2.moveWindow(WIN_RF1, 50, 50)
+    WIN_RF1 = "Camera view"
+    camera.cv2.namedWindow(WIN_RF1)
+    camera.cv2.moveWindow(WIN_RF1, 50, 50)
         
     #WIN_RF3 = "Camera view - gray"
     #cv2.namedWindow(WIN_RF3)
@@ -48,31 +48,11 @@ if (__name__=='__main__'):
         #cv2.normalize(loggray, loggray, 0, 255, cv2.NORM_MINMAX)
         #gray = cv2.convertScaleAbs(loggray)
         
-        # Detect objects
+        # Detect objectscamera
         objectType, distance, angle, colourProb = cam.get_object(colour)
         if objectType != 'none':
             print("Object type = ", objectType, ", distance = ", distance, ", angle = ", angle, ", colourProb = ", colourProb)
-            #Get object straight in front of camera
-            if angle>0.3:
-                print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
-                sleep(0.5)
-                print(arlo.stop())
-                sleep(0.1)
-            elif angle<-0.3:
-                print(arlo.go_diff(leftSpeed, rightSpeed, 0, 1))
-                sleep(0.5)
-                print(arlo.stop())
-                sleep(0.1)
-            else:
-                print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
-                sleep(0.5)
-                print(arlo.stop())
-                sleep(0.1)
-        #else:
-            #print(arlo.go_diff(leftSpeed, rightSpeed, 0, 1))
-            #sleep(0.637)
-            #print(arlo.stop())
-            #sleep(0.041)
+            
 
         # Draw detected pattern
         cam.draw_object(colour)
@@ -81,30 +61,15 @@ if (__name__=='__main__'):
         if not isinstance(IDs, type(None)):
             for i in range(len(IDs)):
                 print("Object ID = ", IDs[i], ", Distance = ", dists[i], ", angles = ", angles[i])
-                if angle>0.3:
-                    print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
-                    sleep(0.5)
-                    print(arlo.stop())
-                    sleep(0.1)
-                elif angle<-0.3:
-                    print(arlo.go_diff(leftSpeed, rightSpeed, 0, 1))
-                    sleep(0.5)
-                    print(arlo.stop())
-                    sleep(0.1)
-                else:
-                    print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
-                    sleep(0.5)
-                    print(arlo.stop())
-                    sleep(0.1)
         # Draw detected objects
         cam.draw_aruco_objects(colour)
         # Show frames
-        ##camera.cv2.imshow(WIN_RF1, colour)
+        camera.cv2.imshow(WIN_RF1, colour)
         # Show frames
         #camera.cv2.imshow(WIN_RF3, gray)
         
     # Close all windows
-    ##camera.cv2.destroyAllWindows()
+    camera.cv2.destroyAllWindows()
 
     # Clean-up capture thread
     cam.terminateCaptureThread()
