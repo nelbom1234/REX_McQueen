@@ -10,7 +10,7 @@ arlo = robot.Robot()
 #camera1 = camera.Camera(camidx=1, robottype='arlo')
 
 print("Running ...")
-
+go == True
 
 # send a go_diff command to drive forward
 leftSpeed = 64
