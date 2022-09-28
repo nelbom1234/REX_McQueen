@@ -19,7 +19,7 @@ rightSpeed = 66
 if (__name__=='__main__'):
     print("Opening and initializing camera")
     
-    cam = camera.Camera(0, 'arlo', useCaptureThread = False)
+    cam = camera.Camera(0, 'arlo', useCaptureThread = True)
     #cam = Camera(0, 'macbookpro', useCaptureThread = False)
     #cam = Camera(0, 'arlo', useCaptureThread = True)
     
