@@ -61,6 +61,15 @@ if (__name__=='__main__'):
         if not isinstance(IDs, type(None)):
             for i in range(len(IDs)):
                 print("Object ID = ", IDs[i], ", Distance = ", dists[i], ", angles = ", angles[i])
+                #Get object straight in front of camera
+                arlo.go_diff(leftSpeed, rightSpeed, 1, 1)
+        else:
+            print("No aruco objects detected")
+            # Look for object by turning
+            arlo.stop()
+            arlo.go_diff(leftSpeed, rightSpeed, 0, 1)
+            sleep(0.25)
+            arlo.stop()
         # Draw detected objects
         cam.draw_aruco_objects(colour)
         # Show frames
