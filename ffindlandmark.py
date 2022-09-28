@@ -11,7 +11,6 @@ arlo = robot.Robot()
 
 print("Running ...")
 
-
 # send a go_diff command to drive forward
 leftSpeed = 64
 rightSpeed = 66
@@ -59,7 +58,7 @@ if (__name__=='__main__'):
 
         IDs, dists, angles = cam.detect_aruco_objects(colour)
         if not isinstance(IDs, type(None)):
-            go == False
+            go = False
             for i in range(len(IDs)):
                 print("Object ID = ", IDs[i], ", Distance = ", dists[i], ", angles = ", angles[i])
                 #Get object straight in front of camera
@@ -72,7 +71,7 @@ if (__name__=='__main__'):
                 
         else:
             print("No aruco objects detected")
-            go == True
+            go = True
         while(go==True):
             print(arlo.go_diff(20, 20, 1, 0))
      
