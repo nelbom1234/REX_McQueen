@@ -62,7 +62,12 @@ if (__name__=='__main__'):
             for i in range(len(IDs)):
                 print("Object ID = ", IDs[i], ", Distance = ", dists[i], ", angles = ", angles[i])
                 #Get object straight in front of camera
-                arlo.go_diff(leftSpeed, rightSpeed, 1, 1)
+                if dists[i]>0.5:
+                    print("Jeg gider ik mere af dit pis mand")
+                    arlo.go_diff(leftSpeed, rightSpeed, 1, 1)
+                    sleep(0.5)
+                    arlo.stop()
+                
         else:
             print("No aruco objects detected")
             # Look for object by turning
