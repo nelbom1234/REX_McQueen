@@ -61,7 +61,7 @@ if (__name__=='__main__'):
                 if dists[i]>0.5:
                     kørtilboks=dists[i]*0.048
                     arlo.go_diff(leftSpeed, rightSpeed, 1, 1)
-                    print("Kører i "+kørtilboks+" sekunder")
+                    print(kørtilboks)
                     sleep(kørtilboks)
                     arlo.stop()
                 print("Tæt nok på")
