@@ -71,7 +71,8 @@ if (__name__=='__main__'):
         camera.cv2.imshow(WIN_RF1, colour)
         # Show frames
         #camera.cv2.imshow(WIN_RF3, gray)
-        
+        if (objectType == int)
+            print("object in front")
         
     # Close all windows
     camera.cv2.destroyAllWindows()
