@@ -68,9 +68,9 @@ if (__name__=='__main__'):
         # Draw detected objects
         cam.draw_aruco_objects(colour)
         # Show frames
-        #cv2.imshow(WIN_RF1, colour)
+        camera.cv2.imshow(WIN_RF1, colour)
         # Show frames
-        camera.cv2.imshow(WIN_RF3, gray)
+        #camera.cv2.imshow(WIN_RF3, gray)
         
         
     # Close all windows
