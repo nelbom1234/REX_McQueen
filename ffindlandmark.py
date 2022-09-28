@@ -73,8 +73,9 @@ if (__name__=='__main__'):
             print("No aruco objects detected")
             go = True
         while(go==True):
-            print(arlo.go_diff(20, 20, 1, 0))
+            print(arlo.go_diff(20, 20, 1, 0)
             sleep(1)
+            arlo.stop()
      
         # Draw detected objects
         cam.draw_aruco_objects(colour)
