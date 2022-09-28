@@ -57,8 +57,10 @@ if (__name__=='__main__'):
         cam.draw_object(colour)
 
         IDs, dists, angles = cam.detect_aruco_objects(colour)
+        print(arlo.go_diff(20, 20, 1, 0))
         if not isinstance(IDs, type(None)):
             go = False
+            arlo.stop()
             for i in range(len(IDs)):
                 print("Object ID = ", IDs[i], ", Distance = ", dists[i], ", angles = ", angles[i])
                 #Get object straight in front of camera
@@ -72,10 +74,7 @@ if (__name__=='__main__'):
         else:
             print("No aruco objects detected")
             go = True
-            while(go==True):
-                print(arlo.go_diff(20, 20, 1, 0))
-                sleep(1)
-                arlo.stop()
+
      
         # Draw detected objects
         cam.draw_aruco_objects(colour)
