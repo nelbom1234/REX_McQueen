@@ -59,7 +59,7 @@ if (__name__=='__main__'):
                 print("Object ID = ", IDs[i], ", Distance = ", dists[i], ", angles = ", angles[i])
                 #Get object straight in front of camera
                 if dists[i]>0.5:
-                    kørtilboks=dists[i]*0.048
+                    kørtilboks=dists[i]*0.046
                     arlo.go_diff(leftSpeed, rightSpeed, 1, 1)
                     print(kørtilboks)
                     sleep(kørtilboks)
