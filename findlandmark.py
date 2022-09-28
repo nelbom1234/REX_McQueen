@@ -19,7 +19,7 @@ rightSpeed = 66
 if (__name__=='__main__'):
     print("Opening and initializing camera")
     
-    cam = camera.Camera(0, 'arlo', useCaptureThread = True)
+    cam = camera.Camera(0, 'macbookpro', useCaptureThread = True)
     #cam = Camera(0, 'macbookpro', useCaptureThread = False)
     #cam = Camera(0, 'arlo', useCaptureThread = True)
     
@@ -34,9 +34,9 @@ if (__name__=='__main__'):
     
     while True:
         
-        #action = camera.cv2.waitKey(10)
-        #if action == ord('q'):  # Quit
-        #    break
+        action = camera.cv2.waitKey(10)
+        if action == ord('q'):  # Quit
+            break
     
         # Fetch next frame
         #colour = cam.get_colour()
@@ -64,17 +64,16 @@ if (__name__=='__main__'):
                 #Get object straight in front of camera
                 if dists[i]>0.5:
                     arlo.go_diff(leftSpeed, rightSpeed, 1, 1)
-                    sleep(1)
+                    sleep(0.5)
                     arlo.stop()
-                else:
-                    print("Tæt nok på")
+                print("Tæt nok på")
                 
         else:
             print("No aruco objects detected")
             # Look for object by turning
             arlo.stop()
             arlo.go_diff(leftSpeed, rightSpeed, 0, 1)
-            sleep(0.3)
+            sleep(0.25)
             arlo.stop()
         # Draw detected objects
         cam.draw_aruco_objects(colour)
