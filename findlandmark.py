@@ -30,8 +30,8 @@ if (__name__=='__main__'):
     
     # Open a window
     WIN_RF1 = "Camera view"
-    cam.cv2.namedWindow(WIN_RF1)
-    cam.cv2.moveWindow(WIN_RF1, 50, 50)
+    camera.cv2.namedWindow(WIN_RF1)
+    camera.cv2.moveWindow(WIN_RF1, 50, 50)
         
     #WIN_RF3 = "Camera view - gray"
     #cv2.namedWindow(WIN_RF3)
@@ -39,7 +39,7 @@ if (__name__=='__main__'):
     
     while True:
         
-        action = cam.cv2.waitKey(10)
+        action = camera.cv2.waitKey(10)
         if action == ord('q'):  # Quit
             break
     
@@ -70,11 +70,11 @@ if (__name__=='__main__'):
         # Show frames
         #cv2.imshow(WIN_RF1, colour)
         # Show frames
-        cam.cv2.imshow(WIN_RF3, gray)
+        camera.cv2.imshow(WIN_RF3, gray)
         
         
     # Close all windows
-    cam.cv2.destroyAllWindows()
+    camera.cv2.destroyAllWindows()
 
     # Clean-up capture thread
     cam.terminateCaptureThread()
