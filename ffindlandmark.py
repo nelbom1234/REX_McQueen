@@ -22,6 +22,6 @@ rightForward = 66
 leftTurn = 64
 rightTurn = 64
 
-print(camera1.detect_aruco_objects(camera1.get_next_frame()))
+print(camera.detect_aruco_objects(camera.get_next_frame()))
 
 print("Finished")
