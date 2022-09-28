@@ -19,7 +19,7 @@ rightSpeed = 66
 if (__name__=='__main__'):
     print("Opening and initializing camera")
     
-    cam = camera.Camera(0, 'macbookpro', useCaptureThread = True)
+    cam = camera.Camera(0, 'arlo', useCaptureThread = True)
     #cam = Camera(0, 'macbookpro', useCaptureThread = False)
     #cam = Camera(0, 'arlo', useCaptureThread = True)
     
@@ -40,6 +40,8 @@ if (__name__=='__main__'):
     
         # Fetch next frame
         #colour = cam.get_colour()
+        colour = cam.get_next_frame()
+        sleep(1)
         colour = cam.get_next_frame()
                 
         # Convert to gray scale
