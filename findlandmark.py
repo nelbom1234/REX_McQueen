@@ -44,7 +44,7 @@ if (__name__=='__main__'):
         colour = cam.get_next_frame()
 
         # Draw detected objects
-        cam.draw_aruco_objects(colour)
+        #cam.draw_aruco_objects(colour)
         # Show frames
         camera.cv2.imshow(WIN_RF1, colour)
                 
@@ -61,7 +61,7 @@ if (__name__=='__main__'):
             
 
         # Draw detected pattern
-        cam.draw_object(colour)
+        #cam.draw_object(colour)
 
         IDs, dists, angles = cam.detect_aruco_objects(colour)
         if not isinstance(IDs, type(None)):
