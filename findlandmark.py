@@ -19,7 +19,7 @@ rightSpeed = 66
 if (__name__=='__main__'):
     print("Opening and initializing camera")
     
-    cam = camera.Camera(0, 'arlo', useCaptureThread = True)
+    cam = camera.Camera(0, 'macbookpro', useCaptureThread = True)
     #cam = Camera(0, 'macbookpro', useCaptureThread = False)
     #cam = Camera(0, 'arlo', useCaptureThread = True)
     
@@ -43,12 +43,6 @@ if (__name__=='__main__'):
         colour = cam.get_next_frame()
         sleep(1)
         colour = cam.get_next_frame()
-                
-        # Convert to gray scale
-        #gray = cv2.cvtColor(colour, cv2.COLOR_BGR2GRAY )
-        #loggray = cv2.log(gray + 1.0)
-        #cv2.normalize(loggray, loggray, 0, 255, cv2.NORM_MINMAX)
-        #gray = cv2.convertScaleAbs(loggray)
         
         # Detect objectscamera
         objectType, distance, angle, colourProb = cam.get_object(colour)
