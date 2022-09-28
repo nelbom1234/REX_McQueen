@@ -36,7 +36,7 @@ if (__name__=='__main__'):
         action = camera.cv2.waitKey(10)
         if action == ord('q'):  # Quit
             break
-    
+ 
         # Fetch next frame
         #colour = cam.get_colour()
         colour = cam.get_next_frame()
@@ -54,10 +54,10 @@ if (__name__=='__main__'):
             
 
         # Draw detected pattern
-        cam.draw_object(colour)
+        #cam.draw_object(colour)
 
         IDs, dists, angles = cam.detect_aruco_objects(colour)
-        print(arlo.go_diff(20, 20, 1, 0))
+      
         if not isinstance(IDs, type(None)):
             go = False
             arlo.stop()
