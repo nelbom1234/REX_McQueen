@@ -16,11 +16,6 @@ print("Running ...")
 leftSpeed = 64
 rightSpeed = 66
 
-leftForward = 64
-rightForward = 66
-leftTurn = 64
-rightTurn = 64
-
 if (__name__=='__main__'):
     print("Opening and initializing camera")
     
@@ -59,24 +54,15 @@ if (__name__=='__main__'):
             print("Object type = ", objectType, ", distance = ", distance, ", angle = ", angle, ", colourProb = ", colourProb)
             #Get object straight in front of camera
             if angle<0.2:
-                print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
-                sleep(0.637)
-                print(arlo.stop())
-                sleep(0.041)
+                print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
             elif angle>-0.2:
-                print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
-                sleep(0.637)
-                print(arlo.stop())
-                sleep(0.041)
+                print(arlo.go_diff(leftSpeed, rightSpeed, 0, 1))
             else:
-                print(arlo.go_diff(leftForward, rightForward, 1, 1))
-                sleep(0.637)
-                print(arlo.stop())
-                sleep(0.041)
+                print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
 
         else:
             #if no object in sight, rotate to find one
-            print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+            print(arlo.go_diff(leftSpeed, rightSpeed, 0, 1))
             sleep(0.637)
             print(arlo.stop())
             sleep(0.041)
