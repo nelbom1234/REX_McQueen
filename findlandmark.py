@@ -52,7 +52,7 @@ if (__name__=='__main__'):
         objectType, distance, angle, colourProb = cam.get_object(colour)
         if objectType != 'none':
             print("Object type = ", objectType, ", distance = ", distance, ", angle = ", angle, ", colourProb = ", colourProb)
-            if (-10 < angle < 10):
+            if (-0.2 < angle < 0.2):
                # if (distance<30)
                 print(arlo.go_diff(leftForward, rightForward, 1, 1))
                 sleep(1)
