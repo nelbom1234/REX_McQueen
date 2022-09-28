@@ -6,7 +6,7 @@ import camera
 import robot
 
 # Create a robot object and initialize
-#arlo = robot.Robot()
+arlo = robot.Robot()
 #camera1 = camera.Camera(camidx=1, robottype='arlo')
 
 print("Running ...")
@@ -57,6 +57,29 @@ if (__name__=='__main__'):
         objectType, distance, angle, colourProb = cam.get_object(colour)
         if objectType != 'none':
             print("Object type = ", objectType, ", distance = ", distance, ", angle = ", angle, ", colourProb = ", colourProb)
+            #Get object straight in front of camera
+            if angle<0.2:
+                print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+                sleep(0.637)
+                print(arlo.stop())
+                sleep(0.041)
+            elif angle>-0.2:
+                print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+                sleep(0.637)
+                print(arlo.stop())
+                sleep(0.041)
+            else:
+                print(arlo.go_diff(leftForward, rightForward, 1, 1))
+                sleep(0.637)
+                print(arlo.stop())
+                sleep(0.041)
+
+        else:
+            #if no object in sight, rotate to find one
+            print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+            sleep(0.637)
+            print(arlo.stop())
+            sleep(0.041)
 
         # Draw detected pattern
         cam.draw_object(colour)
@@ -71,7 +94,6 @@ if (__name__=='__main__'):
         camera.cv2.imshow(WIN_RF1, colour)
         # Show frames
         #camera.cv2.imshow(WIN_RF3, gray)
-        
         
     # Close all windows
     camera.cv2.destroyAllWindows()
