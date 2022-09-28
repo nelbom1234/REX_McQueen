@@ -63,6 +63,7 @@ if (__name__=='__main__'):
         if not isinstance(IDs, type(None)):
             for i in range(len(IDs)):
                 print("Object ID = ", IDs[i], ", Distance = ", dists[i], ", angles = ", angles[i])
+                print("cc er cc")
         # Draw detected objects
         cam.draw_aruco_objects(colour)
         # Show frames
