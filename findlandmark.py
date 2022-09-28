@@ -69,7 +69,7 @@ if (__name__=='__main__'):
             # Look for object by turning
             arlo.stop()
             arlo.go_diff(leftSpeed, rightSpeed, 0, 1)
-            sleep(0.1)
+            sleep(0.2)
             arlo.stop()
         # Draw detected objects
         cam.draw_aruco_objects(colour)
