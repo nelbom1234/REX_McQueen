@@ -52,11 +52,13 @@ if (__name__=='__main__'):
         objectType, distance, angle, colourProb = cam.get_object(colour)
         if objectType != 'none':
             print("Object type = ", objectType, ", distance = ", distance, ", angle = ", angle, ", colourProb = ", colourProb)
+            print("\n")
             if (angle < 0.3):
                # if (distance<30)
-                print(arlo.go_diff(leftForward, rightForward, 1, 1))
-                sleep(1)
-                print(arlo.stop())
+                print("cc er en fuckboy")
+               # print(arlo.go_diff(leftForward, rightForward, 1, 1))
+               # sleep(1)
+               # print(arlo.stop())
 
                 
         # Draw detected pattern
