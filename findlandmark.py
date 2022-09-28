@@ -16,11 +16,6 @@ print("Running ...")
 leftSpeed = 64
 rightSpeed = 66
 
-leftForward = 64
-rightForward = 66
-leftTurn = 64
-rightTurn = 64
-
 if (__name__=='__main__'):
     print("Opening and initializing camera")
     
@@ -57,7 +52,13 @@ if (__name__=='__main__'):
         objectType, distance, angle, colourProb = cam.get_object(colour)
         if objectType != 'none':
             print("Object type = ", objectType, ", distance = ", distance, ", angle = ", angle, ", colourProb = ", colourProb)
+            if (-10 < angle < 10):
+               # if (distance<30)
+                print(arlo.go_diff(leftForward, rightForward, 1, 1))
+                sleep(1)
+                print(arlo.stop())
 
+                
         # Draw detected pattern
         cam.draw_object(colour)
 
@@ -71,8 +72,6 @@ if (__name__=='__main__'):
         camera.cv2.imshow(WIN_RF1, colour)
         # Show frames
         #camera.cv2.imshow(WIN_RF3, gray)
-        if (objectType == int):
-            print("object in front")
         
     # Close all windows
     camera.cv2.destroyAllWindows()
