@@ -68,11 +68,11 @@ if (__name__=='__main__'):
                 sleep(0.5)
                 print(arlo.stop())
                 sleep(0.1)
-        else:
-            print(arlo.go_diff(leftSpeed, rightSpeed, 0, 1))
-            sleep(0.637)
-            print(arlo.stop())
-            sleep(0.041)
+        #else:
+            #print(arlo.go_diff(leftSpeed, rightSpeed, 0, 1))
+            #sleep(0.637)
+            #print(arlo.stop())
+            #sleep(0.041)
 
         # Draw detected pattern
         cam.draw_object(colour)
@@ -81,6 +81,21 @@ if (__name__=='__main__'):
         if not isinstance(IDs, type(None)):
             for i in range(len(IDs)):
                 print("Object ID = ", IDs[i], ", Distance = ", dists[i], ", angles = ", angles[i])
+                if angle>0.3:
+                    print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
+                    sleep(0.5)
+                    print(arlo.stop())
+                    sleep(0.1)
+                elif angle<-0.3:
+                    print(arlo.go_diff(leftSpeed, rightSpeed, 0, 1))
+                    sleep(0.5)
+                    print(arlo.stop())
+                    sleep(0.1)
+                else:
+                    print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
+                    sleep(0.5)
+                    print(arlo.stop())
+                    sleep(0.1)
         # Draw detected objects
         cam.draw_aruco_objects(colour)
         # Show frames
