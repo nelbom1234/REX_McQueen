@@ -74,6 +74,7 @@ if (__name__=='__main__'):
             go = True
         while(go==True):
             print(arlo.go_diff(20, 20, 1, 0))
+            sleep(1)
      
         # Draw detected objects
         cam.draw_aruco_objects(colour)
