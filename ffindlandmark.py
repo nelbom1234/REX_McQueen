@@ -54,7 +54,7 @@ if (__name__=='__main__'):
             
 
         # Draw detected pattern
-        cam.draw_object(colour)
+        #cam.draw_object(colour)
 
         IDs, dists, angles = cam.detect_aruco_objects(colour)
       
