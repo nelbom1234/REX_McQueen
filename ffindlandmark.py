@@ -24,9 +24,9 @@ if (__name__=='__main__'):
     #cam = Camera(0, 'arlo', useCaptureThread = True)
     
     # Open a window
-    ##WIN_RF1 = "Camera view"
-    ##camera.cv2.namedWindow(WIN_RF1)
-    ##camera.cv2.moveWindow(WIN_RF1, 50, 50)
+    WIN_RF1 = "Camera view"
+    camera.cv2.namedWindow(WIN_RF1)
+    camera.cv2.moveWindow(WIN_RF1, 50, 50)
         
     #WIN_RF3 = "Camera view - gray"
     #cv2.namedWindow(WIN_RF3)
@@ -48,12 +48,10 @@ if (__name__=='__main__'):
         #cv2.normalize(loggray, loggray, 0, 255, cv2.NORM_MINMAX)
         #gray = cv2.convertScaleAbs(loggray)
         
-        # Detect objects
+        # Detect objectscamera
         objectType, distance, angle, colourProb = cam.get_object(colour)
         if objectType != 'none':
-            print("cc er cc")
             print("Object type = ", objectType, ", distance = ", distance, ", angle = ", angle, ", colourProb = ", colourProb)
-            #Get object straight in front of camera
             
 
         # Draw detected pattern
@@ -61,18 +59,32 @@ if (__name__=='__main__'):
 
         IDs, dists, angles = cam.detect_aruco_objects(colour)
         if not isinstance(IDs, type(None)):
+            go == False
             for i in range(len(IDs)):
                 print("Object ID = ", IDs[i], ", Distance = ", dists[i], ", angles = ", angles[i])
-                print("cc er cc")
+                #Get object straight in front of camera
+                if dists[i]>0.5:
+                    arlo.go_diff(leftSpeed, rightSpeed, 1, 1)
+                    sleep(1)
+                    arlo.stop()
+                else:
+                    print("Tæt nok på")
+                
+        else:
+            print("No aruco objects detected")
+            go == True
+        while(go==True):
+                 print(arlo.go_diff(20, 20, 1, 0))
+     
         # Draw detected objects
         cam.draw_aruco_objects(colour)
         # Show frames
-        ##camera.cv2.imshow(WIN_RF1, colour)
+        camera.cv2.imshow(WIN_RF1, colour)
         # Show frames
         #camera.cv2.imshow(WIN_RF3, gray)
         
     # Close all windows
-    ##camera.cv2.destroyAllWindows()
+    camera.cv2.destroyAllWindows()
 
     # Clean-up capture thread
     cam.terminateCaptureThread()
