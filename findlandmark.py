@@ -70,6 +70,8 @@ if (__name__=='__main__'):
                 sleep(0.1)
         else:
             #if no object in sight, rotate to find one
+            print(angle)
+            print(type(angle))
             print(arlo.go_diff(leftSpeed, rightSpeed, 0, 1))
             sleep(0.637)
             print(arlo.stop())
