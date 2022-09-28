@@ -73,7 +73,7 @@ if (__name__=='__main__'):
             # Look for object by turning
             arlo.stop()
             arlo.go_diff(leftSpeed, rightSpeed, 0, 1)
-            sleep(0.25)
+            sleep(0.1)
             arlo.stop()
         
         # Show frames
