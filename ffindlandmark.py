@@ -36,7 +36,7 @@ if (__name__=='__main__'):
         action = camera.cv2.waitKey(10)
         if action == ord('q'):  # Quit
             break
-        print(arlo.go_diff(20, 20, 1, 0))
+ 
         # Fetch next frame
         #colour = cam.get_colour()
         colour = cam.get_next_frame()
