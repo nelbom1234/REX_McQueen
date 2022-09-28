@@ -53,13 +53,21 @@ if (__name__=='__main__'):
         if objectType != 'none':
             print("Object type = ", objectType, ", distance = ", distance, ", angle = ", angle, ", colourProb = ", colourProb)
             #Get object straight in front of camera
-            if angle<0.2:
+            if angle<0.3:
                 print(arlo.go_diff(leftSpeed, rightSpeed, 1, 0))
-            elif angle>-0.2:
+                sleep(0.1)
+                print(arlo.stop())
+                sleep(0.1)
+            elif angle>-0.3:
                 print(arlo.go_diff(leftSpeed, rightSpeed, 0, 1))
+                sleep(0.1)
+                print(arlo.stop())
+                sleep(0.1)
             else:
                 print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
-
+                sleep(0.1)
+                print(arlo.stop())
+                sleep(0.1)
         else:
             #if no object in sight, rotate to find one
             print(arlo.go_diff(leftSpeed, rightSpeed, 0, 1))
