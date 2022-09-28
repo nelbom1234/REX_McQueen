@@ -40,13 +40,9 @@ if (__name__=='__main__'):
     
         # Fetch next frame
         #colour = cam.get_colour()
+        colour = cam.get_next_frame()
         sleep(1)
         colour = cam.get_next_frame()
-
-        # Draw detected objects
-        #cam.draw_aruco_objects(colour)
-        # Show frames
-        camera.cv2.imshow(WIN_RF1, colour)
                 
         # Convert to gray scale
         #gray = cv2.cvtColor(colour, cv2.COLOR_BGR2GRAY )
@@ -61,7 +57,7 @@ if (__name__=='__main__'):
             
 
         # Draw detected pattern
-        #cam.draw_object(colour)
+        cam.draw_object(colour)
 
         IDs, dists, angles = cam.detect_aruco_objects(colour)
         if not isinstance(IDs, type(None)):
@@ -81,7 +77,10 @@ if (__name__=='__main__'):
             arlo.go_diff(leftSpeed, rightSpeed, 0, 1)
             sleep(0.25)
             arlo.stop()
-        
+        # Draw detected objects
+        cam.draw_aruco_objects(colour)
+        # Show frames
+        camera.cv2.imshow(WIN_RF1, colour)
         # Show frames
         #camera.cv2.imshow(WIN_RF3, gray)
         
