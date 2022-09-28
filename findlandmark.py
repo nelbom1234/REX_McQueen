@@ -59,18 +59,20 @@ if (__name__=='__main__'):
                 print("Object ID = ", IDs[i], ", Distance = ", dists[i], ", angles = ", angles[i])
                 #Get object straight in front of camera
                 if angles[i] > 0.3:
+                    print("lidt for meget til venstre")
                     arlo.go_diff(64, 64, 1, 0)
                     sleep(angles[i])
                     arlo.stop()
                     sleep(0.041)
                 elif angles[i] < -0.3:
+                    print("lidt for meget til højre")
                     arlo.go_diff(64, 64, 0, 1)
                     sleep(angles[i])
                     arlo.stop()
                     sleep(0.041)
                 else:
                     if dists[i]>0.5:
-                        kørtilboks=dists[i]*0.046
+                        kørtilboks=dists[i]*0.04
                         arlo.go_diff(leftSpeed, rightSpeed, 1, 1)
                         print(kørtilboks)
                         sleep(kørtilboks)
