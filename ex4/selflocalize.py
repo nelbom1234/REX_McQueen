@@ -202,8 +202,8 @@ try:
             sigma = 1
             sum_of_weights = 0
             for p in particles:
-                for dists in dists:
-                    p.setWeight(p.getWeight() * np.exp(-dists**2/(2*sigma**2)))
+                for i in range(len(objectIDs)):
+                    p.setWeight(p.getWeight() * np.exp(-dists[i]**2/(2*sigma**2)))
                 sum_of_weights += p.getWeight()
             for p in particles:
                 p.setWeight(p.getWeight()/sum_of_weights)
