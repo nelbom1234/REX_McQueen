@@ -139,16 +139,10 @@ try:
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
 
     # Driving parameters
-    velocity = 0.0 # cm/sec
-    angular_velocity = 0.0 # radians/sec
+    velocity = 3.0 # cm/sec
+    angular_velocity = 3.0 # radians/sec
 
     # Initialize the robot (XXX: You do this)
-    if onRobot:
-        robot.init()
-        robot.setPose(0.0, 0.0, 0.0)
-        robot.setVel(0.0, 0.0)
-        robot.setLED("green")
-
 
     # Allocate space for world map
     world = np.zeros((500,500,3), dtype=np.uint8)
@@ -252,11 +246,6 @@ try:
   
 finally: 
     # Make sure to clean up even if an exception occurred
-    if onRobot:
-        robot.setVel(0.0, 0.0)
-        robot.setLED("off")
-        robot.close()
-    cam.close()
     
     # Close all windows
     cv2.destroyAllWindows()
