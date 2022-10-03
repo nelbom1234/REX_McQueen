@@ -188,13 +188,7 @@ try:
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
-        if onRobot:
-            robot.setVel(velocity, angular_velocity)
-            time.sleep(0.1)
-            robot.updateParticles(particles, velocity, angular_velocity)
-        else:
-            for p in particles:
-                p.move(velocity, angular_velocity)
+    
 
 
 
@@ -211,14 +205,29 @@ try:
 
             # Compute particle weights
             # XXX: You do this
+            sigma = 1
+            sum_of_weights = 0
             for p in particles:
-                p.computeWeight(objectIDs, dists, angles, landmarks)
-
+                for dists in dists:
+                    p.setWeight(p.getWeight() * np.exp(-dists**2/(2*sigma**2)))
+                sum_of_weights += p.getWeight()
+            for p in particles:
+                p.setWeight(p.getWeight()/sum_of_weights)
+                
 
             # Resampling
             # XXX: You do this
-            particles = particle.resample(particles)
-
+            new_particles = []
+            for i in range(num_particles):
+                r = np.random.ranf()
+                sum_of_weights = 0
+                for p in particles:
+                    sum_of_weights += p.getWeight()
+                    if sum_of_weights >= r:
+                        new_particles.append(p)
+                        break
+            particles = new_particles
+            
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
