@@ -139,16 +139,10 @@ try:
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
 
     # Driving parameters
-    velocity = 0.0 # cm/sec
-    angular_velocity = 0.0 # radians/sec
+    velocity = 3.0 # cm/sec
+    angular_velocity = 3.0 # radians/sec
 
     # Initialize the robot (XXX: You do this)
-    if onRobot:
-        robot.init()
-        robot.setPose(0.0, 0.0, 0.0)
-        robot.setVel(0.0, 0.0)
-        robot.setLED("green")
-
 
     # Allocate space for world map
     world = np.zeros((500,500,3), dtype=np.uint8)
@@ -188,14 +182,6 @@ try:
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
-        if onRobot:
-            robot.setVel(velocity, angular_velocity)
-            time.sleep(0.1)
-            robot.updateParticles(particles, velocity, angular_velocity)
-        else:
-            for p in particles:
-                p.move(velocity, angular_velocity)
-
 
 
         # Fetch next frame
@@ -211,14 +197,9 @@ try:
 
             # Compute particle weights
             # XXX: You do this
-            for p in particles:
-                p.computeWeight(objectIDs, dists, angles, landmarks)
-
 
             # Resampling
             # XXX: You do this
-            particles = particle.resample(particles)
-
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
@@ -243,11 +224,6 @@ try:
   
 finally: 
     # Make sure to clean up even if an exception occurred
-    if onRobot:
-        robot.setVel(0.0, 0.0)
-        robot.setLED("off")
-        robot.close()
-    cam.close()
     
     # Close all windows
     cv2.destroyAllWindows()
