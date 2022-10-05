@@ -271,7 +271,6 @@ try:
                     if monoObjects[i] != None:
                         p.setWeight(p.getWeight() * np.exp(-(monoObjects[i][0]/100)**2/(2*sigma**2)))
                 sum_of_weights += p.getWeight()
-            particles = particle.add_uncertainty(new_particles, 5.0, 0.1)
             for p in particles:
                 p.setWeight(p.getWeight()/sum_of_weights)
                 
@@ -288,6 +287,7 @@ try:
                         new_particles.append(p)
                         break
             
+            new_particles = particle.add_uncertainty(new_particles, 5.0, 0.1)
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
