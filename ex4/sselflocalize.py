@@ -230,7 +230,8 @@ try:
             sum_of_weights = 0
             for p in particles:
                 for i in range(len(monoObjects)):
-                    p.setWeight(p.getWeight() * np.exp(-(monoObjects[i][0]/100)**2/(2*sigma**2)))
+                    if monoObjects[i] != None:
+                        p.setWeight(p.getWeight() * np.exp(-(monoObjects[i][0]/100)**2/(2*sigma**2)))
                 sum_of_weights += p.getWeight()
             for p in particles:
                 p.setWeight(p.getWeight()/sum_of_weights)
