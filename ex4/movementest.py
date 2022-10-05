@@ -167,26 +167,28 @@ try:
         action = cv2.waitKey(10)
         if action == ord('q'): # Quit
             break
-    
+        hell == False
         #if not isRunningOnArlo():
         if action == ord('z'):
             print("you did it")
-            if action == ord('w'): # Forward
-                velocity += 4.0
-                print("pressed W")
-            elif action == ord('x'): # Backwards
-                velocity -= 4.0
-                print("pressed x")
-            elif action == ord('s'): # Stop
-                velocity = 0.0
-                angular_velocity = 0.0
-                print("pressed s")
-            elif action == ord('a'): # Left
-                angular_velocity += 0.2
-                print("pressed a")
-            elif action == ord('d'): # Right
-                angular_velocity -= 0.2
-                print("pressed d")
+            hell = True
+            while hell == True:
+                if action == ord('w'): # Forward
+                    velocity += 4.0
+                    print("pressed W")
+                elif action == ord('x'): # Backwards
+                    velocity -= 4.0
+                    print("pressed x")
+                elif action == ord('s'): # Stop
+                    velocity = 0.0
+                    angular_velocity = 0.0
+                    print("pressed s")
+                elif action == ord('a'): # Left
+                    angular_velocity += 0.2
+                    print("pressed a")
+                elif action == ord('d'): # Right
+                    angular_velocity -= 0.2
+                    print("pressed d")
 
 
 
