@@ -205,7 +205,7 @@ try:
             print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
             sleep(0.150)
             print(arlo.stop())
-            sleep(0.082)
+            sleep(0.150)
             fullTurn += 1
         elif turns < 7:
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
@@ -218,7 +218,7 @@ try:
             print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
             sleep(0.150)
             print(arlo.stop())
-            sleep(0.082)
+            sleep(0.150)
         else:
             x,y,theta = est_pose
             dvx = 150.0-x
