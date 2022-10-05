@@ -16,12 +16,15 @@ def isRunningOnArlo():
     """Return True if we are running on Arlo, otherwise False.
       You can use this flag to switch the code from running on you laptop to Arlo - you need to do the programming here!
     """
-    return onRobot
+    input1 = cv2.waitKey(10)
+    if (input1 == 'l'):
+        onRobot == False
+    else:
+        return onRobot
 
 
 if isRunningOnArlo():
     # XXX: You need to change this path to point to where your robot.py file is located
-   # sys.path.append("/home/pi/Arlo/Robot/git/REX_McQueen/robot.py")
     sys.path.append("/home/pi/Arlo/Robot/git/REX_McQueen")
 
 
@@ -47,10 +50,10 @@ CBLACK = (0, 0, 0)
 
 # Landmarks.
 # The robot knows the position of 2 landmarks. Their coordinates are in the unit centimeters [cm].
-landmarkIDs = [10, 11]
+landmarkIDs = [1, 2]
 landmarks = {
     1: (0.0, 0.0),  # Coordinates for landmark 1
-    2: (200.0, 0.0)  # Coordinates for landmark 2
+    2: (300.0, 0.0)  # Coordinates for landmark 2
 }
 landmark_colors = [CRED, CGREEN] # Colors used when drawing the landmarks
 
@@ -140,12 +143,11 @@ try:
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
 
     # Driving parameters
-    velocity = 3.0 # cm/sec
-    angular_velocity = 3.0 # radians/sec
+    velocity = 0.0 # cm/sec
+    angular_velocity = 0.0 # radians/sec
 
     # Initialize the robot (XXX: You do this)
     arlo = robot.Robot()
-
     # Allocate space for world map
     world = np.zeros((500,500,3), dtype=np.uint8)
 
@@ -166,8 +168,10 @@ try:
             break
     
         if not isRunningOnArlo():
+      #  if action == ord('l'):
             if action == ord('w'): # Forward
                 velocity += 4.0
+                print("you did it")
             elif action == ord('x'): # Backwards
                 velocity -= 4.0
             elif action == ord('s'): # Stop
@@ -184,7 +188,15 @@ try:
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
-        
+
+        if velocity != 0:
+            leftForward = 6.4 * velocity
+            rightForward = 6.6 * velocity
+            print(arlo.go_diff(leftForward, rightForward, 1, 1))
+            sleep(3)
+            print(arlo.stop())
+            sleep(0.041)
+    
 
 
 
@@ -207,7 +219,10 @@ try:
                 for i in range(len(objectIDs)):
                     p.setWeight(p.getWeight() * np.exp(-dists[i]**2/(2*sigma**2)))
                 sum_of_weights += p.getWeight()
+            print("{:.4f}".format(sum_of_weights))
             for p in particles:
+                #print("{:.4f}".format(p.getWeight()))
+                #print("{:.4f}".format(sum_of_weights))
                 p.setWeight(p.getWeight()/sum_of_weights)
                 
 
@@ -254,4 +269,3 @@ finally:
 
     # Clean-up capture thread
     cam.terminateCaptureThread()
-
