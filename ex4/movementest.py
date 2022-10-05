@@ -172,7 +172,7 @@ try:
         if action == ord('z'):
             print("you did it")
             hell = True
-            while hell == True
+            while hell == True:
                 if action == ord('w'): # Forward
                     velocity += 4.0
                     print("pressed W")
