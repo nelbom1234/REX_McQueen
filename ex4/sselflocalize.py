@@ -139,6 +139,9 @@ try:
     # Initialize particles
     num_particles = 1000
     particles = initialize_particles(num_particles)
+    for p in particles:
+        print("{:.4f}".format(p.getWeight()))
+    exit
 
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
 
