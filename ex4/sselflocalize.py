@@ -143,8 +143,8 @@ try:
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
 
     # Driving parameters
-    velocity = 3.0 # cm/sec
-    angular_velocity = 3.0 # radians/sec
+    velocity = 0.0 # cm/sec
+    angular_velocity = 0.0 # radians/sec
 
     # Initialize the robot (XXX: You do this)
 
