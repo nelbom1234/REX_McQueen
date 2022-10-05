@@ -139,9 +139,6 @@ try:
     # Initialize particles
     num_particles = 1000
     particles = initialize_particles(num_particles)
-    for p in particles:
-        print("{:.4f}".format(p.getWeight()))
-    exit
 
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
 
@@ -220,9 +217,8 @@ try:
             sum_of_weights = 0
             for p in particles:
                 for i in range(len(objectIDs)):
-                    p.setWeight(p.getWeight() * np.exp(-dists[i]**2/(2*sigma**2)))
+                    p.setWeight(p.getWeight() * np.exp(-(dists[i]*100)**2/(2*sigma**2)))
                 sum_of_weights += p.getWeight()
-            print("{:.4f}".format(sum_of_weights))
             for p in particles:
                 #print("{:.4f}".format(p.getWeight()))
                 #print("{:.4f}".format(sum_of_weights))
