@@ -167,7 +167,7 @@ try:
         action = cv2.waitKey(10)
         if action == ord('q'): # Quit
             break
-        hell == False
+        hell = False
         #if not isRunningOnArlo():
         if action == ord('z'):
             print("you did it")
