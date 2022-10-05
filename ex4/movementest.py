@@ -184,10 +184,10 @@ try:
                 angular_velocity = 0
                 print("pressed s")
         elif action == ord('a'): # Left
-                angular_velocity += 2
+                angular_velocity += 1
                 print("pressed a")
         elif action == ord('d'): # Right
-                angular_velocity -= 2
+                angular_velocity -= 1
                 print("pressed d")
 
 
@@ -221,8 +221,8 @@ try:
             sleep(0.041)
             
         if angular_velocity < 0:
-            leftForward = 16 * angular_velocity
-            rightForward = 16 * angular_velocity
+            leftForward = -16 * angular_velocity
+            rightForward = -16 * angular_velocity
             print(arlo.go_diff(leftForward, rightForward, 0, 1))
             sleep(1)
             print(arlo.stop())
