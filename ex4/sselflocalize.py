@@ -1,3 +1,4 @@
+from turtle import right
 import cv2
 import particle
 import camera
@@ -53,7 +54,7 @@ CBLACK = (0, 0, 0)
 landmarkIDs = [1, 2]
 landmarks = {
     1: (0.0, 0.0),  # Coordinates for landmark 1
-    2: (200.0, 0.0)  # Coordinates for landmark 2
+    2: (300.0, 0.0)  # Coordinates for landmark 2
 }
 landmark_colors = [CRED, CGREEN] # Colors used when drawing the landmarks
 
@@ -146,6 +147,11 @@ try:
     velocity = 0.0 # cm/sec
     angular_velocity = 0.0 # radians/sec
 
+    leftForward = 64
+    rightForward = 66
+    leftTurn = 64
+    rightTurn = 64
+
     # Initialize the robot (XXX: You do this)
     arlo = robot.Robot()
     # Allocate space for world map
@@ -159,6 +165,9 @@ try:
         cam = camera.Camera(0, 'arlo', useCaptureThread = True)
     else:
         cam = camera.Camera(0, 'macbookpro', useCaptureThread = True)
+
+    fullTurn = 0
+    turns = 0
 
     while True:
 
@@ -182,30 +191,58 @@ try:
             elif action == ord('d'): # Right
                 angular_velocity -= 0.2
 
-
-
-        
-        # Use motor controls to update particles
-        # XXX: Make the robot drive
-        # XXX: You do this
-
-        if velocity != 0:
-            leftForward = 6.4 * velocity
-            rightForward = 6.6 * velocity
-            print(arlo.go_diff(leftForward, rightForward, 1, 1))
-            sleep(3)
-            print(arlo.stop())
-            sleep(0.041)
-    
-
-
-
         # Fetch next frame
         colour = cam.get_next_frame()
         
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         monoObjects = [None, None]
+        # Use motor controls to update particles
+        # XXX: Make the robot drive
+        # XXX: You do this
+        if fullTurn < 20:
+            print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+            sleep(0.300)
+            print(arlo.stop())
+            sleep(0.041)
+            fullTurn += 1
+        elif turns < 7:
+            print(arlo.go_diff(leftForward, rightForward, 1, 1))
+            sleep(0.5)
+            print(arlo.stop())
+            sleep(0.041)
+            fullTurn = 0
+            turns += 1
+        elif len(objectIDs) == 0:
+            print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+            sleep(0.300)
+            print(arlo.stop())
+            sleep(0.041)
+        else:
+            x,y,theta = est_pose
+            dvx = 150.0-x
+            dvy = 0-y
+            dvtheta = np.arctan(dvy/dvx)
+            theta_deg = theta*57.29
+            dvtheta_deg = dvtheta*57.29
+            theta_diff = theta_deg-dvtheta_deg
+            if theta_diff < 0:
+                print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+                sleep(0.300*((-theta_diff)/20))
+                print(arlo.stop())
+                sleep(0.041)
+            else:
+                print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+                sleep(0.300*(theta_diff/20))
+                print(arlo.stop())
+                sleep(0.041)
+            dist = np.sqrt(dvx**2+dvy**2)
+            print(arlo.go_diff(leftForward, rightForward, 1, 1))
+            sleep(3*(dist/124))
+            print(arlo.stop())
+            sleep(0.041)
+            break
+
         if not isinstance(objectIDs, type(None)):
             # List detected objects
             for i in range(len(objectIDs)):
@@ -248,7 +285,7 @@ try:
                     if sum_of_weights >= r:
                         new_particles.append(p)
                         break
-            particles = new_particles
+            particles = particle.add_uncertainty(new_particles, 5.0, 0.1)
             
 
             # Draw detected objects
