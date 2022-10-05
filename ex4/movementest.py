@@ -174,20 +174,20 @@ try:
             hell = 1
         #while hell == 1:
         elif action == ord('w'): # Forward
-                velocity += 4.0
+                velocity = 1
                 print("pressed W")
         elif action == ord('x'): # Backwards
-                velocity -= 4.0
+                velocity = -1
                 print("pressed x")
         elif action == ord('s'): # Stop
-                velocity = 0.0
-                angular_velocity = 0.0
+                velocity = 0
+                angular_velocity = 0
                 print("pressed s")
         elif action == ord('a'): # Left
-                angular_velocity += 0.2
+                angular_velocity += 2
                 print("pressed a")
         elif action == ord('d'): # Right
-                angular_velocity -= 0.2
+                angular_velocity -= 2
                 print("pressed d")
 
 
@@ -197,16 +197,16 @@ try:
         # XXX: Make the robot drive
         # XXX: You do this
         if velocity > 0:
-            leftForward = 6.4 * velocity
-            rightForward = 6.6 * velocity
+            leftForward = 32 * velocity
+            rightForward = 33 * velocity
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
             sleep(1)
             print(arlo.stop())
             sleep(0.041)
             
         if velocity < 0:
-            leftForward = 6.4 * velocity
-            rightForward = 6.6 * velocity
+            leftForward = -32 * velocity
+            rightForward = -33 * velocity
             print(arlo.go_diff(leftForward, rightForward, 0, 0))
             sleep(1)
             print(arlo.stop())
