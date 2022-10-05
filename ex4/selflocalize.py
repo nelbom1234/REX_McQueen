@@ -16,11 +16,7 @@ def isRunningOnArlo():
     """Return True if we are running on Arlo, otherwise False.
       You can use this flag to switch the code from running on you laptop to Arlo - you need to do the programming here!
     """
-    input1 = cv2.waitKey(10)
-    if (input1 == 'labtop'):
-        onRobot == False
-    else:
-        return onRobot
+    return onRobot
 
 
 if isRunningOnArlo():
@@ -50,10 +46,10 @@ CBLACK = (0, 0, 0)
 
 # Landmarks.
 # The robot knows the position of 2 landmarks. Their coordinates are in the unit centimeters [cm].
-landmarkIDs = [1, 2]
+landmarkIDs = [10, 11]
 landmarks = {
     1: (0.0, 0.0),  # Coordinates for landmark 1
-    2: (300.0, 0.0)  # Coordinates for landmark 2
+    2: (200.0, 0.0)  # Coordinates for landmark 2
 }
 landmark_colors = [CRED, CGREEN] # Colors used when drawing the landmarks
 
@@ -147,6 +143,7 @@ try:
     angular_velocity = 3.0 # radians/sec
 
     # Initialize the robot (XXX: You do this)
+    arlo = robot.Robot()
 
     # Allocate space for world map
     world = np.zeros((500,500,3), dtype=np.uint8)
@@ -168,10 +165,8 @@ try:
             break
     
         if not isRunningOnArlo():
-            print("you did it")
             if action == ord('w'): # Forward
                 velocity += 4.0
-                print("you did it")
             elif action == ord('x'): # Backwards
                 velocity -= 4.0
             elif action == ord('s'): # Stop
@@ -188,7 +183,7 @@ try:
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
-    
+        
 
 
 
