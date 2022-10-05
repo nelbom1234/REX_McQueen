@@ -203,7 +203,7 @@ try:
         # XXX: You do this
         if fullTurn < 20:
             print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
-            sleep(0.300)
+            sleep(0.150)
             print(arlo.stop())
             sleep(0.041)
             fullTurn += 1
