@@ -5,7 +5,7 @@ import numpy as np
 import time
 from timeit import default_timer as timer
 import sys
-
+from time import sleep
 
 # Flags
 showGUI = True  # Whether or not to open GUI windows
