@@ -167,12 +167,12 @@ try:
         action = cv2.waitKey(10)
         if action == ord('q'): # Quit
             break
-        hell = False
+        hell = 0
         #if not isRunningOnArlo():
         if action == ord('z'):
             print("you did it")
-            hell = True
-            while hell == True:
+            hell = 1
+            while hell == 1:
                 if action == ord('w'): # Forward
                     velocity += 4.0
                     print("pressed W")
