@@ -200,7 +200,7 @@ try:
             leftForward = 6.4 * velocity
             rightForward = 6.6 * velocity
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
-            sleep(3)
+            sleep(1)
             print(arlo.stop())
             sleep(0.041)
             
@@ -208,7 +208,7 @@ try:
             leftForward = 6.4 * velocity
             rightForward = 6.6 * velocity
             print(arlo.go_diff(leftForward, rightForward, 0, 0))
-            sleep(3)
+            sleep(1)
             print(arlo.stop())
             sleep(0.041)
             
@@ -216,7 +216,7 @@ try:
             leftForward = 6.4 * velocity
             rightForward = 6.6 * velocity
             print(arlo.go_diff(leftForward, rightForward, 1, 0))
-            sleep(3)
+            sleep(1)
             print(arlo.stop())
             sleep(0.041)
             
@@ -224,7 +224,7 @@ try:
             leftForward = 6.4 * velocity
             rightForward = 6.6 * velocity
             print(arlo.go_diff(leftForward, rightForward, 0, 1))
-            sleep(3)
+            sleep(1)
             print(arlo.stop())
             sleep(0.041)
 
