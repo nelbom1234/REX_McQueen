@@ -16,7 +16,11 @@ def isRunningOnArlo():
     """Return True if we are running on Arlo, otherwise False.
       You can use this flag to switch the code from running on you laptop to Arlo - you need to do the programming here!
     """
-    return onRobot
+    input1 = cv2.waitKey(10)
+    if (input1 == 'laptop'):
+        onRobot == False
+    else:
+        return onRobot
 
 
 if isRunningOnArlo():
