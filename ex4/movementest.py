@@ -16,12 +16,16 @@ def isRunningOnArlo():
     """Return True if we are running on Arlo, otherwise False.
       You can use this flag to switch the code from running on you laptop to Arlo - you need to do the programming here!
     """
-    return onRobot
+    input1 = cv2.waitKey(10)
+    if (input1 == 'l'):
+        onRobot == False
+    else:
+        return onRobot
 
 
 if isRunningOnArlo():
     # XXX: You need to change this path to point to where your robot.py file is located
-    sys.path.append("../../../../Arlo/python")
+    sys.path.append("/home/pi/Arlo/Robot/git/REX_McQueen")
 
 
 try:
@@ -143,7 +147,8 @@ try:
     angular_velocity = 0.0 # radians/sec
 
     # Initialize the robot (XXX: You do this)
-
+    arlo = robot.Robot()
+    
     # Allocate space for world map
     world = np.zeros((500,500,3), dtype=np.uint8)
 
@@ -166,15 +171,20 @@ try:
         if not isRunningOnArlo():
             if action == ord('w'): # Forward
                 velocity += 4.0
+                print("pressed W")
             elif action == ord('x'): # Backwards
                 velocity -= 4.0
+                print("pressed x")
             elif action == ord('s'): # Stop
                 velocity = 0.0
                 angular_velocity = 0.0
+                print("pressed s")
             elif action == ord('a'): # Left
                 angular_velocity += 0.2
+                print("pressed a")
             elif action == ord('d'): # Right
                 angular_velocity -= 0.2
+                print("pressed d")
 
 
 
@@ -191,8 +201,8 @@ try:
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         if not isinstance(objectIDs, type(None)):
             # List detected objects
-            for i in range(len(objectIDs)):
-                print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
+           ## for i in range(len(objectIDs)):
+              ##  print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
                 # XXX: Do something for each detected object - remember, the same ID may appear several times
 
             # Compute particle weights
