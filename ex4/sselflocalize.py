@@ -171,6 +171,7 @@ try:
         if action == ord('l'):
             if action == ord('w'): # Forward
                 velocity += 4.0
+                print("you did it")
             elif action == ord('x'): # Backwards
                 velocity -= 4.0
             elif action == ord('s'): # Stop
