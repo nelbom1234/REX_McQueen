@@ -169,6 +169,7 @@ try:
             break
     
         if not isRunningOnArlo():
+            print("you did it")
             if action == ord('w'): # Forward
                 velocity += 4.0
                 print("pressed W")
