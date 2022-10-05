@@ -16,11 +16,11 @@ def isRunningOnArlo():
     """Return True if we are running on Arlo, otherwise False.
       You can use this flag to switch the code from running on you laptop to Arlo - you need to do the programming here!
     """
-    input1 = input()
+    """input1 = input()
     if (input1 == "laptop"):
         onRobot == False
     else:
-        return onRobot
+        return onRobot"""
 
 
 if isRunningOnArlo():
@@ -188,6 +188,14 @@ try:
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
+
+        if velocity != 0:
+            leftForward = 6.4 * velocity
+            rightForward = 6.6 * velocity
+            print(arlo.go_diff(leftForward, rightForward, 1, 1))
+            sleep(3)
+            print(arlo.stop())
+            sleep(0.041)
     
 
 
