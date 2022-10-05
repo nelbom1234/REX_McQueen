@@ -217,7 +217,7 @@ try:
             sum_of_weights = 0
             for p in particles:
                 for i in range(len(objectIDs)):
-                    p.setWeight(p.getWeight() * np.exp(-(dists[i]*100)**2/(2*sigma**2)))
+                    p.setWeight(p.getWeight() * np.exp(-(dists[i]/100)**2/(2*sigma**2)))
                 sum_of_weights += p.getWeight()
             for p in particles:
                 print("{:.4f}".format(p.getWeight()))
