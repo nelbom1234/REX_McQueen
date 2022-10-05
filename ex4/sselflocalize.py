@@ -266,6 +266,7 @@ try:
             # XXX: You do this
             sigma = 1
             sum_of_weights = 0
+            particles = particle.add_uncertainty(particles, 5.0, 0.1)
             for p in particles:
                 for i in range(len(monoObjects)):
                     if monoObjects[i] != None:
@@ -287,7 +288,6 @@ try:
                         new_particles.append(p)
                         break
             
-            new_particles = particle.add_uncertainty(new_particles, 5.0, 0.1)
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
