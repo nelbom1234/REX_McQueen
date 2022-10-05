@@ -220,8 +220,8 @@ try:
                     p.setWeight(p.getWeight() * np.exp(-(dists[i]*100)**2/(2*sigma**2)))
                 sum_of_weights += p.getWeight()
             for p in particles:
-                #print("{:.4f}".format(p.getWeight()))
-                #print("{:.4f}".format(sum_of_weights))
+                print("{:.4f}".format(p.getWeight()))
+                print("{:.4f}".format(sum_of_weights))
                 p.setWeight(p.getWeight()/sum_of_weights)
                 
 
