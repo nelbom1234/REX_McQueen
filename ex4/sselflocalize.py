@@ -17,7 +17,7 @@ def isRunningOnArlo():
       You can use this flag to switch the code from running on you laptop to Arlo - you need to do the programming here!
     """
     input1 = input()
-    if (input1 == laptop):
+    if (input1 == "laptop"):
         onRobot == False
     else:
         return onRobot
@@ -167,7 +167,8 @@ try:
         if action == ord('q'): # Quit
             break
     
-        if not isRunningOnArlo():
+      # if not isRunningOnArlo():
+        if action == ord('l'):
             if action == ord('w'): # Forward
                 velocity += 4.0
             elif action == ord('x'): # Backwards
