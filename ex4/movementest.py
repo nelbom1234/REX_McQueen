@@ -212,7 +212,7 @@ try:
             print(arlo.stop())
             sleep(0.041)
             
-        if angular_velocity > 0:
+        if angular_velocity < 0:
             leftForward = 16 * angular_velocity
             rightForward = 16 * angular_velocity
             print(arlo.go_diff(leftForward, rightForward, 1, 0))
@@ -220,7 +220,7 @@ try:
             print(arlo.stop())
             sleep(0.041)
             
-        if angular_velocity < 0:
+        if angular_velocity > 0:
             leftForward = -16 * angular_velocity
             rightForward = -16 * angular_velocity
             print(arlo.go_diff(leftForward, rightForward, 0, 1))
