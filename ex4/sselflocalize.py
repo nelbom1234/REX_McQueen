@@ -53,7 +53,7 @@ CBLACK = (0, 0, 0)
 landmarkIDs = [1, 2]
 landmarks = {
     1: (0.0, 0.0),  # Coordinates for landmark 1
-    2: (300.0, 0.0)  # Coordinates for landmark 2
+    2: (200.0, 0.0)  # Coordinates for landmark 2
 }
 landmark_colors = [CRED, CGREEN] # Colors used when drawing the landmarks
 
@@ -205,23 +205,34 @@ try:
         
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
+        monoObjects = [None, None]
         if not isinstance(objectIDs, type(None)):
             # List detected objects
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
                 # XXX: Do something for each detected object - remember, the same ID may appear several times
+                if objectIDs[i] == 10:
+                    if monoObjects[0] == None:
+                        monoObjects[0] = (dists[i], angles[i])
+                    elif monoObjects[0][0] > dists[i]:
+                        monoObjects[0] = (dists[i], angles[i])
+                elif objectIDs[i] == 11:
+                    if monoObjects[1] == None:
+                        monoObjects[1] = (dists[i], angles[i])
+                    elif monoObjects[1][0] > dists[i]:
+                        monoObjects[1] = (dists[i], angles[i])
+                
+
 
             # Compute particle weights
             # XXX: You do this
             sigma = 1
             sum_of_weights = 0
             for p in particles:
-                for i in range(len(objectIDs)):
-                    p.setWeight(p.getWeight() * np.exp(-(dists[i]/100)**2/(2*sigma**2)))
+                for i in range(len(monoObjects)):
+                    p.setWeight(p.getWeight() * np.exp(-(monoObjects[i][0]/100)**2/(2*sigma**2)))
                 sum_of_weights += p.getWeight()
             for p in particles:
-                #print("{:.4f}".format(p.getWeight()))
-                #print("{:.4f}".format(sum_of_weights))
                 p.setWeight(p.getWeight()/sum_of_weights)
                 
 
