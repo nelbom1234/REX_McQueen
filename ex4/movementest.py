@@ -173,7 +173,7 @@ try:
             print("you did it")
             hell = 1
         while hell == 1:
-            elif action == ord('w'): # Forward
+            if action == ord('w'): # Forward
                     velocity = 1
                     print("pressed W")
             elif action == ord('x'): # Backwards
