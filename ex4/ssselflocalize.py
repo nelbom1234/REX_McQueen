@@ -175,7 +175,7 @@ try:
     while True:
         
         #Add noise to the particles
-        add_uncertainty(particles, 0.1, 0.1)
+        particle.add_uncertainty(particles, 0.1, 0.1)
 
         # Move the robot according to user input (only for testing)
         action = cv2.waitKey(10)
