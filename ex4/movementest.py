@@ -239,7 +239,7 @@ try:
         
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
-        for i in range(10)
+        for i in range(10):
            print(arlo.go_diff(32, 32, 0, 1))
            sleep(1)
            print(arlo.stop())
