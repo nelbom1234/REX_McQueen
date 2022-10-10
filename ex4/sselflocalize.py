@@ -212,13 +212,17 @@ try:
             sleep(0.5)
             print(arlo.stop())
             sleep(0.041)
+            for p in particles:
+                delta_x = np.cos(p.getTheta())
+                delta_y = np.sin(p.getTheta())
+                particle.move_particle(p, delta_x, delta_y, 0)
             fullTurn = 0
             turns += 1
-        elif objectIDs == None:
+        elif isinstance(objectIDs, type(None)):
             print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
             sleep(0.150)
             print(arlo.stop())
-            sleep(0.150)
+            sleep(0.400)
         else:
             x = est_pose.getX()
             y = est_pose.getY()
