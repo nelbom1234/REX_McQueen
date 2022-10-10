@@ -168,8 +168,12 @@ try:
         action = cv2.waitKey(10)
         if action == ord('q'): # Quit
             break
+        
+        # input
+        string = str(input())
+    
         #if not isRunningOnArlo():
-        if action == ord('z'):
+        if string == 'labtop':
             print("you did it")
             hell = 1
         while hell == 1:
