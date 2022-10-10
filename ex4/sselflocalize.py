@@ -220,7 +220,10 @@ try:
             print(arlo.stop())
             sleep(0.150)
         else:
-            x,y,theta = est_pose
+            x = est_pose.getX()
+            y = est_pose.getY()
+            theta = est_pose.getTheta()
+            #x,y,theta = est_pose
             dvx = 150.0-x
             dvy = 0-y
             dvtheta = np.arctan(dvy/dvx)
