@@ -124,31 +124,6 @@ def initialize_particles(num_particles):
 
     return particles
 
-def sampling_resampling(particles, monoObjects, num_particles):
-    sigma = 1
-    sum_of_weights = 0
-    #particles = particle.add_uncertainty(particles, 5.0, 0.1)
-    for p in particles:
-        for i in range(len(monoObjects)):
-            if monoObjects[i] != None:
-                p.setWeight(p.getWeight() * np.exp(-(monoObjects[i][0]/100)**2/(2*sigma**2)))
-        sum_of_weights += p.getWeight()
-        for p in particles:
-            p.setWeight(p.getWeight()/sum_of_weights)
-                
-
-    # Resampling
-    # XXX: You do this
-    new_particles = []
-    for i in range(num_particles):
-        r = np.random.ranf()
-        sum_of_weights = 0
-        for p in particles:
-            sum_of_weights += p.getWeight()
-            if sum_of_weights >= r:
-                new_particles.append(p)
-                break
-    return new_particles
 
 # Main program #
 try:
@@ -226,13 +201,30 @@ try:
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
-        if fullTurn < 20:
+        for i in range(20):
+            colour = cam.get_next_frame()
+            objectIDs, dists, angles = cam.detect_aruco_objects(colour)
+            if not isinstance(objectIDs, type(None)):
+            # List detected objects
+                for i in range(len(objectIDs)):
+                    print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
+                    # XXX: Do something for each detected object - remember, the same ID may appear several times
+                    if objectIDs[i] == 10:
+                        if monoObjects[0] == None:
+                            monoObjects[0] = (dists[i], angles[i])
+                        elif monoObjects[0][0] > dists[i]:
+                            monoObjects[0] = (dists[i], angles[i])
+                    elif objectIDs[i] == 11:
+                        if monoObjects[1] == None:
+                            monoObjects[1] = (dists[i], angles[i])
+                        elif monoObjects[1][0] > dists[i]:
+                            monoObjects[1] = (dists[i], angles[i])
             print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
             sleep(0.150)
             print(arlo.stop())
             sleep(0.400)
             fullTurn += 1
-        elif turns < 7:
+        if turns < 7:
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
             sleep(0.5)
             print(arlo.stop())
@@ -276,7 +268,7 @@ try:
             sleep(0.041)
             break
 
-        if not isinstance(objectIDs, type(None)):
+        """if not isinstance(objectIDs, type(None)):
             # List detected objects
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
@@ -290,20 +282,42 @@ try:
                     if monoObjects[1] == None:
                         monoObjects[1] = (dists[i], angles[i])
                     elif monoObjects[1][0] > dists[i]:
-                        monoObjects[1] = (dists[i], angles[i])
+                        monoObjects[1] = (dists[i], angles[i])"""
                 
 
 
             # Compute particle weights
             # XXX: You do this
-            particles = sampling_resampling(particles, monoObjects, num_particles)
+        sigma = 1
+        sum_of_weights = 0
+        #particles = particle.add_uncertainty(particles, 5.0, 0.1)
+        for p in particles:
+            for i in range(len(monoObjects)):
+                if monoObjects[i] != None:
+                    p.setWeight(p.getWeight() * np.exp(-(monoObjects[i][0]/100)**2/(2*sigma**2)))
+            sum_of_weights += p.getWeight()
+        for p in particles:
+            p.setWeight(p.getWeight()/sum_of_weights)                
 
-            # Draw detected objects
-            cam.draw_aruco_objects(colour)
-        else:
-            # No observation - reset weights to uniform distribution
+        # Resampling
+        # XXX: You do this
+        new_particles = []
+        for i in range(num_particles):
+            r = np.random.ranf()
+            sum_of_weights = 0
             for p in particles:
-                p.setWeight(1.0/num_particles)
+                sum_of_weights += p.getWeight()
+                if sum_of_weights >= r:
+                    new_particles.append(p)
+                    break
+        particles = new_particles
+
+        # Draw detected objects
+        cam.draw_aruco_objects(colour)
+        #else:
+            # No observation - reset weights to uniform distribution
+            #for p in particles:
+            #    p.setWeight(1.0/num_particles)
 
     
         est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
