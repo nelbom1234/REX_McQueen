@@ -231,14 +231,35 @@ try:
             sleep(1)
             print(arlo.stop())
             sleep(0.041)
+         
 
+                
         # Fetch next frame
         colour = cam.get_next_frame()
         
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
-        if not isinstance(objectIDs, type(None)):
-            # List detected objects
+        for i in range(10)
+           print(arlo.go_diff(32, 32, 0, 1))
+           sleep(1)
+           print(arlo.stop())
+           sleep(0.041)
+           if not isinstance(objectIDs, type(None)):
+                if objectIDs == 11:        
+                   print(arlo.go_diff(32, 32, 0, 1))
+                   sleep(1)
+                   print(arlo.stop())
+                   sleep(0.041)
+                if objectIDs == 10:        
+                   print(arlo.go_diff(32, 32, 1, 0))
+                   sleep(1)
+                   print(arlo.stop())
+                   sleep(0.041)
+    
+       
+    
+    #if not isinstance(objectIDs, type(None)):
+            # List detected objects      
            ## for i in range(len(objectIDs)):
               ##  print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
                 # XXX: Do something for each detected object - remember, the same ID may appear several times
