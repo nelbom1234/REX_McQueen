@@ -258,7 +258,7 @@ try:
     
        
     
-    #if not isinstance(objectIDs, type(None)):
+        if not isinstance(objectIDs, type(None)):
             # List detected objects      
            ## for i in range(len(objectIDs)):
               ##  print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
