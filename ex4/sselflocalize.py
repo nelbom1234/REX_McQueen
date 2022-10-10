@@ -212,6 +212,10 @@ try:
             sleep(0.5)
             print(arlo.stop())
             sleep(0.041)
+            for p in particles:
+                delta_x = np.cos(p.getTheta())
+                delta_y = np.sin(p.getTheta())
+                particle.move_particle(p, delta_x, delta_y, 0)
             fullTurn = 0
             turns += 1
         elif isinstance(objectIDs, type(None)):
