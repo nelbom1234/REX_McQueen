@@ -170,10 +170,10 @@ try:
             break
         
         # input
-        string = str(input())
+        #string = str(input())
     
         #if not isRunningOnArlo():
-        if string == 'labtop':
+        if action == ord('z'):
             print("you did it")
             hell = 1
         while hell == 1:
@@ -188,10 +188,10 @@ try:
                     angular_velocity = 0
                     print("pressed s")
             elif action == ord('a'): # Left
-                    angular_velocity += 1
+                    angular_velocity = 1
                     print("pressed a")
             elif action == ord('d'): # Right
-                    angular_velocity -= 1
+                    angular_velocity = 1
                     print("pressed d")
 
 
