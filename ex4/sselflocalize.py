@@ -214,7 +214,7 @@ try:
             sleep(0.041)
             fullTurn = 0
             turns += 1
-        elif objectIDs.any() == None:
+        elif isinstance(objectIDs, type(None)):
             print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
             sleep(0.150)
             print(arlo.stop())
