@@ -124,6 +124,31 @@ def initialize_particles(num_particles):
 
     return particles
 
+def sampling_resampling(particles, monoObjects, num_particles):
+    sigma = 1
+    sum_of_weights = 0
+    #particles = particle.add_uncertainty(particles, 5.0, 0.1)
+    for p in particles:
+        for i in range(len(monoObjects)):
+            if monoObjects[i] != None:
+                p.setWeight(p.getWeight() * np.exp(-(monoObjects[i][0]/100)**2/(2*sigma**2)))
+        sum_of_weights += p.getWeight()
+        for p in particles:
+            p.setWeight(p.getWeight()/sum_of_weights)
+                
+
+    # Resampling
+    # XXX: You do this
+    new_particles = []
+    for i in range(num_particles):
+        r = np.random.ranf()
+        sum_of_weights = 0
+        for p in particles:
+            sum_of_weights += p.getWeight()
+            if sum_of_weights >= r:
+                new_particles.append(p)
+                break
+    return new_particles
 
 # Main program #
 try:
@@ -207,14 +232,14 @@ try:
             print(arlo.stop())
             sleep(0.400)
             fullTurn += 1
-        elif turns < 7:
+        if turns < 7:
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
             sleep(0.5)
             print(arlo.stop())
             sleep(0.041)
             for p in particles:
-                delta_x = np.cos(p.getTheta())
-                delta_y = np.sin(p.getTheta())
+                delta_x = np.cos(p.getTheta())*0.2
+                delta_y = np.sin(p.getTheta())*0.2
                 particle.move_particle(p, delta_x, delta_y, 0)
             fullTurn = 0
             turns += 1
@@ -271,30 +296,7 @@ try:
 
             # Compute particle weights
             # XXX: You do this
-            sigma = 1
-            sum_of_weights = 0
-            #particles = particle.add_uncertainty(particles, 5.0, 0.1)
-            for p in particles:
-                for i in range(len(monoObjects)):
-                    if monoObjects[i] != None:
-                        p.setWeight(p.getWeight() * np.exp(-(monoObjects[i][0]/100)**2/(2*sigma**2)))
-                sum_of_weights += p.getWeight()
-            for p in particles:
-                p.setWeight(p.getWeight()/sum_of_weights)
-                
-
-            # Resampling
-            # XXX: You do this
-            new_particles = []
-            for i in range(num_particles):
-                r = np.random.ranf()
-                sum_of_weights = 0
-                for p in particles:
-                    sum_of_weights += p.getWeight()
-                    if sum_of_weights >= r:
-                        new_particles.append(p)
-                        break
-            particles = new_particles
+            particles = sampling_resampling(particles, monoObjects, num_particles)
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
