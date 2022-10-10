@@ -1,11 +1,13 @@
+from turtle import right
 import cv2
 import particle
 import camera
 import numpy as np
 import time
+from time import sleep
 from timeit import default_timer as timer
 import sys
-from time import sleep
+
 
 # Flags
 showGUI = True  # Whether or not to open GUI windows
@@ -122,7 +124,7 @@ def initialize_particles(num_particles):
 
     return particles
 
-hell = 0
+
 # Main program #
 try:
     if showGUI:
@@ -140,114 +142,162 @@ try:
     num_particles = 1000
     particles = initialize_particles(num_particles)
 
+    
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
+    print("Estimate robot pose " + str(est_pose))
 
     # Driving parameters
     velocity = 0.0 # cm/sec
     angular_velocity = 0.0 # radians/sec
 
+    leftForward = 64
+    rightForward = 66
+    leftTurn = 64
+    rightTurn = 64
+
     # Initialize the robot (XXX: You do this)
     arlo = robot.Robot()
-    
     # Allocate space for world map
     world = np.zeros((500,500,3), dtype=np.uint8)
 
     # Draw map
     draw_world(est_pose, particles, world)
-    
-    
+
     print("Opening and initializing camera")
     if camera.isRunningOnArlo():
         cam = camera.Camera(0, 'arlo', useCaptureThread = True)
     else:
         cam = camera.Camera(0, 'macbookpro', useCaptureThread = True)
 
+    fullTurn = 0
+    turns = 0
+
     while True:
+        
+        #Add noise to the particles
+        particle.add_uncertainty(particles, 0.1, 0.1)
 
         # Move the robot according to user input (only for testing)
         action = cv2.waitKey(10)
         if action == ord('q'): # Quit
             break
-        
-        # input
-        #string = str(input())
     
-        #if not isRunningOnArlo():
-        if action == ord('z'):
-            print("you did it")
-            hell = 1
-            #while hell == 1:
-        if action == ord('w'): # Forward
-                        velocity = 1
-                        print("pressed W")
-        elif action == ord('x'): # Backwards
-                        velocity = -1
-                        print("pressed x")
-        elif action == ord('s'): # Stop
-                        velocity = 0
-                        angular_velocity = 0
-                        print("pressed s")
-        elif action == ord('a'): # Left
-                        angular_velocity = 1
-                        print("pressed a")
-        elif action == ord('d'): # Right
-                        angular_velocity = 1
-                        print("pressed d")
+        if not isRunningOnArlo():
+      #  if action == ord('l'):
+            if action == ord('w'): # Forward
+                velocity += 4.0
+                print("you did it")
+            elif action == ord('x'): # Backwards
+                velocity -= 4.0
+            elif action == ord('s'): # Stop
+                velocity = 0.0
+                angular_velocity = 0.0
+            elif action == ord('a'): # Left
+                angular_velocity += 0.2
+            elif action == ord('d'): # Right
+                angular_velocity -= 0.2
 
-
-
+        # Fetch next frame
+        #colour = cam.get_next_frame()
         
+        # Detect objects
+        #objectIDs, dists, angles = cam.detect_aruco_objects(colour)
+        #monoObjects = [None, None]
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
-        if velocity > 0:
-            leftForward = 32 * velocity
-            rightForward = 33 * velocity
+        if fullTurn < 1:
+            print(arlo.go_diff(leftTurn/3, rightTurn/3, 1, 0))
+            print("Laver lige et full turn")
+            i=0
+            for i in range(9):
+                sleep(1)
+                colour = cam.get_next_frame()
+                objectIDs, dists, angles = cam.detect_aruco_objects(colour)
+                monoObjects = [None, None]
+                i=i+1
+            print(arlo.stop())
+            sleep(0.400)
+            fullTurn += 1
+        else:
+            fullTurn = 0
+            x = est_pose.getX()
+            y = est_pose.getY()
+            print("x="+str(x)+" y="+str(y))
+            theta = est_pose.getTheta()
+            #x,y,theta = est_pose
+            dvx = 150.0-x
+            dvy = 0-y
+            dvtheta = np.arctan(dvy/dvx)
+            theta_deg = theta*57.29
+            dvtheta_deg = dvtheta*57.29
+            theta_diff = theta_deg-dvtheta_deg
+            if theta_diff < 0:
+                print("Turning left")
+                print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+                sleep(0.300*((-theta_diff)/20))
+                print(arlo.stop())
+                sleep(0.041)
+            else:
+                print("Turning right")
+                print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+                sleep(0.300*(theta_diff/20))
+                print(arlo.stop())
+                sleep(0.041)
+            dist = np.sqrt(dvx**2+dvy**2)
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
-            sleep(1)
+            sleep(3*(dist/124))
+            print("moving forward for " + str(3*(dist/124)) + " seconds")
             print(arlo.stop())
             sleep(0.041)
-            
-        if velocity < 0:
-            leftForward = -32 * velocity
-            rightForward = -33 * velocity
-            print(arlo.go_diff(leftForward, rightForward, 0, 0))
-            sleep(1)
-            print(arlo.stop())
-            sleep(0.041)
-            
-        if angular_velocity < 0:
-            leftForward = 32 * angular_velocity
-            rightForward = 32 * angular_velocity
-            print(arlo.go_diff(leftForward, rightForward, 1, 0))
-            sleep(1)
-            print(arlo.stop())
-            sleep(0.041)
-            
-        if angular_velocity > 0:
-            leftForward = -32 * angular_velocity
-            rightForward = -32 * angular_velocity
-            print(arlo.go_diff(leftForward, rightForward, 0, 1))
-            sleep(1)
-            print(arlo.stop())
-            sleep(0.041)
+            break
 
-        # Fetch next frame
-        colour = cam.get_next_frame()
-        
-        # Detect objects
-        objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         if not isinstance(objectIDs, type(None)):
             # List detected objects
-           ## for i in range(len(objectIDs)):
-              ##  print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
+            for i in range(len(objectIDs)):
+                print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
                 # XXX: Do something for each detected object - remember, the same ID may appear several times
+                if objectIDs[i] == 10:
+                    if monoObjects[0] == None:
+                        monoObjects[0] = (dists[i], angles[i])
+                    elif monoObjects[0][0] > dists[i]:
+                        monoObjects[0] = (dists[i], angles[i])
+                elif objectIDs[i] == 11:
+                    if monoObjects[1] == None:
+                        monoObjects[1] = (dists[i], angles[i])
+                    elif monoObjects[1][0] > dists[i]:
+                        monoObjects[1] = (dists[i], angles[i])
+                
+
 
             # Compute particle weights
             # XXX: You do this
+            print("Udregner nogle vægte")
+            sigma = 1
+            sum_of_weights = 0
+            #particles = particle.add_uncertainty(particles, 5.0, 0.1)
+            for p in particles:
+                for i in range(len(monoObjects)):
+                    if monoObjects[i] != None:
+                        p.setWeight(p.getWeight() * np.exp(-(monoObjects[i][0]/100)**2/(2*sigma**2)))
+                sum_of_weights += p.getWeight()
+            for p in particles:
+                p.setWeight(p.getWeight()/sum_of_weights)
+                
 
             # Resampling
             # XXX: You do this
+            print("Resampling")
+            new_particles = []
+            for i in range(num_particles):
+                r = np.random.ranf()
+                sum_of_weights = 0
+                for p in particles:
+                    sum_of_weights += p.getWeight()
+                    if sum_of_weights >= r:
+                        new_particles.append(p)
+                        break
+            particles = new_particles
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
@@ -271,6 +321,8 @@ try:
     
   
 finally: 
+    print("fuck you")
+
     # Make sure to clean up even if an exception occurred
     
     # Close all windows
@@ -278,4 +330,3 @@ finally:
 
     # Clean-up capture thread
     cam.terminateCaptureThread()
-
