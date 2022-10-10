@@ -207,7 +207,7 @@ try:
         # XXX: Make the robot drive
         # XXX: You do this
         if fullTurn < 1:
-            print(arlo.go_diff(leftTurn/3, rightTurn/3, 1, 0))
+            print(arlo.go_diff(int(leftTurn/3), int(rightTurn/3), 1, 0))
             print("Laver lige et full turn")
             for i in range(9):
                 sleep(1)
