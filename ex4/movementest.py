@@ -122,7 +122,7 @@ def initialize_particles(num_particles):
 
     return particles
 
-
+hell = 0
 # Main program #
 try:
     if showGUI:
@@ -154,7 +154,8 @@ try:
 
     # Draw map
     draw_world(est_pose, particles, world)
-
+    
+    
     print("Opening and initializing camera")
     if camera.isRunningOnArlo():
         cam = camera.Camera(0, 'arlo', useCaptureThread = True)
@@ -167,28 +168,27 @@ try:
         action = cv2.waitKey(10)
         if action == ord('q'): # Quit
             break
-        hell = 0
         #if not isRunningOnArlo():
         if action == ord('z'):
             print("you did it")
             hell = 1
-        #while hell == 1:
-        elif action == ord('w'): # Forward
-                velocity = 1
-                print("pressed W")
-        elif action == ord('x'): # Backwards
-                velocity = -1
-                print("pressed x")
-        elif action == ord('s'): # Stop
-                velocity = 0
-                angular_velocity = 0
-                print("pressed s")
-        elif action == ord('a'): # Left
-                angular_velocity += 1
-                print("pressed a")
-        elif action == ord('d'): # Right
-                angular_velocity -= 1
-                print("pressed d")
+        while hell == 1:
+            elif action == ord('w'): # Forward
+                    velocity = 1
+                    print("pressed W")
+            elif action == ord('x'): # Backwards
+                    velocity = -1
+                    print("pressed x")
+            elif action == ord('s'): # Stop
+                    velocity = 0
+                    angular_velocity = 0
+                    print("pressed s")
+            elif action == ord('a'): # Left
+                    angular_velocity += 1
+                    print("pressed a")
+            elif action == ord('d'): # Right
+                    angular_velocity -= 1
+                    print("pressed d")
 
 
 
