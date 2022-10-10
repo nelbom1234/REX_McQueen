@@ -223,7 +223,7 @@ try:
             fullTurn = 0
             x = est_pose.getX()
             y = est_pose.getY()
-            print("x="+x+" y="+y)
+            print("x="+str(x)+" y="+str(y))
             theta = est_pose.getTheta()
             #x,y,theta = est_pose
             dvx = 150.0-x
