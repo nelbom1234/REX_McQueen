@@ -209,13 +209,12 @@ try:
         if fullTurn < 1:
             print(arlo.go_diff(leftTurn/3, rightTurn/3, 1, 0))
             print("Laver lige et full turn")
-            i=0
             for i in range(9):
                 sleep(1)
                 colour = cam.get_next_frame()
                 objectIDs, dists, angles = cam.detect_aruco_objects(colour)
                 monoObjects = [None, None]
-                i=i+1
+            print("Ik mere fuld turn for mig")
             print(arlo.stop())
             sleep(0.400)
             fullTurn += 1
@@ -226,8 +225,13 @@ try:
             print("x="+str(x)+" y="+str(y))
             theta = est_pose.getTheta()
             #x,y,theta = est_pose
+            #Destination x
             dvx = 150.0-x
+
+            #Destination y
             dvy = 0-y
+
+            #Destination theta
             dvtheta = np.arctan(dvy/dvx)
             theta_deg = theta*57.29
             dvtheta_deg = dvtheta*57.29
@@ -250,7 +254,7 @@ try:
             print("moving forward for " + str(3*(dist/124)) + " seconds")
             print(arlo.stop())
             sleep(0.041)
-            break
+            #break
 
         if not isinstance(objectIDs, type(None)):
             # List detected objects
