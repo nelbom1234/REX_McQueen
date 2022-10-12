@@ -240,25 +240,26 @@ try:
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         
-        hell = 0
+        turna = 0
         
         for i in range(10):
             print(arlo.go_diff(64, 64, 0, 1))
             sleep(0.3)
             print(arlo.stop())
             sleep(1)
-            hell += 1
+            turna += 1
+            print(turna) 
             if not isinstance(objectIDs, type(None)):
-                  if objectIDs[0] == 11 and objectIDs[1] == 10 and hell<4:    
+                  if objectIDs[0] == 11 and objectIDs[1] == 10 and turna<5:    
                      print("11")
                      print(arlo.go_diff(32, 32, 1, 0))
-                     sleep(0.3*(hell/2))
+                     sleep(0.3*(turna/2))
                      print(arlo.stop())
                      sleep(0.041)
-                  if objectIDs[0] == 10 and objectIDs[1] == 11 and hell<4:
+                  if objectIDs[0] == 10 and objectIDs[1] == 11 and turna<5:
                      print("10")
                      print(arlo.go_diff(32, 32, 1, 0))
-                     sleep(0.3*(hell/2))
+                     sleep(0.3*(turna/2))
                      print(arlo.stop())
                      sleep(0.041)
    
