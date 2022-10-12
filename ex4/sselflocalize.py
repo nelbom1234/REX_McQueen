@@ -201,11 +201,20 @@ try:
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
-        if fullTurn < 20:
-            print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
-            sleep(0.150)
+        turnsAmount=12
+        speedMultiple=0.75
+        fullTurnVal=2.9/speedMultiple
+
+        #SKAL DREJE 360 GRADER
+        if fullTurn < turnsAmount:
+            print("Så drejer vi")
+            print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
+            sleep(fullTurnVal/turnsAmount)
+            for p in particles:
+                particle.move_particle(p, 0, 0, 2/turnsAmount)
+                #print (p.getTheta())
             print(arlo.stop())
-            sleep(0.400)
+            sleep(1)
             fullTurn += 1
         elif turns < 7:
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
