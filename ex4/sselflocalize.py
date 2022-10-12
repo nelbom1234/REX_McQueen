@@ -279,7 +279,7 @@ try:
                 for i in range(len(monoObjects)):
                     if monoObjects[i] != None:
                         d = np.sqrt((landmarks[i+1][0] - p.getX())**2 + (landmarks[i+1][1]-p.getY())**2)
-                        dist_w = 1/(np.sqrt(2*np.pi*sigma_dist**2))*(np.exp(-((monoObjects[i][0]-d)**2)/(2*sigma_dist**2)))
+                        dist_w = 1/(np.sqrt(2*np.pi*sigma_dist**2))*(np.exp(-(((monoObjects[i][0]-d)**2)/(2*sigma_dist**2))))
                         print("dist_w1: {:.2f}".format(dist_w))
                         e_l = [(landmarks[i+1][0] - p.getX())/d, (landmarks[i+1][1]-p.getY())/d]
                         e_theta = [np.cos(monoObjects[i][1]), np.sin(monoObjects[i][1])]
