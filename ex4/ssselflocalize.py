@@ -205,8 +205,8 @@ try:
         # XXX: You do this
 
         # Do a full turn and update the particles
-        fullTurnVal=3.175
-        turnsAmount=4
+        fullTurnVal=3.065
+        turnsAmount=6
 
         #SKAL DREJE 360 GRADER
         if fullTurn < turnsAmount:
