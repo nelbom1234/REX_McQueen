@@ -306,10 +306,10 @@ try:
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
-        else:
+        #else:
              #No observation - reset weights to uniform distribution
-            for p in particles:
-                p.setWeight(1.0/num_particles)
+        #    for p in particles:
+        #        p.setWeight(1.0/num_particles)
 
     
         est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
