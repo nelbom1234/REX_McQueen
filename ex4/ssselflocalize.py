@@ -209,7 +209,7 @@ try:
         turnsAmount=4
 
         #SKAL DREJE 360 GRADER
-        if fullTurnVal < turnsAmount:
+        if fullTurn < turnsAmount:
             print("Så drejer vi")
             print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
             sleep(fullTurnVal/turnsAmount)
@@ -228,28 +228,72 @@ try:
                 particle.move_particle(p, delta_x, delta_y, 0)
             fullTurn = 0
             turns += 1
+        else:
+            x = est_pose.getX()
+            y = est_pose.getY()
+            theta = est_pose.getTheta()
+            #x,y,theta = est_pose
+            dvx = 150.0-x
+            dvy = 0-y
+            dvtheta = np.arctan(dvy/dvx)
+            theta_deg = theta*57.29
+            dvtheta_deg = dvtheta*57.29
+            theta_diff = theta_deg-dvtheta_deg
+            if theta_diff < 0:
+                print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+                sleep(0.300*((-theta_diff)/20))
+                print(arlo.stop())
+                sleep(0.041)
+            else:
+                print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+                sleep(0.300*(theta_diff/20))
+                print(arlo.stop())
+                sleep(0.041)
+            dist = np.sqrt(dvx**2+dvy**2)
+            print(arlo.go_diff(leftForward, rightForward, 1, 1))
+            sleep(3*(dist/124))
+            print(arlo.stop())
+            sleep(0.041)
+            break
         
-                
-
-
+        if not isinstance(objectIDs, type(None)):
+            # List detected objects
+            for i in range(len(objectIDs)):
+                print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
+                # XXX: Do something for each detected object - remember, the same ID may appear several times
+                if objectIDs[i] == 10:
+                    if monoObjects[0] == None:
+                        monoObjects[0] = (dists[i], angles[i])
+                    elif monoObjects[0][0] > dists[i]:
+                        monoObjects[0] = (dists[i], angles[i])
+                elif objectIDs[i] == 11:
+                    if monoObjects[1] == None:
+                        monoObjects[1] = (dists[i], angles[i])
+                    elif monoObjects[1][0] > dists[i]:
+                        monoObjects[1] = (dists[i], angles[i])
             # Compute particle weights
             # XXX: You do this
-            print("Udregner nogle vægte")
-            sigma = 1
+            sigma_dist = 1
+            sigma_angle = 1
             sum_of_weights = 0
-            #particles = particle.add_uncertainty(particles, 5.0, 0.1)
+            particle.add_uncertainty(particles, 3.0, 0.03)
             for p in particles:
                 for i in range(len(monoObjects)):
                     if monoObjects[i] != None:
-                        p.setWeight(p.getWeight() * np.exp(-(monoObjects[i][0]/100)**2/(2*sigma**2)))
+                        d = np.sqrt((landmarks[i+1][0] - p.getX())**2 + (landmarks[i+1][1]-p.getY())**2)
+                        dist_w = 1/(np.sqrt(2*np.pi*sigma_dist**2)*np.exp(-((monoObjects[i][0]-d)**2)/(2*sigma_dist**2)))
+                        e_l = [(landmarks[i+1][0] - p.getX())/d, (landmarks[i+1][1]-p.getY())/d]
+                        e_theta = [np.cos(monoObjects[i][1]), np.sin(monoObjects[i][1])]
+                        e_hat_theta = [-np.sin(monoObjects[i][1]), np.cos(monoObjects[i][1])]
+                        phi = np.sign(e_l[0]*e_hat_theta[0]+e_l[1]*e_hat_theta[1])*np.arccos(e_l[0]*e_theta[0]+e_l[1]*e_theta[1])
+                        angle_w = 1/(np.sqrt(2*np.pi*sigma_angle**2)*np.exp(-((monoObjects[i][1]-(phi))**2)/(2*sigma_angle**2)))
+                        p.setWeight(p.getWeight() * dist_w * angle_w)
                 sum_of_weights += p.getWeight()
             for p in particles:
-                p.setWeight(p.getWeight()/sum_of_weights)
-                
+                p.setWeight(p.getWeight()/sum_of_weights)                
 
             # Resampling
             # XXX: You do this
-            print("Resampling")
             new_particles = []
             for i in range(num_particles):
                 r = np.random.ranf()
@@ -260,13 +304,11 @@ try:
                         new_particles.append(p)
                         break
             particles = new_particles
-            #Add noise to the particles
-            particles=particle.add_uncertainty(particles, 0.1, 0.1)
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
         else:
-            # No observation - reset weights to uniform distribution
+             #No observation - reset weights to uniform distribution
             for p in particles:
                 p.setWeight(1.0/num_particles)
 
@@ -285,8 +327,6 @@ try:
     
   
 finally: 
-    print("fuck you")
-
     # Make sure to clean up even if an exception occurred
     
     # Close all windows
