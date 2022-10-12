@@ -271,10 +271,10 @@ try:
 
             # Compute particle weights
             # XXX: You do this
-            sigma_dist = 5
-            sigma_angle = 10
+            sigma_dist = 70
+            sigma_angle = 100
             sum_of_weights = 0
-            particle.add_uncertainty(particles, 3.0, 0.1)
+            particle.add_uncertainty(particles, 10.0, 0.3)
             for p in particles:
                 for i in range(len(monoObjects)):
                     if monoObjects[i] != None:
