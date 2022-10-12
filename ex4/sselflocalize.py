@@ -302,6 +302,7 @@ try:
                     if sum_of_weights >= r:
                         new_particles.append(p)
                         break
+            print(new_particles)
             particles = new_particles
 
             print(len(particles))
