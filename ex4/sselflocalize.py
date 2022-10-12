@@ -295,14 +295,12 @@ try:
             # XXX: You do this
             new_particles = []
             for i in range(num_particles):
-                print("for i in range")
                 r = np.random.ranf()
                 sum_of_weights = 0
                 for p in particles:
-                    print("for p in particles")
                     sum_of_weights += p.getWeight()
+                    print("sum_of_weights: {:.8f}".format(sum_of_weights) + ", r: {:.8f}".format(r))
                     if sum_of_weights >= r:
-                        print("sum if statement")
                         new_particles.append(p)
                         break
             particles = new_particles
