@@ -205,14 +205,14 @@ try:
         # XXX: You do this
 
         # Do a full turn and update the particles
-        fullturnVal=4
-        turns=4
+        fullTurnVal=4
+        turnsAmount=4
 
         #SKAL DREJE 360 GRADER
-        if fullTurn < turns:
+        if fullTurnVal < turnsAmount:
             print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
-            sleep(fullturnVal/turns)
-            particle.move_particle(p, 0, 0, 2/turns)
+            sleep(fullTurnVal/turnsAmount)
+            particle.move_particle(p, 0, 0, 2/turnsAmount)
             print(arlo.stop())
             sleep(0.400)
             fullTurn += 1
