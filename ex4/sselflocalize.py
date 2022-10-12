@@ -267,7 +267,7 @@ try:
                     elif monoObjects[1][0] > dists[i]:
                         monoObjects[1] = (dists[i], angles[i])
                 else:
-                    break
+                    continue
                 
 
 
