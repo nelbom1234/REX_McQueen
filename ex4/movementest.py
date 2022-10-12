@@ -243,22 +243,22 @@ try:
         hell = 0
         
         for i in range(10):
-            print(arlo.go_diff(32, 32, 0, 1))
-            sleep(0.5)
+            print(arlo.go_diff(64, 64, 0, 1))
+            sleep(0.3)
             print(arlo.stop())
-            sleep(0.4)
+            sleep(1)
             hell += 1
             if not isinstance(objectIDs, type(None)):
                   if objectIDs[0] == 11 and objectIDs[1] == 10 and hell<4:    
                      print("11")
                      print(arlo.go_diff(32, 32, 1, 0))
-                     sleep(0.5*(hell/2))
+                     sleep(0.3*(hell/2))
                      print(arlo.stop())
                      sleep(0.041)
                   if objectIDs[0] == 10 and objectIDs[1] == 11 and hell<4:
                      print("10")
                      print(arlo.go_diff(32, 32, 1, 0))
-                     sleep(0.5*(hell/2))
+                     sleep(0.3*(hell/2))
                      print(arlo.stop())
                      sleep(0.041)
    
