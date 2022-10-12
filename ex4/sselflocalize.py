@@ -304,6 +304,7 @@ try:
                         new_particles.append(p)
                         break
             particles = new_particles
+            sum_of_weights = 0
             for p in particles:
                 sum_of_weights += p.getWeight()
             for p in particles:
