@@ -242,7 +242,7 @@ try:
         
         hell = 0
         
-        for 1 in range(10)
+        for i in range(10):
             print(arlo.go_diff(64, 64, 0, 1))
             sleep(0.3)
             print(arlo.stop())
