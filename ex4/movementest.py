@@ -239,26 +239,26 @@ try:
         
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
-        for i in range(10):
-           print(arlo.go_diff(32, 32, 0, 1))
-           sleep(1)
-           print(arlo.stop())
-           sleep(0.041)
-           if not isinstance(objectIDs, type(None)):
-                if objectIDs == 11:        
-                   print(arlo.go_diff(32, 32, 0, 1))
-                   sleep(1)
-                   print(arlo.stop())
-                   sleep(0.041)
-                if objectIDs == 10:        
-                   print(arlo.go_diff(32, 32, 1, 0))
-                   sleep(1)
-                   print(arlo.stop())
-                   sleep(0.041)
-    
+        
+        print(arlo.go_diff(32, 32, 0, 1))
+        sleep(1)
+        print(arlo.stop())
+        sleep(0.041)
+        if not isinstance(objectIDs, type(None)):
+              if objectIDs == 11:        
+                 print(arlo.go_diff(32, 32, 0, 1))
+                 sleep(1)
+                 print(arlo.stop())
+                 sleep(0.041)
+              if objectIDs == 10:        
+                 print(arlo.go_diff(32, 32, 1, 0))
+                 sleep(1)
+                 print(arlo.stop())
+                 sleep(0.041)
+   
        
     
-        if not isinstance(objectIDs, type(None)):
+        #if not isinstance(objectIDs, type(None)):
             # List detected objects      
            ## for i in range(len(objectIDs)):
               ##  print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
