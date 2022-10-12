@@ -139,7 +139,7 @@ try:
 
 
     # Initialize particles
-    num_particles = 1000
+    num_particles = 50
     particles = initialize_particles(num_particles)
 
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
@@ -280,10 +280,10 @@ try:
 
             # Compute particle weights
             # XXX: You do this
-            sigma_dist = 1
-            sigma_angle = 1
+            sigma_dist = 70
+            sigma_angle = 100
             sum_of_weights = 0
-            particle.add_uncertainty(particles, 3.0, 0.1)
+            particle.add_uncertainty(particles, 10.0, 0.3)
             for p in particles:
                 for i in range(len(monoObjects)):
                     if monoObjects[i] != None:
@@ -308,10 +308,16 @@ try:
                 sum_of_weights = 0
                 for p in particles:
                     sum_of_weights += p.getWeight()
+                    print("sum_of_weights: {:.8f}".format(sum_of_weights) + ", r: {:.8f}".format(r))
                     if sum_of_weights >= r:
                         new_particles.append(p)
                         break
             particles = new_particles
+            sum_of_weights = 0
+            for p in particles:
+                sum_of_weights += p.getWeight()
+            for p in particles:
+                p.setWeight((p.getWeight()/sum_of_weights))
 
             print(len(particles))
 
