@@ -285,11 +285,11 @@ try:
                         e_hat_theta = [-np.sin(monoObjects[i][1]), np.cos(monoObjects[i][1])]
                         phi = np.sign(e_l[0]*e_hat_theta[0]+e_l[1]*e_hat_theta[1])*np.arccos(e_l[0]*e_theta[0]+e_l[1]*e_theta[1])
                         angle_w = 1/(np.sqrt(2*np.pi*sigma_angle**2))*np.exp(-(((monoObjects[i][1]-(phi))**2)/(2*sigma_angle**2)))
+                        print("dist_w: {:.2f}".format(dist_w))
+                        print("angle_w {:.2f}".format(angle_w))  
                         p.setWeight(p.getWeight() * dist_w * angle_w)
                 sum_of_weights += p.getWeight()
-            for p in particles:
-                    print("weight: {:.2f}".format(p.getWeight()))
-                    print("sum: {:.2f}".format(sum_of_weights))             
+            for p in particles:           
                     p.setWeight((p.getWeight()/sum_of_weights))
 
             # Resampling
