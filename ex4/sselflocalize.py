@@ -271,8 +271,8 @@ try:
 
             # Compute particle weights
             # XXX: You do this
-            sigma_dist = 1
-            sigma_angle = 1
+            sigma_dist = 5
+            sigma_angle = 10
             sum_of_weights = 0
             particle.add_uncertainty(particles, 3.0, 0.1)
             for p in particles:
