@@ -195,11 +195,11 @@ try:
                 angular_velocity -= 0.2
 
         # Fetch next frame
-        #colour = cam.get_next_frame()
+        colour = cam.get_next_frame()
         
         # Detect objects
-        #objectIDs, dists, angles = cam.detect_aruco_objects(colour)
-        #monoObjects = [None, None]
+        objectIDs, dists, angles = cam.detect_aruco_objects(colour)
+        monoObjects = [None, None]
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
@@ -210,6 +210,7 @@ try:
 
         #SKAL DREJE 360 GRADER
         if fullTurnVal < turnsAmount:
+            print("Så drejer vi")
             print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
             sleep(fullTurnVal/turnsAmount)
             particle.move_particle(p, 0, 0, 2/turnsAmount)
@@ -227,60 +228,7 @@ try:
                 particle.move_particle(p, delta_x, delta_y, 0)
             fullTurn = 0
             turns += 1
-        else:
         
-            # Estimate pose and move towards destination
-            x = est_pose.getX()
-            y = est_pose.getY()
-            print("x="+str(x)+" y="+str(y))
-            theta = est_pose.getTheta()
-            #x,y,theta = est_pose
-            #Destination x
-            dvx = 150.0-x
-
-            #Destination y
-            dvy = 0-y
-
-            #Destination theta
-            dvtheta = np.arctan(dvy/dvx)
-            theta_deg = theta*57.29
-            dvtheta_deg = dvtheta*57.29
-            theta_diff = theta_deg-dvtheta_deg
-            if theta_diff < 0:
-                print("Turning left")
-                print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
-                sleep(0.300*((-theta_diff)/20))
-                print(arlo.stop())
-                sleep(0.041)
-            else:
-                print("Turning right")
-                print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
-                sleep(0.300*(theta_diff/20))
-                print(arlo.stop())
-                sleep(0.041)
-            dist = np.sqrt(dvx**2+dvy**2)
-            print(arlo.go_diff(leftForward, rightForward, 1, 1))
-            sleep(3*(dist/124))
-            print("moving forward for " + str(3*(dist/124)) + " seconds")
-            print(arlo.stop())
-            sleep(0.041)
-            break
-
-        if not isinstance(objectIDs, type(None)):
-            # List detected objects
-            for i in range(len(objectIDs)):
-                print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
-                # XXX: Do something for each detected object - remember, the same ID may appear several times
-                if objectIDs[i] == 10:
-                    if monoObjects[0] == None:
-                        monoObjects[0] = (dists[i], angles[i])
-                    elif monoObjects[0][0] > dists[i]:
-                        monoObjects[0] = (dists[i], angles[i])
-                elif objectIDs[i] == 11:
-                    if monoObjects[1] == None:
-                        monoObjects[1] = (dists[i], angles[i])
-                    elif monoObjects[1][0] > dists[i]:
-                        monoObjects[1] = (dists[i], angles[i])
                 
 
 
