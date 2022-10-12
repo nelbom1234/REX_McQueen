@@ -205,13 +205,14 @@ try:
         # XXX: You do this
 
         # Do a full turn and update the particles
-        fullTurnVal=3.065
         turnsAmount=6
+        speedMultiple=1
+        fullTurnVal=2.9*speedMultiple
 
         #SKAL DREJE 360 GRADER
         if fullTurn < turnsAmount:
             print("Så drejer vi")
-            print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+            print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
             sleep(fullTurnVal/turnsAmount)
             for p in particles:
                 particle.move_particle(p, 0, 0, 2/turnsAmount)
