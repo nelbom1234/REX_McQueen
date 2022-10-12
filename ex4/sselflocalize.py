@@ -7,6 +7,7 @@ import time
 from time import sleep
 from timeit import default_timer as timer
 import sys
+import copy
 
 
 # Flags
@@ -207,7 +208,6 @@ try:
 
         #SKAL DREJE 360 GRADER
         if fullTurn < turnsAmount:
-            print("Så drejer vi")
             print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
             sleep(fullTurnVal/turnsAmount)
             for p in particles:
@@ -295,7 +295,7 @@ try:
                         phi = np.sign(e_l[0]*e_hat_theta[0]+e_l[1]*e_hat_theta[1])*np.arccos(e_l[0]*e_theta[0]+e_l[1]*e_theta[1])
                         angle_w = 1/(np.sqrt(2*np.pi*sigma_angle**2))*np.exp(-(((monoObjects[i][1]-(phi))**2)/(2*sigma_angle**2)))
                         #print("dist_w2: {:.2f}".format(dist_w))
-                        p.setWeight(p.getWeight() * dist_w * angle_w)
+                        p.setWeight(dist_w * angle_w)
                 sum_of_weights += p.getWeight()
             for p in particles:           
                     p.setWeight((p.getWeight()/sum_of_weights))
@@ -310,14 +310,9 @@ try:
                     sum_of_weights += p.getWeight()
                     print("sum_of_weights: {:.8f}".format(sum_of_weights) + ", r: {:.8f}".format(r))
                     if sum_of_weights >= r:
-                        new_particles.append(p)
+                        new_particles.append(copy.copy(p))
                         break
             particles = new_particles
-            sum_of_weights = 0
-            for p in particles:
-                sum_of_weights += p.getWeight()
-            for p in particles:
-                p.setWeight((p.getWeight()/sum_of_weights))
 
             print(len(particles))
 
