@@ -205,7 +205,7 @@ try:
         # XXX: You do this
 
         # Do a full turn and update the particles
-        fullTurnVal=3.20
+        fullTurnVal=3.175
         turnsAmount=4
 
         #SKAL DREJE 360 GRADER
