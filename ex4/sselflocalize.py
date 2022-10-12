@@ -124,31 +124,6 @@ def initialize_particles(num_particles):
 
     return particles
 
-def sampling_resampling(particles, monoObjects, num_particles):
-    sigma = 1
-    sum_of_weights = 0
-    #particles = particle.add_uncertainty(particles, 5.0, 0.1)
-    for p in particles:
-        for i in range(len(monoObjects)):
-            if monoObjects[i] != None:
-                p.setWeight(p.getWeight() * np.exp(-(monoObjects[i][0]/100)**2/(2*sigma**2)))
-        sum_of_weights += p.getWeight()
-        for p in particles:
-            p.setWeight(p.getWeight()/sum_of_weights)
-                
-
-    # Resampling
-    # XXX: You do this
-    new_particles = []
-    for i in range(num_particles):
-        r = np.random.ranf()
-        sum_of_weights = 0
-        for p in particles:
-            sum_of_weights += p.getWeight()
-            if sum_of_weights >= r:
-                new_particles.append(p)
-                break
-    return new_particles
 
 # Main program #
 try:
@@ -187,7 +162,7 @@ try:
     draw_world(est_pose, particles, world)
 
     print("Opening and initializing camera")
-    if camera.isRunningOnArlo():
+    if isRunningOnArlo():
         cam = camera.Camera(0, 'arlo', useCaptureThread = True)
     else:
         cam = camera.Camera(0, 'macbookpro', useCaptureThread = True)
@@ -232,7 +207,7 @@ try:
             print(arlo.stop())
             sleep(0.400)
             fullTurn += 1
-        elif turns < 7:
+        if turns < 7:
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
             sleep(0.5)
             print(arlo.stop())
@@ -296,12 +271,44 @@ try:
 
             # Compute particle weights
             # XXX: You do this
-            particles = sampling_resampling(particles, monoObjects, num_particles)
+            sigma_dist = 1
+            sigma_angle = 1
+            sum_of_weights = 0
+            particle.add_uncertainty(particles, 3.0, 0.03)
+            for p in particles:
+                for i in range(len(monoObjects)):
+                    if monoObjects[i] != None:
+                        d = np.sqrt((landmarks[i+1][0] - p.getX())**2 + (landmarks[i+1][1]-p.getY())**2)
+                        dist_w = 1/(np.sqrt(2*np.pi*sigma_dist**2)* 
+                            np.exp(-((monoObjects[i][0]-d)**2)/(2*sigma_dist**2)))
+                        e_l = [(landmarks[i+1][0] - p.getX())/d, (landmarks[i+1][1]-p.getY())/d]
+                        e_theta = [np.cos(monoObjects[i][1]), np.sin(monoObjects[i][1])]
+                        e_hat_theta = [-np.sin(monoObjects[i][1]), np.cos(monoObjects[i][1])]
+                        phi = np.sign(e_l[0]*e_hat_theta[0]+e_l[1]*e_hat_theta[1])*np.arccos(e_l[0]*e_theta[0]+e_l[1]*e_theta[1])
+                        angle_w = 1/(np.sqrt(2*np.pi*sigma_angle**2)*
+                            np.exp(-((monoObjects[i][1]-(phi))**2)/(2*sigma_angle**2)))
+                        p.setWeight(p.getWeight() * dist_w * angle_w)
+                sum_of_weights += p.getWeight()
+            for p in particles:
+                p.setWeight(p.getWeight()/sum_of_weights)                
+
+            # Resampling
+            # XXX: You do this
+            new_particles = []
+            for i in range(num_particles):
+                r = np.random.ranf()
+                sum_of_weights = 0
+                for p in particles:
+                    sum_of_weights += p.getWeight()
+                    if sum_of_weights >= r:
+                        new_particles.append(p)
+                        break
+            particles = new_particles
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
         else:
-            # No observation - reset weights to uniform distribution
+             #No observation - reset weights to uniform distribution
             for p in particles:
                 p.setWeight(1.0/num_particles)
 

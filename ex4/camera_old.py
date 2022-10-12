@@ -18,8 +18,6 @@ except ImportError:
 
 def isRunningOnArlo():
     """Return True if we are running on Arlo, otherwise False."""
-    # TODO: Problematic that gstreamerCameraFound is first set after
-    #  instantiation of a Camera object
     return piCameraFound or gstreamerCameraFound
 
 # Black magic in order to handle differences in namespace names in OpenCV 2.4 and 3.0
@@ -103,13 +101,12 @@ class Camera(object):
     """This class is responsible for doing the image processing. It detects known landmarks and 
     measures distances and orientations to these."""
     
-    def __init__(self, camidx, robottype='arlo', useCaptureThread=False):
+    def __init__(self, camidx, robottype='arlo', useCaptureThread = False):
         """Constructor:
              camidx - index of camera
              robottype - specify which robot you are using in order to use the correct camera calibration. 
                          Supported types: arlo, frindo, scribbler, macbookpro"""
 
-        print("robottype =", robottype)
         self.useCaptureThread = useCaptureThread
 
         # Set camera calibration info
@@ -125,7 +122,7 @@ class Camera(object):
             #self.distortion_coeffs = np.asarray([ 1.1911006165076067e-01, -1.0003366233413549e+00,
             #       1.9287903277399834e-02, -2.3728201444308114e-03, -2.8137265581326476e-01 ], dtype = np.float64)
             self.distortion_coeffs = np.asarray([0., 0., 2.0546093607192093e-02, -3.5538453075048249e-03, 0.], dtype = np.float64)
-        elif robottype == 'frindo':
+        if robottype == 'frindo':
             self.imageSize = (640, 480)
             #self.intrinsic_matrix = np.asarray([ 7.1305391967046853e+02, 0., 3.1172820723774367e+02, 0.,
             #       7.0564929862291285e+02, 2.5634470978315028e+02, 0., 0., 1. ], dtype = np.float64)
@@ -460,9 +457,9 @@ class Camera(object):
 if (__name__=='__main__'):
     print("Opening and initializing camera")
     
-    #cam = Camera(0, 'macbookpro', useCaptureThread=True)
+    cam = Camera(0, 'macbookpro', useCaptureThread = True)
     #cam = Camera(0, 'macbookpro', useCaptureThread = False)
-    cam = Camera(0, robottype='arlo', useCaptureThread=True)
+    #cam = Camera(0, 'arlo', useCaptureThread = True)
     
     # Open a window
     WIN_RF1 = "Camera view"
@@ -491,12 +488,12 @@ if (__name__=='__main__'):
         #gray = cv2.convertScaleAbs(loggray)
         
         # Detect objects
-        #objectType, distance, angle, colourProb = cam.get_object(colour)
-        #if objectType != 'none':
-        #    print("Object type = ", objectType, ", distance = ", distance, ", angle = ", angle, ", colourProb = ", colourProb)
+        objectType, distance, angle, colourProb = cam.get_object(colour)
+        if objectType != 'none':
+            print("Object type = ", objectType, ", distance = ", distance, ", angle = ", angle, ", colourProb = ", colourProb)
 
         # Draw detected pattern
-        #cam.draw_object(colour)
+        cam.draw_object(colour)
 
         IDs, dists, angles = cam.detect_aruco_objects(colour)
         if not isinstance(IDs, type(None)):
