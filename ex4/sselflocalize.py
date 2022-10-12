@@ -162,7 +162,7 @@ try:
     draw_world(est_pose, particles, world)
 
     print("Opening and initializing camera")
-    if camera.isRunningOnArlo():
+    if isRunningOnArlo():
         cam = camera.Camera(0, 'arlo', useCaptureThread = True)
     else:
         cam = camera.Camera(0, 'macbookpro', useCaptureThread = True)
@@ -201,24 +201,7 @@ try:
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
-        for i in range(20):
-            colour = cam.get_next_frame()
-            objectIDs, dists, angles = cam.detect_aruco_objects(colour)
-            if not isinstance(objectIDs, type(None)):
-            # List detected objects
-                for i in range(len(objectIDs)):
-                    print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
-                    # XXX: Do something for each detected object - remember, the same ID may appear several times
-                    if objectIDs[i] == 10:
-                        if monoObjects[0] == None:
-                            monoObjects[0] = (dists[i], angles[i])
-                        elif monoObjects[0][0] > dists[i]:
-                            monoObjects[0] = (dists[i], angles[i])
-                    elif objectIDs[i] == 11:
-                        if monoObjects[1] == None:
-                            monoObjects[1] = (dists[i], angles[i])
-                        elif monoObjects[1][0] > dists[i]:
-                            monoObjects[1] = (dists[i], angles[i])
+        if fullTurn < 20:
             print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
             sleep(0.150)
             print(arlo.stop())
@@ -268,7 +251,7 @@ try:
             sleep(0.041)
             break
 
-        """if not isinstance(objectIDs, type(None)):
+        if not isinstance(objectIDs, type(None)):
             # List detected objects
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
@@ -282,42 +265,47 @@ try:
                     if monoObjects[1] == None:
                         monoObjects[1] = (dists[i], angles[i])
                     elif monoObjects[1][0] > dists[i]:
-                        monoObjects[1] = (dists[i], angles[i])"""
+                        monoObjects[1] = (dists[i], angles[i])
                 
 
 
             # Compute particle weights
             # XXX: You do this
-        sigma = 1
-        sum_of_weights = 0
-        particle.add_uncertainty(particles, 3.0, 0.03)
-        for p in particles:
-            for i in range(len(monoObjects)):
-                if monoObjects[i] != None:
-                    p.setWeight(p.getWeight() * np.exp(-(monoObjects[i][0]/100)**2/(2*sigma**2)))
-            sum_of_weights += p.getWeight()
-        for p in particles:
-            p.setWeight(p.getWeight()/sum_of_weights)                
-
-        # Resampling
-        # XXX: You do this
-        new_particles = []
-        for i in range(num_particles):
-            r = np.random.ranf()
+            sigma_dist = 1
+            sigma_angle = 1
             sum_of_weights = 0
+            particle.add_uncertainty(particles, 3.0, 0.03)
             for p in particles:
+                for i in range(len(monoObjects)):
+                    if monoObjects[i] != None:
+                        dist_w = 1/(np.sqrt(2*np.pi*sigma_dist**2)* 
+                            np.exp(-((monoObjects[i][0]-np.sqrt((landmarks[i+1][0] - p.getX())**2 + (landmarks[i+1][1]-p.getY())**2))**2)/(2*sigma_dist**2)))
+                        angle_w = 1/(np.sqrt(2*np.pi*sigma_angle**2)*
+                            np.exp(-((monoObjects[i][1]-(np.sign))**2)/(2*sigma_angle**2)))
+                        p.setWeight(p.getWeight() * dist_w * angle_w)
                 sum_of_weights += p.getWeight()
-                if sum_of_weights >= r:
-                    new_particles.append(p)
-                    break
-        particles = new_particles
+            for p in particles:
+                p.setWeight(p.getWeight()/sum_of_weights)                
 
-        # Draw detected objects
-        cam.draw_aruco_objects(colour)
-        #else:
-            # No observation - reset weights to uniform distribution
-            #for p in particles:
-            #    p.setWeight(1.0/num_particles)
+            # Resampling
+            # XXX: You do this
+            new_particles = []
+            for i in range(num_particles):
+                r = np.random.ranf()
+                sum_of_weights = 0
+                for p in particles:
+                    sum_of_weights += p.getWeight()
+                    if sum_of_weights >= r:
+                        new_particles.append(p)
+                        break
+            particles = new_particles
+
+            # Draw detected objects
+            cam.draw_aruco_objects(colour)
+        else:
+             #No observation - reset weights to uniform distribution
+            for p in particles:
+                p.setWeight(1.0/num_particles)
 
     
         est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
