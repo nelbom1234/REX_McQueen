@@ -250,6 +250,8 @@ try:
             turna += 1
             print(turna) 
             if not isinstance(objectIDs, type(None)):
+                  turna = 0
+                  print("see something")
                   if objectIDs[0] == 11 and objectIDs[1] == 10 and turna<5:    
                      print("11")
                      print(arlo.go_diff(32, 32, 1, 0))
