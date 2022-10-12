@@ -206,8 +206,8 @@ try:
 
         # Do a full turn and update the particles
         turnsAmount=12
-        speedMultiple=0.5
-        fullTurnVal=2.75/speedMultiple
+        speedMultiple=0.75
+        fullTurnVal=2.9/speedMultiple
 
         #SKAL DREJE 360 GRADER
         if fullTurn < turnsAmount:
@@ -216,9 +216,9 @@ try:
             sleep(fullTurnVal/turnsAmount)
             for p in particles:
                 particle.move_particle(p, 0, 0, 2/turnsAmount)
-                print (particle.getTheta())
+                print (p.getTheta())
             print(arlo.stop())
-            sleep(0.700)
+            sleep(1)
             fullTurn += 1
         elif turns < 7:
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
