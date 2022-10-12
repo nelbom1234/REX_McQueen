@@ -213,7 +213,8 @@ try:
             print("Så drejer vi")
             print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
             sleep(fullTurnVal/turnsAmount)
-            particle.move_particle(p, 0, 0, 2/turnsAmount)
+            for p in particle:
+                particle.move_particle(p, 0, 0, 2/turnsAmount)
             print(arlo.stop())
             sleep(0.400)
             fullTurn += 1
