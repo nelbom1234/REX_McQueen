@@ -303,8 +303,8 @@ try:
                         new_particles.append(p)
                         break
             particles = new_particles
-            
-            print(num_particles)
+
+            print(len(particles))
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
