@@ -201,20 +201,11 @@ try:
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
-        turnsAmount=12
-        speedMultiple=0.75
-        fullTurnVal=2.9/speedMultiple
-
-        #SKAL DREJE 360 GRADER
-        if fullTurn < turnsAmount:
-            print("Så drejer vi")
-            print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
-            sleep(fullTurnVal/turnsAmount)
-            for p in particles:
-                particle.move_particle(p, 0, 0, 2/turnsAmount)
-                print (p.getTheta())
+        if fullTurn < 20:
+            print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+            sleep(0.150)
             print(arlo.stop())
-            sleep(1)
+            sleep(0.400)
             fullTurn += 1
         elif turns < 7:
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
@@ -260,11 +251,7 @@ try:
             sleep(0.041)
             break
 
-<<<<<<< HEAD
         if not isinstance(objectIDs, type(None)) and all(p == 10 or p == 11 for p in objectIDs):
-=======
-        if not isinstance(objectIDs, type(None)) and not  0< objectIDs <10 or  not 11< objectIDs <20  :
->>>>>>> 83fe8ff6ae693f048ff978a5a9ecc2e5a89ffc93
             # List detected objects
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
