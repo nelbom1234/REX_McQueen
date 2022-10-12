@@ -139,7 +139,7 @@ try:
 
 
     # Initialize particles
-    num_particles = 10000
+    num_particles = 3000
     particles = initialize_particles(num_particles)
 
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
