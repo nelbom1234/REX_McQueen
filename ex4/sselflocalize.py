@@ -251,7 +251,7 @@ try:
             sleep(0.041)
             break
 
-        if not isinstance(objectIDs, type(None) and objectIDs.all == (10 or 11)) :
+        if not isinstance(objectIDs, type(None)) and not  0< objectIDs <10 or  not 11< objectIDs <20  :
             # List detected objects
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
