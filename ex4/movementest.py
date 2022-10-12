@@ -245,12 +245,12 @@ try:
         print(arlo.stop())
         sleep(0.041)
         if not isinstance(objectIDs, type(None)):
-              if objectIDs == 11:        
+              if objectIDs[0] == 11:        
                  print(arlo.go_diff(32, 32, 0, 1))
                  sleep(1)
                  print(arlo.stop())
                  sleep(0.041)
-              if objectIDs == 10:        
+              if objectIDs[0] == 10:        
                  print(arlo.go_diff(32, 32, 1, 0))
                  sleep(1)
                  print(arlo.stop())
