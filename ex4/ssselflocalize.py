@@ -215,7 +215,7 @@ try:
             print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
             sleep(fullTurnVal/turnsAmount)
             for p in particles:
-                p.move_particle(p, 0, 0, 2/turnsAmount)
+                particle.move_particle(p, 0, 0, 2/turnsAmount)
                 print (p.getTheta())
             print(arlo.stop())
             sleep(0.700)
