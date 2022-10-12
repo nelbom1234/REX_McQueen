@@ -288,11 +288,9 @@ try:
                         p.setWeight(p.getWeight() * dist_w * angle_w)
                 sum_of_weights += p.getWeight()
             for p in particles:
-                try:
+                    print("weight: {:.2f}".format(p.getWeight()))
+                    print("sum: {:.2f}".format(sum_of_weights))             
                     p.setWeight((p.getWeight()/sum_of_weights))
-                except:
-                    print("{:.2f}".format(p.getWeight()))
-                    print("{:.2f}".format(sum_of_weights))             
 
             # Resampling
             # XXX: You do this
