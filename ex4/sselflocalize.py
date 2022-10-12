@@ -207,7 +207,7 @@ try:
             print(arlo.stop())
             sleep(0.400)
             fullTurn += 1
-        if turns < 7:
+        elif turns < 7:
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
             sleep(0.5)
             print(arlo.stop())
@@ -279,14 +279,12 @@ try:
                 for i in range(len(monoObjects)):
                     if monoObjects[i] != None:
                         d = np.sqrt((landmarks[i+1][0] - p.getX())**2 + (landmarks[i+1][1]-p.getY())**2)
-                        dist_w = 1/(np.sqrt(2*np.pi*sigma_dist**2)* 
-                            np.exp(-((monoObjects[i][0]-d)**2)/(2*sigma_dist**2)))
+                        dist_w = 1/(np.sqrt(2*np.pi*sigma_dist**2)*np.exp(-((monoObjects[i][0]-d)**2)/(2*sigma_dist**2)))
                         e_l = [(landmarks[i+1][0] - p.getX())/d, (landmarks[i+1][1]-p.getY())/d]
                         e_theta = [np.cos(monoObjects[i][1]), np.sin(monoObjects[i][1])]
                         e_hat_theta = [-np.sin(monoObjects[i][1]), np.cos(monoObjects[i][1])]
                         phi = np.sign(e_l[0]*e_hat_theta[0]+e_l[1]*e_hat_theta[1])*np.arccos(e_l[0]*e_theta[0]+e_l[1]*e_theta[1])
-                        angle_w = 1/(np.sqrt(2*np.pi*sigma_angle**2)*
-                            np.exp(-((monoObjects[i][1]-(phi))**2)/(2*sigma_angle**2)))
+                        angle_w = 1/(np.sqrt(2*np.pi*sigma_angle**2)*np.exp(-((monoObjects[i][1]-(phi))**2)/(2*sigma_angle**2)))
                         p.setWeight(p.getWeight() * dist_w * angle_w)
                 sum_of_weights += p.getWeight()
             for p in particles:
