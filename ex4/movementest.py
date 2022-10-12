@@ -246,7 +246,7 @@ try:
             print(arlo.go_diff(64, 64, 0, 1))
             sleep(0.3)
             print(arlo.stop())
-            sleep(0.4)
+            sleep(1)
             hell += 1
             if not isinstance(objectIDs, type(None)):
                   if objectIDs[0] == 11 and objectIDs[1] == 10 and hell<4:    
