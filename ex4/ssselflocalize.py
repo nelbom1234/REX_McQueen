@@ -216,7 +216,7 @@ try:
             for p in particles:
                 particle.move_particle(p, 0, 0, 2/turnsAmount)
             print(arlo.stop())
-            sleep(0.400)
+            sleep(0.600)
             fullTurn += 1
         elif turns < 7:
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
