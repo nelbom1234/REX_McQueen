@@ -173,9 +173,6 @@ try:
     turns = 0
 
     while True:
-        
-        #Add noise to the particles
-        particle.add_uncertainty(particles, 0.1, 0.1)
 
         # Move the robot according to user input (only for testing)
         action = cv2.waitKey(10)
@@ -206,20 +203,33 @@ try:
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
-        if fullTurn < 1:
-            print(arlo.go_diff(int(leftTurn/3), int(rightTurn/3), 1, 0))
-            print("Laver lige et full turn")
-            for i in range(9):
-                sleep(1)
-                colour = cam.get_next_frame()
-                objectIDs, dists, angles = cam.detect_aruco_objects(colour)
-                monoObjects = [None, None]
-            print("Ik mere fuld turn for mig")
+
+        # Do a full turn and update the particles
+        fullturnVal=4
+        turns=4
+
+        #SKAL DREJE 360 GRADER
+        if fullTurn < turns:
+            print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+            sleep(fullturnVal/turns)
+            particle.move_particle(p, 0, 0, 2/turns)
             print(arlo.stop())
             sleep(0.400)
             fullTurn += 1
-        else:
+        elif turns < 7:
+            print(arlo.go_diff(leftForward, rightForward, 1, 1))
+            sleep(0.5)
+            print(arlo.stop())
+            sleep(0.041)
+            for p in particles:
+                delta_x = np.cos(p.getTheta())*0.2
+                delta_y = np.sin(p.getTheta())*0.2
+                particle.move_particle(p, delta_x, delta_y, 0)
             fullTurn = 0
+            turns += 1
+        else:
+        
+            # Estimate pose and move towards destination
             x = est_pose.getX()
             y = est_pose.getY()
             print("x="+str(x)+" y="+str(y))
@@ -254,7 +264,7 @@ try:
             print("moving forward for " + str(3*(dist/124)) + " seconds")
             print(arlo.stop())
             sleep(0.041)
-            #break
+            break
 
         if not isinstance(objectIDs, type(None)):
             # List detected objects
@@ -302,6 +312,8 @@ try:
                         new_particles.append(p)
                         break
             particles = new_particles
+            #Add noise to the particles
+            particles=particle.add_uncertainty(particles, 0.1, 0.1)
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
