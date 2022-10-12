@@ -205,7 +205,7 @@ try:
         # XXX: You do this
 
         # Do a full turn and update the particles
-        turnsAmount=6
+        turnsAmount=8
         speedMultiple=1
         fullTurnVal=2.85/speedMultiple
 
@@ -217,7 +217,7 @@ try:
             for p in particles:
                 particle.move_particle(p, 0, 0, 2/turnsAmount)
             print(arlo.stop())
-            sleep(0.400)
+            sleep(0.700)
             fullTurn += 1
         elif turns < 7:
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
