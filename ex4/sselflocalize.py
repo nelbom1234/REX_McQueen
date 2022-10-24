@@ -255,7 +255,7 @@ try:
             sleep(0.041)
             break
 
-        if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 7 for p in objectIDs):
+        if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 1 for p in objectIDs):
             # List detected objects
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
@@ -265,7 +265,7 @@ try:
                         monoObjects[0] = (dists[i], angles[i])
                     elif monoObjects[0][0] > dists[i]:
                         monoObjects[0] = (dists[i], angles[i])
-                elif objectIDs[i] == 7:
+                elif objectIDs[i] == 1:
                     if monoObjects[1] == None:
                         monoObjects[1] = (dists[i], angles[i])
                     elif monoObjects[1][0] > dists[i]:
