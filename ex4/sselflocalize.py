@@ -216,7 +216,7 @@ try:
             print(arlo.stop())
             sleep(1)
             fullTurn += 1
-        elif turns < 3:
+        elif turns < 1:
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
             sleep(0.5)
             print(arlo.stop())
