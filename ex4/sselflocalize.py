@@ -308,13 +308,10 @@ try:
                 sum_of_weights = 0
                 for p in particles:
                     sum_of_weights += p.getWeight()
-                    print("sum_of_weights: {:.8f}".format(sum_of_weights) + ", r: {:.8f}".format(r))
                     if sum_of_weights >= r:
                         new_particles.append(copy.copy(p))
                         break
             particles = new_particles
-
-            print(len(particles))
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
