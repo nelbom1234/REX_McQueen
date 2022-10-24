@@ -216,14 +216,14 @@ try:
             print(arlo.stop())
             sleep(1)
             fullTurn += 1
-        elif turns < 1:
+        elif turns < 3:
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
             sleep(0.5)
             print(arlo.stop())
             sleep(0.041)
             for p in particles:
-                delta_x = np.cos(p.getTheta())*0.2
-                delta_y = np.sin(p.getTheta())*0.2
+                delta_x = np.cos(p.getTheta())*20
+                delta_y = np.sin(p.getTheta())*20
                 particle.move_particle(p, delta_x, delta_y, 0)
             fullTurn = 0
             turns += 1
