@@ -222,8 +222,8 @@ try:
             print(arlo.stop())
             sleep(0.041)
             for p in particles:
-                delta_x = np.cos(p.getTheta())*20
-                delta_y = np.sin(p.getTheta())*20
+                delta_x = np.cos(p.getTheta())*6
+                delta_y = np.sin(p.getTheta())*6
                 particle.move_particle(p, delta_x, delta_y, 0)
             fullTurn = 0
             turns += 1
