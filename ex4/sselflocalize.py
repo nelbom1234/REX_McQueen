@@ -207,7 +207,7 @@ try:
         fullTurnVal=2.9/speedMultiple
 
         #SKAL DREJE 360 GRADER
-        if fullTurn < turnsAmount:
+        for i in range(turnsAmount):
             print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
             sleep(fullTurnVal/turnsAmount)
             for p in particles:
@@ -216,7 +216,7 @@ try:
             print(arlo.stop())
             sleep(1)
             fullTurn += 1
-        elif turns < 3:
+        if turns < 5:
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
             sleep(0.5)
             print(arlo.stop())
