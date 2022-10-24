@@ -211,7 +211,7 @@ try:
             print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
             sleep(fullTurnVal/turnsAmount)
             for p in particles:
-                particle.move_particle(p, 0, 0, 2/turnsAmount)
+                particle.move_particle(p, 0, 0, (2*np.pi)/turnsAmount)
                 #print (p.getTheta())
             print(arlo.stop())
             sleep(1)
@@ -278,7 +278,7 @@ try:
             sigma_dist = 1
             sigma_angle = 1
             sum_of_weights = 0
-            particle.add_uncertainty(particles, 5.0, 0.1)
+            particle.add_uncertainty(particles, 5.0, 0.1*np.pi)
             for p in particles:
                 for i in range(len(monoObjects)):
                     if monoObjects[i] != None:
