@@ -240,7 +240,7 @@ try:
             sigma_dist = 1
             sigma_angle = 1
             sum_of_weights = 0
-            particle.add_uncertainty(particles, 2.5, 0.2)
+            particle.add_uncertainty(particles, 2, 0.1)
             for p in particles:
                 for i in range(len(monoObjects)):
                     if monoObjects[i] != None:
