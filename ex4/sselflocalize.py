@@ -217,6 +217,7 @@ try:
             sleep(1)
             fullTurn += 1
             colour = cam.get_next_frame()
+            objectIDs, dists, angles = cam.detect_aruco_objects(colour)
             if not isinstance(objectIDs, type(None)): #and all(p == 4 or p == 7 for p in objectIDs):
                 # List detected objects
                 for i in range(len(objectIDs)):
