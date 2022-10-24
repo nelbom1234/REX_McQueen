@@ -216,7 +216,7 @@ try:
             print(arlo.stop())
             sleep(1)
             fullTurn += 1
-        elif turns < 7:
+        elif turns < 3:
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
             sleep(0.5)
             print(arlo.stop())
@@ -283,7 +283,7 @@ try:
             sigma_dist = 1
             sigma_angle = 1
             sum_of_weights = 0
-            particle.add_uncertainty(particles, 5.0, 0.2)
+            particle.add_uncertainty(particles, 2.5, 0.2)
             for p in particles:
                 for i in range(len(monoObjects)):
                     if monoObjects[i] != None:
