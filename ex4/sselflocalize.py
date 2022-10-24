@@ -216,6 +216,21 @@ try:
             print(arlo.stop())
             sleep(1)
             fullTurn += 1
+            if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 7 for p in objectIDs):
+                # List detected objects
+                for i in range(len(objectIDs)):
+                    print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
+                    # XXX: Do something for each detected object - remember, the same ID may appear several times
+                    if objectIDs[i] == 4:
+                        if monoObjects[0] == None:
+                            monoObjects[0] = (dists[i], angles[i])
+                        elif monoObjects[0][0] > dists[i]:
+                            monoObjects[0] = (dists[i], angles[i])
+                    elif objectIDs[i] == 7:
+                        if monoObjects[1] == None:
+                            monoObjects[1] = (dists[i], angles[i])
+                        elif monoObjects[1][0] > dists[i]:
+                            monoObjects[1] = (dists[i], angles[i])
         if turns < 5:
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
             sleep(0.5)
@@ -255,21 +270,21 @@ try:
             sleep(0.041)
             break
 
-        if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 7 for p in objectIDs):
-            # List detected objects
-            for i in range(len(objectIDs)):
-                print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
-                # XXX: Do something for each detected object - remember, the same ID may appear several times
-                if objectIDs[i] == 4:
-                    if monoObjects[0] == None:
-                        monoObjects[0] = (dists[i], angles[i])
-                    elif monoObjects[0][0] > dists[i]:
-                        monoObjects[0] = (dists[i], angles[i])
-                elif objectIDs[i] == 7:
-                    if monoObjects[1] == None:
-                        monoObjects[1] = (dists[i], angles[i])
-                    elif monoObjects[1][0] > dists[i]:
-                        monoObjects[1] = (dists[i], angles[i])
+        # if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 7 for p in objectIDs):
+        #     # List detected objects
+        #     for i in range(len(objectIDs)):
+        #         print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
+        #         # XXX: Do something for each detected object - remember, the same ID may appear several times
+        #         if objectIDs[i] == 4:
+        #             if monoObjects[0] == None:
+        #                 monoObjects[0] = (dists[i], angles[i])
+        #             elif monoObjects[0][0] > dists[i]:
+        #                 monoObjects[0] = (dists[i], angles[i])
+        #         elif objectIDs[i] == 7:
+        #             if monoObjects[1] == None:
+        #                 monoObjects[1] = (dists[i], angles[i])
+        #             elif monoObjects[1][0] > dists[i]:
+        #                 monoObjects[1] = (dists[i], angles[i])
                 
 
 
