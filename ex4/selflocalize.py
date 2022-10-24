@@ -1,10 +1,13 @@
+from turtle import right
 import cv2
 import particle
 import camera
 import numpy as np
 import time
+from time import sleep
 from timeit import default_timer as timer
 import sys
+import copy
 
 
 # Flags
@@ -146,6 +149,11 @@ try:
     velocity = 0.0 # cm/sec
     angular_velocity = 0.0 # radians/sec
 
+    leftForward = 64
+    rightForward = 66
+    leftTurn = 64
+    rightTurn = 64
+
     # Initialize the robot (XXX: You do this)
     arlo = robot.Robot()
     # Allocate space for world map
@@ -155,10 +163,13 @@ try:
     draw_world(est_pose, particles, world)
 
     print("Opening and initializing camera")
-    if camera.isRunningOnArlo():
+    if isRunningOnArlo():
         cam = camera.Camera(0, 'arlo', useCaptureThread = True)
     else:
         cam = camera.Camera(0, 'macbookpro', useCaptureThread = True)
+
+    fullTurn = 0
+    turns = 0
 
     while True:
 
@@ -182,49 +193,69 @@ try:
             elif action == ord('d'): # Right
                 angular_velocity -= 0.2
 
-
-
-        
-        # Use motor controls to update particles
-        # XXX: Make the robot drive
-        # XXX: You do this
-
-        if velocity != 0:
-            leftForward = 6.4 * velocity
-            rightForward = 6.6 * velocity
-            print(arlo.go_diff(leftForward, rightForward, 1, 1))
-            sleep(3)
-            print(arlo.stop())
-            sleep(0.041)
-    
-
-
-
         # Fetch next frame
         colour = cam.get_next_frame()
         
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
-        if not isinstance(objectIDs, type(None)):
+        monoObjects = [None, None]
+        # Use motor controls to update particles
+        # XXX: Make the robot drive
+        # XXX: You do this
+        turnsAmount=12
+        speedMultiple=0.75
+        fullTurnVal=2.9/speedMultiple
+
+        #SKAL DREJE 360 GRADER
+        if fullTurn < turnsAmount:
+            print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
+            sleep(fullTurnVal/turnsAmount)
+            for p in particles:
+                particle.move_particle(p, 0, 0, 2/turnsAmount)
+                #print (p.getTheta())
+            print(arlo.stop())
+            sleep(1)
+            fullTurn += 1
+
+        if not isinstance(objectIDs, type(None)) and all(p == 3 or p == 7 for p in objectIDs):
             # List detected objects
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
                 # XXX: Do something for each detected object - remember, the same ID may appear several times
+                if objectIDs[i] == 3:
+                    if monoObjects[0] == None:
+                        monoObjects[0] = (dists[i], angles[i])
+                    elif monoObjects[0][0] > dists[i]:
+                        monoObjects[0] = (dists[i], angles[i])
+                elif objectIDs[i] == 7:
+                    if monoObjects[1] == None:
+                        monoObjects[1] = (dists[i], angles[i])
+                    elif monoObjects[1][0] > dists[i]:
+                        monoObjects[1] = (dists[i], angles[i])
+                
+
 
             # Compute particle weights
             # XXX: You do this
-            sigma = 1
+            sigma_dist = 1
+            sigma_angle = 1
             sum_of_weights = 0
+            particle.add_uncertainty(particles, 2, 0.1)
             for p in particles:
-                for i in range(len(objectIDs)):
-                    p.setWeight(p.getWeight() * np.exp(-dists[i]**2/(2*sigma**2)))
+                for i in range(len(monoObjects)):
+                    if monoObjects[i] != None:
+                        d = np.sqrt((landmarks[i+1][0] - p.getX())**2 + (landmarks[i+1][1]-p.getY())**2)
+                        dist_w = 1/(np.sqrt(2*np.pi*sigma_dist**2))*(np.exp(-((((monoObjects[i][0]-d)/100)**2)/(2*sigma_dist**2))))
+                        e_l = [(landmarks[i+1][0] - p.getX())/d, (landmarks[i+1][1]-p.getY())/d]
+                        e_theta = [np.cos(monoObjects[i][1]), np.sin(monoObjects[i][1])]
+                        e_hat_theta = [-np.sin(monoObjects[i][1]), np.cos(monoObjects[i][1])]
+                        phi = np.sign(e_l[0]*e_hat_theta[0]+e_l[1]*e_hat_theta[1])*np.arccos(e_l[0]*e_theta[0]+e_l[1]*e_theta[1])
+                        angle_w = 1/(np.sqrt(2*np.pi*sigma_angle**2))*np.exp(-(((monoObjects[i][1]-(phi))**2)/(2*sigma_angle**2)))
+                        #print("dist_w2: {:.2f}".format(dist_w))
+                        p.setWeight(dist_w * angle_w)
                 sum_of_weights += p.getWeight()
-            print("{:.4f}".format(sum_of_weights))
-            for p in particles:
-                #print("{:.4f}".format(p.getWeight()))
-                #print("{:.4f}".format(sum_of_weights))
-                p.setWeight(p.getWeight()/sum_of_weights)
-                
+            for p in particles:           
+                    p.setWeight((p.getWeight()/sum_of_weights))
 
             # Resampling
             # XXX: You do this
@@ -235,17 +266,16 @@ try:
                 for p in particles:
                     sum_of_weights += p.getWeight()
                     if sum_of_weights >= r:
-                        new_particles.append(p)
+                        new_particles.append(copy.copy(p))
                         break
             particles = new_particles
-            
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
-        else:
-            # No observation - reset weights to uniform distribution
-            for p in particles:
-                p.setWeight(1.0/num_particles)
+        #else:
+             #No observation - reset weights to uniform distribution
+        #    for p in particles:
+        #        p.setWeight(1.0/num_particles)
 
     
         est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
