@@ -208,29 +208,27 @@ try:
 
         #SKAL DREJE 360 GRADER
         if fullTurn < turnsAmount:
-            #print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
-            #sleep(fullTurnVal/turnsAmount)
-            #for p in particles:
-            #    particle.move_particle(p, 0, 0, (2*np.pi)/turnsAmount)
+            print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
+            sleep(fullTurnVal/turnsAmount)
+            for p in particles:
+                particle.move_particle(p, 0, 0, (2*np.pi)/turnsAmount)
                 #print (p.getTheta())
-            #print(arlo.stop())
-            #sleep(1)
-            #particle.add_uncertainty(particles, 5.0, 0.1*np.pi)
-            #fullTurn += 1
-            print("pik")
+            print(arlo.stop())
+            sleep(1)
+            particle.add_uncertainty(particles, 5.0, 0.1*np.pi)
+            fullTurn += 1
         elif turns < 3:
-            #print(arlo.go_diff(leftForward, rightForward, 1, 1))
-            #sleep(0.5)
-            #print(arlo.stop())
-            #sleep(0.041)
-            #for p in particles:
-            #    delta_x = np.cos(p.getTheta())*6
-            #    delta_y = np.sin(p.getTheta())*6
-            #    particle.move_particle(p, delta_x, delta_y, 0)
-            #particle.add_uncertainty(particles, 5.0, 0.1*np.pi)
-            #fullTurn = 0
-            #turns += 1
-            print("æt")
+            print(arlo.go_diff(leftForward, rightForward, 1, 1))
+            sleep(0.5)
+            print(arlo.stop())
+            sleep(0.041)
+            for p in particles:
+                delta_x = np.cos(p.getTheta())*6
+                delta_y = np.sin(p.getTheta())*6
+                particle.move_particle(p, delta_x, delta_y, 0)
+            particle.add_uncertainty(particles, 5.0, 0.1*np.pi)
+            fullTurn = 0
+            turns += 1
         else:
             x = est_pose.getX()
             y = est_pose.getY()
@@ -243,17 +241,15 @@ try:
             dvtheta_deg = dvtheta*57.29
             theta_diff = theta_deg-dvtheta_deg
             if theta_diff < 0:
-            #    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
-            #    sleep(0.300*((-theta_diff)/20))
-            #    print(arlo.stop())
-            #    sleep(0.041)
-                print("ggrgr")
+                print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+                sleep(0.300*((-theta_diff)/20))
+                print(arlo.stop())
+                sleep(0.041)
             else:
-                #print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
-                #sleep(0.300*(theta_diff/20))
-                #print(arlo.stop())
-                #sleep(0.041)
-                print("gugugu")
+                print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+                sleep(0.300*(theta_diff/20))
+                print(arlo.stop())
+                sleep(0.041)
             dist = np.sqrt(dvx**2+dvy**2)
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
             sleep(3*(dist/124))
@@ -261,17 +257,17 @@ try:
             sleep(0.041)
             break
 
-        if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 7 for p in objectIDs):
+        if not isinstance(objectIDs, type(None)) and all(p == 1 or p == 8 for p in objectIDs):
             # List detected objects
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
                 # XXX: Do something for each detected object - remember, the same ID may appear several times
-                if objectIDs[i] == 4:
+                if objectIDs[i] == 1:
                     if monoObjects[0] == None:
                         monoObjects[0] = (dists[i], angles[i])
                     elif monoObjects[0][0] > dists[i]:
                         monoObjects[0] = (dists[i], angles[i])
-                elif objectIDs[i] == 7:
+                elif objectIDs[i] == 8:
                     if monoObjects[1] == None:
                         monoObjects[1] = (dists[i], angles[i])
                     elif monoObjects[1][0] > dists[i]:
