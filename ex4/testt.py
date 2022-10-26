@@ -203,7 +203,7 @@ try:
         # XXX: Make the robot drive
         # XXX: You do this
         turnsAmount=12
-        speedMultiple=0.75
+        speedMultiple=0.5
         fullTurnVal=2.9/speedMultiple
 
         #SKAL DREJE 360 GRADER
