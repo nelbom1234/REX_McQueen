@@ -228,7 +228,7 @@ try:
         monoObjects = [None, None]
 
         if Skip < 1 and fullTurnAmount != 5 and not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in particles):
-            skip = 15
+            Skip = 15
 
         if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
             # List detected objects
