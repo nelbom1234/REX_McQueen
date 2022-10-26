@@ -258,6 +258,8 @@ try:
                 sleep(0.041)
                 #break
 
+        MoveRobot()
+
         if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 7 for p in objectIDs):
             # List detected objects
             for i in range(len(objectIDs)):
