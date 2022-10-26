@@ -203,7 +203,7 @@ try:
         # XXX: Make the robot drive
         # XXX: You do this
         turnsAmount=12
-        speedMultiple=1
+        speedMultiple=0.75
         fullTurnVal=2.9/speedMultiple
 
         #SKAL DREJE 360 GRADER
@@ -214,7 +214,9 @@ try:
                 particle.move_particle(p, 0, 0, (2*np.pi)/turnsAmount)
                 #print (p.getTheta())
             print(arlo.stop())
-            sleep(1)
+            sleep(0.75)
+            if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
+                sleep(3)
             particle.add_uncertainty(particles, 2.5, 0.05*np.pi)
             fullTurn += 1
 
