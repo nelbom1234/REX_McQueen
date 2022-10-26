@@ -216,7 +216,7 @@ try:
                 #print (p.getTheta())
             print(arlo.stop())
             sleep(1)
-            particle.add_uncertainty(particles, 7.5, 0.05*np.pi)
+            particle.add_uncertainty(particles, 15, 0.1*np.pi)
             fullTurn += 1
             if turnsAmount < fullTurn:
                 fullTurnAmount += 1
@@ -225,6 +225,8 @@ try:
         # Fetch next frame
         colour = cam.get_next_frame()
         
+        particle.add_uncertainty(particles, 2.5, 0.05*np.pi)
+
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         monoObjects = [None, None, None, None]
