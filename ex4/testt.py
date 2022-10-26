@@ -213,8 +213,6 @@ try:
                 #print (p.getTheta())
             print(arlo.stop())
             sleep(1)
-            if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
-                Skip=15
             particle.add_uncertainty(particles, 7.5, 0.05*np.pi)
             fullTurn += 1
             if turnsAmount < fullTurn:
@@ -228,6 +226,9 @@ try:
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         monoObjects = [None, None]
+
+        if Skip < 1 and fullTurnAmount != 5 and not isinstance(objectIDs, type(None) and all(p == 4 or p == 3 for p in particles)):
+            skip = 15
 
         if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
             # List detected objects
