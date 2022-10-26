@@ -208,15 +208,15 @@ try:
 
         #SKAL DREJE 360 GRADER
         if fullTurn < turnsAmount:
-            print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
-            sleep(fullTurnVal/turnsAmount)
-            for p in particles:
-                particle.move_particle(p, 0, 0, (2*np.pi)/turnsAmount)
+            #print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
+            #sleep(fullTurnVal/turnsAmount)
+            #for p in particles:
+                #particle.move_particle(p, 0, 0, (2*np.pi)/turnsAmount)
                 #print (p.getTheta())
-            print(arlo.stop())
-            sleep(1)
+            #print(arlo.stop())
+            #sleep(1)
             particle.add_uncertainty(particles, 5.0, 0.1*np.pi)
-            fullTurn += 1
+            #fullTurn += 1
 
         if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
             # List detected objects
