@@ -215,7 +215,7 @@ try:
                 #print (p.getTheta())
             #print(arlo.stop())
             #sleep(1)
-            particle.add_uncertainty(particles, 5.0, 0.1*np.pi)
+            particle.add_uncertainty(particles, 2.5, 0.05*np.pi)
             #fullTurn += 1
 
         if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
