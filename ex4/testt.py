@@ -195,12 +195,6 @@ try:
             elif action == ord('d'): # Right
                 angular_velocity -= 0.2
 
-        # Fetch next frame
-        colour = cam.get_next_frame()
-        
-        # Detect objects
-        objectIDs, dists, angles = cam.detect_aruco_objects(colour)
-        monoObjects = [None, None]
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
@@ -228,6 +222,12 @@ try:
                 fullTurn=0
         Skip-=1
 
+        # Fetch next frame
+        colour = cam.get_next_frame()
+        
+        # Detect objects
+        objectIDs, dists, angles = cam.detect_aruco_objects(colour)
+        monoObjects = [None, None]
 
         if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
             # List detected objects
