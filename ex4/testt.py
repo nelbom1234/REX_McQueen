@@ -202,7 +202,7 @@ try:
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
-        turnsAmount=10
+        turnsAmount=12
         speedMultiple=0.75
         fullTurnVal=2.9/speedMultiple
 
@@ -216,7 +216,7 @@ try:
             print(arlo.stop())
             sleep(0.1)
             if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
-                sleep(6)
+                sleep(8)
             particle.add_uncertainty(particles, 5.0, 0.05*np.pi)
             fullTurn += 0
 
