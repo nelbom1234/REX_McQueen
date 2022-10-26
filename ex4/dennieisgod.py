@@ -318,6 +318,7 @@ try:
 
 
         est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
+        print(est_pose.x)
 
         if showGUI:
             # Draw map
