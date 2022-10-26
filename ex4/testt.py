@@ -53,7 +53,7 @@ CBLACK = (0, 0, 0)
 
 # Landmarks.
 # The robot knows the position of 2 landmarks. Their coordinates are in the unit centimeters [cm].
-landmarkIDs = [1, 2]
+landmarkIDs = [4, 3]
 landmarks = {
     1: (0.0, 0.0),  # Coordinates for landmark 1
     2: (300.0, 0.0)  # Coordinates for landmark 2
@@ -257,17 +257,17 @@ try:
             sleep(0.041)
             break
 
-        if not isinstance(objectIDs, type(None)) and all(p == 1 or p == 8 for p in objectIDs):
+        if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
             # List detected objects
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
                 # XXX: Do something for each detected object - remember, the same ID may appear several times
-                if objectIDs[i] == 1:
+                if objectIDs[i] == 4:
                     if monoObjects[0] == None:
                         monoObjects[0] = (dists[i], angles[i])
                     elif monoObjects[0][0] > dists[i]:
                         monoObjects[0] = (dists[i], angles[i])
-                elif objectIDs[i] == 8:
+                elif objectIDs[i] == 3:
                     if monoObjects[1] == None:
                         monoObjects[1] = (dists[i], angles[i])
                     elif monoObjects[1][0] > dists[i]:
