@@ -216,7 +216,7 @@ try:
                 #print (p.getTheta())
             print(arlo.stop())
             sleep(1)
-            particle.add_uncertainty(particles, 15, 0.1*np.pi)
+            particle.add_uncertainty(particles, 10, 0.1*np.pi)
             fullTurn += 1
             if turnsAmount < fullTurn:
                 fullTurnAmount += 1
