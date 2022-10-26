@@ -223,7 +223,7 @@ try:
                 Skip=15
             particle.add_uncertainty(particles, 7.5, 0.05*np.pi)
             fullTurn += 1
-            if fullTurn < turnsAmount:
+            if turnsAmount < fullTurn:
                 fullTurnAmount += 1
                 fullTurn=0
         Skip-=1
