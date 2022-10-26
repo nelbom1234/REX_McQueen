@@ -53,10 +53,10 @@ CBLACK = (0, 0, 0)
 
 # Landmarks.
 # The robot knows the position of 2 landmarks. Their coordinates are in the unit centimeters [cm].
-landmarkIDs = [8, 1]
+landmarkIDs = [1, 8]
 landmarks = {
     1: (0.0, 0.0),  # Coordinates for landmark 1
-    2: (100.0, 0.0)  # Coordinates for landmark 2
+    2: (300.0, 0.0)  # Coordinates for landmark 2
 }
 landmark_colors = [CRED, CGREEN] # Colors used when drawing the landmarks
 
@@ -202,63 +202,21 @@ try:
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
+        turnsAmount=12
+        speedMultiple=0.75
+        fullTurnVal=2.9/speedMultiple
 
-        def MoveRobot():
-
-            turnsAmount=12
-            speedMultiple=0.75
-            fullTurnVal=2.9/speedMultiple
-
-            #SKAL DREJE 360 GRADER
-            if fullTurn < turnsAmount:
-                print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
-                sleep(fullTurnVal/turnsAmount)
-                for p in particles:
-                    particle.move_particle(p, 0, 0, (2*np.pi)/turnsAmount)
-                    #print (p.getTheta())
-                print(arlo.stop())
-                sleep(1)
-                fullTurn += 1
-            elif turns < 3:
-                print(arlo.go_diff(leftForward, rightForward, 1, 1))
-                sleep(0.5)
-                print(arlo.stop())
-                sleep(0.041)
-                for p in particles:
-                    delta_x = np.cos(p.getTheta())*6
-                    delta_y = np.sin(p.getTheta())*6
-                    particle.move_particle(p, delta_x, delta_y, 0)
-                fullTurn = 0
-                turns += 1
-            else:
-                x = est_pose.getX()
-                y = est_pose.getY()
-                theta = est_pose.getTheta()
-                #x,y,theta = est_pose
-                dvx = 150.0-x
-                dvy = 0-y
-                dvtheta = np.arctan(dvy/dvx)
-                theta_deg = theta*57.29
-                dvtheta_deg = dvtheta*57.29
-                theta_diff = theta_deg-dvtheta_deg
-                if theta_diff < 0:
-                    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
-                    sleep(0.300*((-theta_diff)/20))
-                    print(arlo.stop())
-                    sleep(0.041)
-                else:
-                    print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
-                    sleep(0.300*(theta_diff/20))
-                    print(arlo.stop())
-                    sleep(0.041)
-                dist = np.sqrt(dvx**2+dvy**2)
-                print(arlo.go_diff(leftForward, rightForward, 1, 1))
-                sleep(3*(dist/124))
-                print(arlo.stop())
-                sleep(0.041)
-                #break
-
-        MoveRobot()
+        #SKAL DREJE 360 GRADER
+        x = est_pose.getX()
+        y = est_pose.getY()
+        theta = est_pose.getTheta()
+        #x,y,theta = est_pose
+        dvx = 150.0-x
+        dvy = 0-y
+        dvtheta = np.arctan(dvy/dvx)
+        theta_deg = theta*57.29
+        dvtheta_deg = dvtheta*57.29
+        theta_diff = theta_deg-dvtheta_deg
 
         if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 7 for p in objectIDs):
             # List detected objects
@@ -275,49 +233,51 @@ try:
                         monoObjects[1] = (dists[i], angles[i])
                     elif monoObjects[1][0] > dists[i]:
                         monoObjects[1] = (dists[i], angles[i])
-        # Compute particle weights
-        # XXX: You do this
-        sigma_dist = 1
-        sigma_angle = 1
-        sum_of_weights = 0
-        particle.add_uncertainty(particles, 5.0, 0.1*np.pi)
-        for p in particles:
-            for i in range(len(monoObjects)):
-                if monoObjects[i] != None:
-                    d = np.sqrt((landmarks[i+1][0] - p.getX())**2 + (landmarks[i+1][1]-p.getY())**2)
-                    dist_w = 1/(np.sqrt(2*np.pi*sigma_dist**2))*(np.exp(-((((monoObjects[i][0]-d)/100)**2)/(2*sigma_dist**2))))
-                    e_l = [(landmarks[i+1][0] - p.getX())/d, (landmarks[i+1][1]-p.getY())/d]
-                    e_theta = [np.cos(monoObjects[i][1]), np.sin(monoObjects[i][1])]
-                    e_hat_theta = [-np.sin(monoObjects[i][1]), np.cos(monoObjects[i][1])]
-                    phi = np.sign(e_l[0]*e_hat_theta[0]+e_l[1]*e_hat_theta[1])*np.arccos(e_l[0]*e_theta[0]+e_l[1]*e_theta[1])
-                    angle_w = 1/(np.sqrt(2*np.pi*sigma_angle**2))*np.exp(-(((monoObjects[i][1]-(phi))**2)/(2*sigma_angle**2)))
-                    #print("dist_w2: {:.2f}".format(dist_w))
-                    p.setWeight(dist_w * angle_w)
-            sum_of_weights += p.getWeight()
-        for p in particles:           
-                p.setWeight((p.getWeight()/sum_of_weights))
+                
 
-        # Resampling
-        # XXX: You do this
-        new_particles = []
-        for i in range(num_particles):
-            r = np.random.ranf()
+
+            # Compute particle weights
+            # XXX: You do this
+            sigma_dist = 1
+            sigma_angle = 1
             sum_of_weights = 0
             for p in particles:
+                for i in range(len(monoObjects)):
+                    if monoObjects[i] != None:
+                        d = np.sqrt((landmarks[i+1][0] - p.getX())**2 + (landmarks[i+1][1]-p.getY())**2)
+                        dist_w = 1/(np.sqrt(2*np.pi*sigma_dist**2))*(np.exp(-((((monoObjects[i][0]-d)/100)**2)/(2*sigma_dist**2))))
+                        e_l = [(landmarks[i+1][0] - p.getX())/d, (landmarks[i+1][1]-p.getY())/d]
+                        e_theta = [np.cos(monoObjects[i][1]), np.sin(monoObjects[i][1])]
+                        e_hat_theta = [-np.sin(monoObjects[i][1]), np.cos(monoObjects[i][1])]
+                        phi = np.sign(e_l[0]*e_hat_theta[0]+e_l[1]*e_hat_theta[1])*np.arccos(e_l[0]*e_theta[0]+e_l[1]*e_theta[1])
+                        angle_w = 1/(np.sqrt(2*np.pi*sigma_angle**2))*np.exp(-(((monoObjects[i][1]-(phi))**2)/(2*sigma_angle**2)))
+                        #print("dist_w2: {:.2f}".format(dist_w))
+                        p.setWeight(dist_w * angle_w)
                 sum_of_weights += p.getWeight()
-                if sum_of_weights >= r:
-                    new_particles.append(copy.copy(p))
-                    break
-        particles = new_particles
+            for p in particles:           
+                    p.setWeight((p.getWeight()/sum_of_weights))
 
-        # Draw detected objects
-        cam.draw_aruco_objects(colour)
+            # Resampling
+            # XXX: You do this
+            new_particles = []
+            for i in range(num_particles):
+                r = np.random.ranf()
+                sum_of_weights = 0
+                for p in particles:
+                    sum_of_weights += p.getWeight()
+                    if sum_of_weights >= r:
+                        new_particles.append(copy.copy(p))
+                        break
+            particles = new_particles
+
+            # Draw detected objects
+            cam.draw_aruco_objects(colour)
         #else:
              #No observation - reset weights to uniform distribution
         #    for p in particles:
         #        p.setWeight(1.0/num_particles)
 
-    
+
         est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
 
         if showGUI:
