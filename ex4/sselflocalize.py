@@ -215,6 +215,7 @@ try:
                 #print (p.getTheta())
             print(arlo.stop())
             sleep(1)
+            particle.add_uncertainty(particles, 5.0, 0.1*np.pi)
             fullTurn += 1
         elif turns < 3:
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
@@ -225,6 +226,7 @@ try:
                 delta_x = np.cos(p.getTheta())*6
                 delta_y = np.sin(p.getTheta())*6
                 particle.move_particle(p, delta_x, delta_y, 0)
+            particle.add_uncertainty(particles, 5.0, 0.1*np.pi)
             fullTurn = 0
             turns += 1
         else:
@@ -278,7 +280,6 @@ try:
             sigma_dist = 1
             sigma_angle = 1
             sum_of_weights = 0
-            particle.add_uncertainty(particles, 5.0, 0.1*np.pi)
             for p in particles:
                 for i in range(len(monoObjects)):
                     if monoObjects[i] != None:
@@ -315,7 +316,7 @@ try:
         #    for p in particles:
         #        p.setWeight(1.0/num_particles)
 
-    
+
         est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
 
         if showGUI:
