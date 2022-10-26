@@ -229,11 +229,11 @@ try:
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         monoObjects = [None, None, None, None]
 
-        if Skip < 1 and fullTurnAmount != 5 and not isinstance(objectIDs, type(None)) and all(p < 5 for p in objectIDs):
+        if Skip < 1 and fullTurnAmount != 5 and not isinstance(objectIDs, type(None)) and any(p < 5 for p in objectIDs):
             Skip = 5
         Skip-=1
 
-        if not isinstance(objectIDs, type(None)) and all(p < 5 for p in objectIDs):
+        if not isinstance(objectIDs, type(None)) and any(p < 5 for p in objectIDs):
             # List detected objects
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i]*dist_mul, ", angle = ", angles[i])
@@ -261,40 +261,40 @@ try:
                 
                 
 
-
+            if not all(p == None for p in monoObjects):
             # Compute particle weights
             # XXX: You do this
-            sigma_dist = 1
-            sigma_angle = 1
-            sum_of_weights = 0
-            for p in particles:
-                for i in range(len(monoObjects)):
-                    if monoObjects[i] != None:
-                        d = np.sqrt((landmarks[i+1][0] - p.getX())**2 + (landmarks[i+1][1]-p.getY())**2)
-                        dist_w = 1/(np.sqrt(2*np.pi*sigma_dist**2))*(np.exp(-((((monoObjects[i][0]-d)/100)**2)/(2*sigma_dist**2))))
-                        e_l = [(landmarks[i+1][0] - p.getX())/d, (landmarks[i+1][1]-p.getY())/d]
-                        e_theta = [np.cos(monoObjects[i][1]), np.sin(monoObjects[i][1])]
-                        e_hat_theta = [-np.sin(monoObjects[i][1]), np.cos(monoObjects[i][1])]
-                        phi = np.sign(e_l[0]*e_hat_theta[0]+e_l[1]*e_hat_theta[1])*np.arccos(e_l[0]*e_theta[0]+e_l[1]*e_theta[1])
-                        angle_w = 1/(np.sqrt(2*np.pi*sigma_angle**2))*np.exp(-(((monoObjects[i][1]-(phi))**2)/(2*sigma_angle**2)))
-                        #print("dist_w2: {:.2f}".format(dist_w))
-                        p.setWeight(dist_w * angle_w)
-                sum_of_weights += p.getWeight()
-            for p in particles:           
-                    p.setWeight((p.getWeight()/sum_of_weights))
-
-            # Resampling
-            # XXX: You do this
-            new_particles = []
-            for i in range(num_particles):
-                r = np.random.ranf()
+                sigma_dist = 1
+                sigma_angle = 1
                 sum_of_weights = 0
                 for p in particles:
+                    for i in range(len(monoObjects)):
+                        if monoObjects[i] != None:
+                            d = np.sqrt((landmarks[i+1][0] - p.getX())**2 + (landmarks[i+1][1]-p.getY())**2)
+                            dist_w = 1/(np.sqrt(2*np.pi*sigma_dist**2))*(np.exp(-((((monoObjects[i][0]-d)/100)**2)/(2*sigma_dist**2))))
+                            e_l = [(landmarks[i+1][0] - p.getX())/d, (landmarks[i+1][1]-p.getY())/d]
+                            e_theta = [np.cos(monoObjects[i][1]), np.sin(monoObjects[i][1])]
+                            e_hat_theta = [-np.sin(monoObjects[i][1]), np.cos(monoObjects[i][1])]
+                            phi = np.sign(e_l[0]*e_hat_theta[0]+e_l[1]*e_hat_theta[1])*np.arccos(e_l[0]*e_theta[0]+e_l[1]*e_theta[1])
+                            angle_w = 1/(np.sqrt(2*np.pi*sigma_angle**2))*np.exp(-(((monoObjects[i][1]-(phi))**2)/(2*sigma_angle**2)))
+                            #print("dist_w2: {:.2f}".format(dist_w))
+                            p.setWeight(dist_w * angle_w)
                     sum_of_weights += p.getWeight()
-                    if sum_of_weights >= r:
-                        new_particles.append(copy.copy(p))
-                        break
-            particles = new_particles
+                for p in particles:           
+                        p.setWeight((p.getWeight()/sum_of_weights))
+
+                # Resampling
+                # XXX: You do this
+                new_particles = []
+                for i in range(num_particles):
+                    r = np.random.ranf()
+                    sum_of_weights = 0
+                    for p in particles:
+                        sum_of_weights += p.getWeight()
+                        if sum_of_weights >= r:
+                            new_particles.append(copy.copy(p))
+                            break
+                particles = new_particles
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
