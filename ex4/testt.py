@@ -202,7 +202,7 @@ try:
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
-        turnsAmount=12
+        turnsAmount=6
         speedMultiple=0.75
         fullTurnVal=2.9/speedMultiple
 
@@ -214,10 +214,10 @@ try:
                 particle.move_particle(p, 0, 0, (2*np.pi)/turnsAmount)
                 #print (p.getTheta())
             print(arlo.stop())
-            sleep(0.75)
+            sleep(0.1)
             if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
                 sleep(6)
-            particle.add_uncertainty(particles, 2.5, 0.05*np.pi)
+            particle.add_uncertainty(particles, 5.0, 0.05*np.pi)
             fullTurn += 0
 
         if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
