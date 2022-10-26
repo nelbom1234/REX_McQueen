@@ -173,6 +173,11 @@ try:
     turns = 0
     Skip=0
 
+    colour = cam.get_next_frame()
+
+    objectIDs, dists, angles = cam.detect_aruco_objects(colour)
+    monoObjects = [None, None]
+
     while True:
 
         # Move the robot according to user input (only for testing)
