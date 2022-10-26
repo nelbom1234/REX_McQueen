@@ -217,45 +217,6 @@ try:
             sleep(1)
             particle.add_uncertainty(particles, 5.0, 0.1*np.pi)
             fullTurn += 1
-        elif turns < 3:
-            print(arlo.go_diff(leftForward, rightForward, 1, 1))
-            sleep(0.5)
-            print(arlo.stop())
-            sleep(0.041)
-            for p in particles:
-                delta_x = np.cos(p.getTheta())*6
-                delta_y = np.sin(p.getTheta())*6
-                particle.move_particle(p, delta_x, delta_y, 0)
-            particle.add_uncertainty(particles, 5.0, 0.1*np.pi)
-            fullTurn = 0
-            turns += 1
-        else:
-            x = est_pose.getX()
-            y = est_pose.getY()
-            theta = est_pose.getTheta()
-            #x,y,theta = est_pose
-            dvx = 150.0-x
-            dvy = 0-y
-            dvtheta = np.arctan(dvy/dvx)
-            theta_deg = theta*57.29
-            dvtheta_deg = dvtheta*57.29
-            theta_diff = theta_deg-dvtheta_deg
-            if theta_diff < 0:
-                print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
-                sleep(0.300*((-theta_diff)/20))
-                print(arlo.stop())
-                sleep(0.041)
-            else:
-                print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
-                sleep(0.300*(theta_diff/20))
-                print(arlo.stop())
-                sleep(0.041)
-            dist = np.sqrt(dvx**2+dvy**2)
-            print(arlo.go_diff(leftForward, rightForward, 1, 1))
-            sleep(3*(dist/124))
-            print(arlo.stop())
-            sleep(0.041)
-            break
 
         if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
             # List detected objects
