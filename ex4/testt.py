@@ -216,9 +216,9 @@ try:
             print(arlo.stop())
             sleep(0.75)
             if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
-                sleep(3)
+                sleep(6)
             particle.add_uncertainty(particles, 2.5, 0.05*np.pi)
-            fullTurn += 1
+            fullTurn += 0
 
         if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
             # List detected objects
