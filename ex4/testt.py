@@ -172,6 +172,7 @@ try:
     fullTurnAmount = 0
     turns = 0
     Skip=0
+    dist_mul = 1.6
 
     while True:
 
@@ -233,18 +234,18 @@ try:
         if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
             # List detected objects
             for i in range(len(objectIDs)):
-                print("Object ID = ", objectIDs[i], ", Distance = ", dists[i]*1.5, ", angle = ", angles[i])
+                print("Object ID = ", objectIDs[i], ", Distance = ", dists[i]*dist_mul, ", angle = ", angles[i])
                 # XXX: Do something for each detected object - remember, the same ID may appear several times
                 if objectIDs[i] == 4:
                     if monoObjects[0] == None:
-                        monoObjects[0] = (dists[i]*1.5, angles[i])
-                    elif monoObjects[0][0] > dists[i]*1.5:
-                        monoObjects[0] = (dists[i]*1.5, angles[i])
+                        monoObjects[0] = (dists[i]*dist_mul, angles[i])
+                    elif monoObjects[0][0] > dists[i]*dist_mul:
+                        monoObjects[0] = (dists[i]*dist_mul, angles[i])
                 elif objectIDs[i] == 3:
                     if monoObjects[1] == None:
-                        monoObjects[1] = (dists[i]*1.5, angles[i])
-                    elif monoObjects[1][0] > dists[i]*1.5:
-                        monoObjects[1] = (dists[i]*1.5, angles[i])
+                        monoObjects[1] = (dists[i]*dist_mul, angles[i])
+                    elif monoObjects[1][0] > dists[i]*dist_mul:
+                        monoObjects[1] = (dists[i]*dist_mul, angles[i])
                 
 
 
