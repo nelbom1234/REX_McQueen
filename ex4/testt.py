@@ -202,7 +202,7 @@ try:
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
-        turnsAmount=10
+        turnsAmount=12
         speedMultiple=0.75
         fullTurnVal=2.9/speedMultiple
 
