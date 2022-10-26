@@ -219,8 +219,8 @@ try:
             print(arlo.stop())
             sleep(1)
             if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
-                Skip=10
-            particle.add_uncertainty(particles, 5.0, 0.05*np.pi)
+                Skip=20
+            particle.add_uncertainty(particles, 25.0, 0.05*np.pi)
             fullTurn += 0
 
         Skip-=1
