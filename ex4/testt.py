@@ -217,7 +217,7 @@ try:
                 particle.move_particle(p, 0, 0, -(2*np.pi)/turnsAmount)
                 #print (p.getTheta())
             print(arlo.stop())
-            sleep(0.1)
+            sleep(1)
             if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
                 Skip=10
             particle.add_uncertainty(particles, 5.0, 0.05*np.pi)
