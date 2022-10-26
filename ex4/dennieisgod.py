@@ -1,4 +1,3 @@
-from tkinter import E
 from turtle import right
 import cv2
 import particle
@@ -319,8 +318,6 @@ try:
 
 
         est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
-
-        print(est_pose)
 
         if showGUI:
             # Draw map
