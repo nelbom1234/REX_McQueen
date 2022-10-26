@@ -169,6 +169,7 @@ try:
         cam = camera.Camera(0, 'macbookpro', useCaptureThread = True)
 
     fullTurn = 0
+    fullTurnAmount = 0
     turns = 0
     Skip=0
 
@@ -210,7 +211,7 @@ try:
             Skip=0
 
         #SKAL DREJE 360 GRADER
-        if fullTurn < turnsAmount and Skip<1:
+        if Skip<1 and fullTurnAmount!=5:
             print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
             sleep(fullTurnVal/turnsAmount)
             for p in particles:
@@ -219,10 +220,12 @@ try:
             print(arlo.stop())
             sleep(1)
             if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
-                Skip=20
-            particle.add_uncertainty(particles, 25.0, 0.05*np.pi)
-            fullTurn += 0
-
+                Skip=15
+            particle.add_uncertainty(particles, 7.5, 0.05*np.pi)
+            fullTurn += 1
+            if fullTurn < turnsAmount:
+                fullTurnAmount += 1
+                fullTurn=0
         Skip-=1
 
 
