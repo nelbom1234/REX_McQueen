@@ -53,12 +53,14 @@ CBLACK = (0, 0, 0)
 
 # Landmarks.
 # The robot knows the position of 2 landmarks. Their coordinates are in the unit centimeters [cm].
-landmarkIDs = [1, 2]
+landmarkIDs = [1, 2, 3, 4]
 landmarks = {
     1: (0.0, 0.0),  # Coordinates for landmark 1
-    2: (300.0, 0.0)  # Coordinates for landmark 2
+    2: (300.0, 0.0),  # Coordinates for landmark 2
+    3: (0.0, 400.0),  # Coordinates for landmark 3
+    4: (300.0, 400.0) # Coordinates for landmark 4
 }
-landmark_colors = [CRED, CGREEN] # Colors used when drawing the landmarks
+landmark_colors = [CRED, CGREEN, CBLUE, CYELLOW] # Colors used when drawing the landmarks
 
 
 
@@ -225,27 +227,38 @@ try:
         
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
-        monoObjects = [None, None]
+        monoObjects = [None, None, None, None]
 
-        if Skip < 1 and fullTurnAmount != 5 and not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
+        if Skip < 1 and fullTurnAmount != 5 and not isinstance(objectIDs, type(None)) and all(p < 5 for p in objectIDs):
             Skip = 5
         Skip-=1
 
-        if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
+        if not isinstance(objectIDs, type(None)) and all(p < 5 for p in objectIDs):
             # List detected objects
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i]*dist_mul, ", angle = ", angles[i])
                 # XXX: Do something for each detected object - remember, the same ID may appear several times
-                if objectIDs[i] == 4:
+                if objectIDs[i] == 1:
                     if monoObjects[0] == None:
                         monoObjects[0] = (dists[i]*dist_mul, angles[i])
                     elif monoObjects[0][0] > dists[i]*dist_mul:
                         monoObjects[0] = (dists[i]*dist_mul, angles[i])
-                elif objectIDs[i] == 3:
+                elif objectIDs[i] == 2:
                     if monoObjects[1] == None:
                         monoObjects[1] = (dists[i]*dist_mul, angles[i])
                     elif monoObjects[1][0] > dists[i]*dist_mul:
                         monoObjects[1] = (dists[i]*dist_mul, angles[i])
+                elif objectIDs[i] == 3:
+                    if monoObjects[2] == None:
+                        monoObjects[2] = (dists[i]*dist_mul, angles[i])
+                    elif monoObjects[2][0] > dists[i]*dist_mul:
+                        monoObjects[2] = (dists[i]*dist_mul, angles[i])
+                elif objectIDs[i] == 4:
+                    if monoObjects[3] == None:
+                        monoObjects[3] = (dists[i]*dist_mul, angles[i])
+                    elif monoObjects[3][0] > dists[i]*dist_mul:
+                        monoObjects[3] = (dists[i]*dist_mul, angles[i])
+                
                 
 
 
