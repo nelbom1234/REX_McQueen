@@ -204,7 +204,7 @@ try:
         # XXX: You do this
         turnsAmount=12
         speedMultiple=0.75
-        fullTurnVal=2.9/speedMultiple
+        fullTurnVal=5/speedMultiple
 
         #SKAL DREJE 360 GRADER
         if fullTurn < turnsAmount:
