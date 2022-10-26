@@ -210,7 +210,7 @@ try:
             Skip=0
 
         #SKAL DREJE 360 GRADER
-        if fullTurn < turnsAmount & Skip<1:
+        if fullTurn < turnsAmount and Skip<1:
             print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
             sleep(fullTurnVal/turnsAmount)
             for p in particles:
