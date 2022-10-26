@@ -218,7 +218,6 @@ try:
             if turnsAmount < fullTurn:
                 fullTurnAmount += 1
                 fullTurn=0
-        Skip-=1
 
         # Fetch next frame
         colour = cam.get_next_frame()
@@ -229,6 +228,7 @@ try:
 
         if Skip < 1 and fullTurnAmount != 5 and not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
             Skip = 15
+        Skip-=1
 
         if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
             # List detected objects
