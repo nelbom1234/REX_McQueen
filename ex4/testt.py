@@ -203,7 +203,7 @@ try:
         # XXX: Make the robot drive
         # XXX: You do this
         turnsAmount=12
-        speedMultiple=0.5
+        speedMultiple=0.75
         fullTurnVal=2.9/speedMultiple
 
         #SKAL DREJE 360 GRADER
@@ -211,7 +211,7 @@ try:
             print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
             sleep(fullTurnVal/turnsAmount)
             for p in particles:
-                particle.move_particle(p, 0, 0, (2*np.pi)/turnsAmount)
+                particle.move_particle(p, 0, 0, -(2*np.pi)/turnsAmount)
                 #print (p.getTheta())
             print(arlo.stop())
             sleep(0.1)
