@@ -53,10 +53,10 @@ CBLACK = (0, 0, 0)
 
 # Landmarks.
 # The robot knows the position of 2 landmarks. Their coordinates are in the unit centimeters [cm].
-landmarkIDs = [1, 2]
+landmarkIDs = [1, 8]
 landmarks = {
     1: (0.0, 0.0),  # Coordinates for landmark 1
-    2: (300.0, 0.0)  # Coordinates for landmark 2
+    2: (100.0, 0.0)  # Coordinates for landmark 2
 }
 landmark_colors = [CRED, CGREEN] # Colors used when drawing the landmarks
 
@@ -208,27 +208,29 @@ try:
 
         #SKAL DREJE 360 GRADER
         if fullTurn < turnsAmount:
-            print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
-            sleep(fullTurnVal/turnsAmount)
-            for p in particles:
-                particle.move_particle(p, 0, 0, (2*np.pi)/turnsAmount)
+            #print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
+            #sleep(fullTurnVal/turnsAmount)
+            #for p in particles:
+            #    particle.move_particle(p, 0, 0, (2*np.pi)/turnsAmount)
                 #print (p.getTheta())
-            print(arlo.stop())
-            sleep(1)
-            particle.add_uncertainty(particles, 5.0, 0.1*np.pi)
-            fullTurn += 1
+            #print(arlo.stop())
+            #sleep(1)
+            #particle.add_uncertainty(particles, 5.0, 0.1*np.pi)
+            #fullTurn += 1
+            print("pik")
         elif turns < 3:
-            print(arlo.go_diff(leftForward, rightForward, 1, 1))
-            sleep(0.5)
-            print(arlo.stop())
-            sleep(0.041)
-            for p in particles:
-                delta_x = np.cos(p.getTheta())*6
-                delta_y = np.sin(p.getTheta())*6
-                particle.move_particle(p, delta_x, delta_y, 0)
-            particle.add_uncertainty(particles, 5.0, 0.1*np.pi)
-            fullTurn = 0
-            turns += 1
+            #print(arlo.go_diff(leftForward, rightForward, 1, 1))
+            #sleep(0.5)
+            #print(arlo.stop())
+            #sleep(0.041)
+            #for p in particles:
+            #    delta_x = np.cos(p.getTheta())*6
+            #    delta_y = np.sin(p.getTheta())*6
+            #    particle.move_particle(p, delta_x, delta_y, 0)
+            #particle.add_uncertainty(particles, 5.0, 0.1*np.pi)
+            #fullTurn = 0
+            #turns += 1
+            print("æt")
         else:
             x = est_pose.getX()
             y = est_pose.getY()
@@ -241,15 +243,17 @@ try:
             dvtheta_deg = dvtheta*57.29
             theta_diff = theta_deg-dvtheta_deg
             if theta_diff < 0:
-                print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
-                sleep(0.300*((-theta_diff)/20))
-                print(arlo.stop())
-                sleep(0.041)
+            #    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+            #    sleep(0.300*((-theta_diff)/20))
+            #    print(arlo.stop())
+            #    sleep(0.041)
+                print("ggrgr")
             else:
-                print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
-                sleep(0.300*(theta_diff/20))
-                print(arlo.stop())
-                sleep(0.041)
+                #print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+                #sleep(0.300*(theta_diff/20))
+                #print(arlo.stop())
+                #sleep(0.041)
+                print("gugugu")
             dist = np.sqrt(dvx**2+dvy**2)
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
             sleep(3*(dist/124))
