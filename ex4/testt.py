@@ -173,11 +173,6 @@ try:
     turns = 0
     Skip=0
 
-    colour = cam.get_next_frame()
-
-    objectIDs, dists, angles = cam.detect_aruco_objects(colour)
-    monoObjects = [None, None]
-
     while True:
 
         # Move the robot according to user input (only for testing)
@@ -232,7 +227,7 @@ try:
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         monoObjects = [None, None]
 
-        if Skip < 1 and fullTurnAmount != 5 and not isinstance(objectIDs, type(None) and all(p == 4 or p == 3 for p in particles)):
+        if Skip < 1 and fullTurnAmount != 5 and not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in particles):
             skip = 15
 
         if not isinstance(objectIDs, type(None)) and all(p == 4 or p == 3 for p in objectIDs):
