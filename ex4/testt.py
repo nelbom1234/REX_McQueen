@@ -283,8 +283,12 @@ try:
                             p.setWeight(dist_w * angle_w)
                     sum_of_weights += p.getWeight()
                 print(sum_of_weights)
-                for p in particles:           
+                if sum_of_weights != 0.0:    
+                    for p in particles:           
                         p.setWeight((p.getWeight()/sum_of_weights))
+                else:
+                    for p in particles:
+                        p.setWeight(1/num_particles)
 
                 #Resampling
                 #XXX: You do this
