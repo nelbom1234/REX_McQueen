@@ -267,7 +267,7 @@ try:
             # Compute particle weights
             # XXX: You do this
                 sigma_dist = 1
-                sigma_angle = 1
+                sigma_angle = 0.1
                 sum_of_weights = 0
                 for p in particles:
                     for i in range(len(monoObjects)):
@@ -287,21 +287,16 @@ try:
 
                 #Resampling
                 #XXX: You do this
-                #new_particles = []
-                #for i in range(num_particles):
-                #   r = np.random.ranf()
-                #   sum_of_weights = 0
-                #   for p in particles:
-                #       sum_of_weights += p.getWeight()
-                #       if sum_of_weights >= r:
-                #           new_particles.append(copy.copy(p))
-                #           break
-                #particles = new_particles
-                #Resample particles using numpy
-                p=np.array([pa.weight for pa in particles])
-                #Normalize weights
-                p=p/np.sum(p)
-                particles = np.random.choice(particles, num_particles, p=p)
+                new_particles = []
+                for i in range(num_particles):
+                  r = np.random.ranf()
+                  sum_of_weights = 0
+                  for p in particles:
+                      sum_of_weights += p.getWeight()
+                      if sum_of_weights >= r:
+                          new_particles.append(copy.copy(p))
+                          break
+                particles = new_particles
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
