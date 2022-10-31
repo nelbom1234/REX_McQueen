@@ -297,7 +297,7 @@ try:
                 #            new_particles.append(copy.copy(p))
                 #            break
                 #particles = new_particles
-                particles = np.random.choice(particles, num_particles, p=[p.weight for p in particles])
+                particles = np.random.choice(particles, num_particles, p=[pa.weight for pa in particles])
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
