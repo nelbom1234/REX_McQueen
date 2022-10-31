@@ -242,24 +242,24 @@ try:
                 # XXX: Do something for each detected object - remember, the same ID may appear several times
                 if objectIDs[i] == 1:
                     if monoObjects[0] == None:
-                        monoObjects[0] = (dists[i]*dist_mul, np.mod(angles[i]+2.0*np.pi, 2.0*np.pi))
+                        monoObjects[0] = (dists[i]*dist_mul, np.mod(angles[i]+(2.0*np.pi), 2.0*np.pi))
                     elif monoObjects[0][0] < dists[i]*dist_mul:
-                        monoObjects[0] = (dists[i]*dist_mul, np.mod(angles[i]+2.0*np.pi, 2.0*np.pi))
+                        monoObjects[0] = (dists[i]*dist_mul, np.mod(angles[i]+(2.0*np.pi), 2.0*np.pi))
                 elif objectIDs[i] == 2:
                     if monoObjects[1] == None:
-                        monoObjects[1] = (dists[i]*dist_mul, np.mod(angles[i]+2.0*np.pi, 2.0*np.pi))
+                        monoObjects[1] = (dists[i]*dist_mul, np.mod(angles[i]+(2.0*np.pi), 2.0*np.pi))
                     elif monoObjects[1][0] < dists[i]*dist_mul:
-                        monoObjects[1] = (dists[i]*dist_mul, np.mod(angles[i]+2.0*np.pi, 2.0*np.pi))
+                        monoObjects[1] = (dists[i]*dist_mul, np.mod(angles[i]+(2.0*np.pi), 2.0*np.pi))
                 elif objectIDs[i] == 3:
                     if monoObjects[2] == None:
-                        monoObjects[2] = (dists[i]*dist_mul, np.mod(angles[i]+2.0*np.pi, 2.0*np.pi))
+                        monoObjects[2] = (dists[i]*dist_mul, np.mod(angles[i]+(2.0*np.pi), 2.0*np.pi))
                     elif monoObjects[2][0] < dists[i]*dist_mul:
-                        monoObjects[2] = (dists[i]*dist_mul, np.mod(angles[i]+2.0*np.pi, 2.0*np.pi))
+                        monoObjects[2] = (dists[i]*dist_mul, np.mod(angles[i]+(2.0*np.pi), 2.0*np.pi))
                 elif objectIDs[i] == 4:
                     if monoObjects[3] == None:
-                        monoObjects[3] = (dists[i]*dist_mul, np.mod(angles[i]+2.0*np.pi, 2.0*np.pi))
+                        monoObjects[3] = (dists[i]*dist_mul, np.mod(angles[i]+(2.0*np.pi), 2.0*np.pi))
                     elif monoObjects[3][0] < dists[i]*dist_mul:
-                        monoObjects[3] = (dists[i]*dist_mul, np.mod(angles[i]+2.0*np.pi, 2.0*np.pi))
+                        monoObjects[3] = (dists[i]*dist_mul, np.mod(angles[i]+(2.0*np.pi), 2.0*np.pi))
                 
                 
 
