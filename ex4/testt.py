@@ -282,6 +282,7 @@ try:
                             #print("dist_w2: {:.2f}".format(dist_w))
                             p.setWeight(dist_w * angle_w)
                     sum_of_weights += p.getWeight()
+                print(sum_of_weights)
                 for p in particles:           
                         p.setWeight((p.getWeight()/sum_of_weights))
 
