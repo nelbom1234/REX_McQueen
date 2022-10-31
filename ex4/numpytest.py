@@ -18,7 +18,10 @@ start_time = time.time()
 num_particles = 1000
 particles = initialize_particles(num_particles)
 #Resample particles using numpy
-particles = np.random.choice(particles, num_particles, p=[p.weight for p in particles])
+p=np.array([pa.weight for pa in particles])
+#Normalize weights
+p=p/np.sum(p)
+particles = np.random.choice(particles, num_particles, p=p)
 
 end_time = time.time()
 print("Time elapsed for numpy filter: ", end_time - start_time)
