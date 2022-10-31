@@ -53,12 +53,12 @@ CBLACK = (0, 0, 0)
 
 # Landmarks.
 # The robot knows the position of 2 landmarks. Their coordinates are in the unit centimeters [cm].
-landmarkIDs = [1, 2, 3, 4]
+landmarkIDs = [2, 1, 4, 3]
 landmarks = {
     2: (0.0, 0.0),  # Coordinates for landmark 1
     1: (300.0, 0.0),  # Coordinates for landmark 2
-    3: (0.0, 400.0),  # Coordinates for landmark 3
-    4: (300.0, 400.0) # Coordinates for landmark 4
+    4: (0.0, 400.0),  # Coordinates for landmark 3
+    3: (300.0, 400.0) # Coordinates for landmark 4
 }
 landmark_colors = [CRED, CGREEN, CBLUE, CYELLOW] # Colors used when drawing the landmarks
 
@@ -211,12 +211,12 @@ try:
         if Skip<1 and fullTurnAmount!=5:
             print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
             sleep(fullTurnVal/turnsAmount)
+            print(arlo.stop())
             for p in particles:
                 particle.move_particle(p, 0, 0, -(2*np.pi)/turnsAmount)
                 #print (p.getTheta())
-            print(arlo.stop())
             sleep(1)
-            particle.add_uncertainty(particles, 10, 0.1*np.pi)
+            particle.add_uncertainty(particles, 15, 0.1*np.pi)
             fullTurn += 1
             if turnsAmount < fullTurn:
                 fullTurnAmount += 1
@@ -240,25 +240,25 @@ try:
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i]*dist_mul, ", angle = ", angles[i])
                 # XXX: Do something for each detected object - remember, the same ID may appear several times
-                if objectIDs[i] == 1:
+                if objectIDs[i] == 2:
                     if monoObjects[0] == None:
                         monoObjects[0] = (dists[i]*dist_mul, angles[i])
-                    elif monoObjects[0][0] < dists[i]*dist_mul:
+                    elif monoObjects[0][0] > dists[i]*dist_mul:
                         monoObjects[0] = (dists[i]*dist_mul, angles[i])
-                elif objectIDs[i] == 2:
+                elif objectIDs[i] == 1:
                     if monoObjects[1] == None:
                         monoObjects[1] = (dists[i]*dist_mul, angles[i])
-                    elif monoObjects[1][0] < dists[i]*dist_mul:
+                    elif monoObjects[1][0] > dists[i]*dist_mul:
                         monoObjects[1] = (dists[i]*dist_mul, angles[i])
-                elif objectIDs[i] == 3:
+                elif objectIDs[i] == 4:
                     if monoObjects[2] == None:
                         monoObjects[2] = (dists[i]*dist_mul, angles[i])
-                    elif monoObjects[2][0] < dists[i]*dist_mul:
+                    elif monoObjects[2][0] > dists[i]*dist_mul:
                         monoObjects[2] = (dists[i]*dist_mul, angles[i])
-                elif objectIDs[i] == 4:
+                elif objectIDs[i] == 3:
                     if monoObjects[3] == None:
                         monoObjects[3] = (dists[i]*dist_mul, angles[i])
-                    elif monoObjects[3][0] < dists[i]*dist_mul:
+                    elif monoObjects[3][0] > dists[i]*dist_mul:
                         monoObjects[3] = (dists[i]*dist_mul, angles[i])
                 
                 
@@ -287,18 +287,20 @@ try:
 
                 # Resampling
                 # XXX: You do this
-                #new_particles = []
-                #for i in range(num_particles):
-                #    r = np.random.ranf()
-                #    sum_of_weights = 0
-                #    for p in particles:
-                #        sum_of_weights += p.getWeight()
-                #        if sum_of_weights >= r:
-                #            new_particles.append(copy.copy(p))
-                #            break
-                #particles = new_particles
-                particles = np.random.choice(particles, num_particles, p=[p.weight for p in particles])
+                # Use numpy
+                new_particles = []
+                for i in range(num_particles):
+                    r = np.random.ranf()
+                    sum_of_weights = 0
+                    for p in particles:
+                        sum_of_weights += p.getWeight()
+                        if sum_of_weights >= r:
+                            new_particles.append(copy.copy(p))
+                            break
+                particles = new_particles
 
+                
+            
             # Draw detected objects
             cam.draw_aruco_objects(colour)
         #else:
