@@ -174,7 +174,7 @@ try:
     fullTurnAmount = 0
     turns = 0
     Skip=0
-    dist_mul = 1.6
+    dist_mul = 1
 
     while True:
 
@@ -285,19 +285,19 @@ try:
                 for p in particles:           
                         p.setWeight((p.getWeight()/sum_of_weights))
 
-                # Resampling
-                # XXX: You do this
-                #new_particles = []
-                #for i in range(num_particles):
-                #    r = np.random.ranf()
-                #    sum_of_weights = 0
-                #    for p in particles:
-                #        sum_of_weights += p.getWeight()
-                #        if sum_of_weights >= r:
-                #            new_particles.append(copy.copy(p))
-                #            break
-                #particles = new_particles
-                particles = np.random.choice(particles, num_particles, p=[pa.weight for pa in particles])
+                #Resampling
+                #XXX: You do this
+                new_particles = []
+                for i in range(num_particles):
+                   r = np.random.ranf()
+                   sum_of_weights = 0
+                   for p in particles:
+                       sum_of_weights += p.getWeight()
+                       if sum_of_weights >= r:
+                           new_particles.append(copy.copy(p))
+                           break
+                particles = new_particles
+                #particles = np.random.choice(particles, num_particles, p=[pa.weight for pa in particles])
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
