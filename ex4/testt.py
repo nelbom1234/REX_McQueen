@@ -267,7 +267,7 @@ try:
             # Compute particle weights
             # XXX: You do this
                 sigma_dist = 10
-                sigma_angle = 0.3
+                sigma_angle = 0.05
                 sum_of_weights = 0
                 for p in particles:
                     for i in range(len(monoObjects)):
