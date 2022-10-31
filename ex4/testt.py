@@ -283,7 +283,7 @@ try:
                             p.setWeight(dist_w * angle_w)
                     sum_of_weights += p.getWeight()
                 print(sum_of_weights)
-                if sum_of_weights > 10**(-16):    
+                if sum_of_weights > 10**(-120):    
                     for p in particles:           
                         p.setWeight((p.getWeight()/sum_of_weights))
                 else:
