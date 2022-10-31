@@ -211,10 +211,10 @@ try:
         if Skip<1 and fullTurnAmount!=5:
             print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
             sleep(fullTurnVal/turnsAmount)
+            print(arlo.stop())
             for p in particles:
                 particle.move_particle(p, 0, 0, -(2*np.pi)/turnsAmount)
                 #print (p.getTheta())
-            print(arlo.stop())
             sleep(1)
             particle.add_uncertainty(particles, 15, 0.1*np.pi)
             fullTurn += 1
@@ -287,18 +287,20 @@ try:
 
                 # Resampling
                 # XXX: You do this
-                #new_particles = []
-                #for i in range(num_particles):
-                #    r = np.random.ranf()
-                #    sum_of_weights = 0
-                #    for p in particles:
-                #        sum_of_weights += p.getWeight()
-                #        if sum_of_weights >= r:
-                #            new_particles.append(copy.copy(p))
-                #            break
-                #particles = new_particles
-                particles = np.random.choice(particles, num_particles, p=[p.weight for p in particles])
+                # Use numpy
+                new_particles = []
+                for i in range(num_particles):
+                    r = np.random.ranf()
+                    sum_of_weights = 0
+                    for p in particles:
+                        sum_of_weights += p.getWeight()
+                        if sum_of_weights >= r:
+                            new_particles.append(copy.copy(p))
+                            break
+                particles = new_particles
 
+                
+            
             # Draw detected objects
             cam.draw_aruco_objects(colour)
         #else:
