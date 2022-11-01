@@ -270,6 +270,7 @@ try:
                 sigma_angle = 0.05
                 sum_of_weights = 0
                 for p in particles:
+                    p.setWeight(1)
                     for i in range(len(monoObjects)):
                         if monoObjects[i] != None:
                             d = np.sqrt((landmarks[i+1][0] - p.getX())**2 + (landmarks[i+1][1]-p.getY())**2)
@@ -280,7 +281,7 @@ try:
                             phi = np.sign(e_l[0]*e_hat_theta[0]+e_l[1]*e_hat_theta[1])*np.arccos(e_l[0]*e_theta[0]+e_l[1]*e_theta[1])
                             angle_w = 1/(np.sqrt(2*np.pi*sigma_angle**2))*np.exp(-(((monoObjects[i][1]-(phi))**2)/(2*sigma_angle**2)))
                             #print("dist_w2: {:.2f}".format(dist_w))
-                            p.setWeight(dist_w * angle_w)
+                            p.setWeight(p.getWeight()*dist_w * angle_w)
                     sum_of_weights += p.getWeight()
                 print(sum_of_weights)
                 if sum_of_weights > 10**(-120):
