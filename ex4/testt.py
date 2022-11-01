@@ -53,14 +53,14 @@ CBLACK = (0, 0, 0)
 
 # Landmarks.
 # The robot knows the position of 2 landmarks. Their coordinates are in the unit centimeters [cm].
-landmarkIDs = [1, 2]
+landmarkIDs = [1, 2, 3, 4]
 landmarks = {
     2: (0.0, 0.0),  # Coordinates for landmark 1
     1: (245.0, 0.0),  # Coordinates for landmark 2
-    #3: (0.0, 400.0),  # Coordinates for landmark 3
-    #4: (300.0, 400.0) # Coordinates for landmark 4
+    3: (0.0, 400.0),  # Coordinates for landmark 3
+    4: (300.0, 400.0) # Coordinates for landmark 4
 }
-landmark_colors = [CRED, CGREEN]#, CBLUE, CYELLOW] # Colors used when drawing the landmarks
+landmark_colors = [CRED, CGREEN, CBLUE, CYELLOW] # Colors used when drawing the landmarks
 
 
 
@@ -80,13 +80,8 @@ def draw_world(est_pose, particles, world):
     This functions draws robots position in the world coordinate system."""
 
     # Fix the origin of the coordinate system
-<<<<<<< HEAD
-    offsetX = 100#50
-    offsetY = 250 #50
-=======
     offsetX = 100 #50
     offsetY = 250 #50
->>>>>>> 441e26f26dd0b489945d4e524b29bbd5bddea24f
 
     # Constant needed for transforming from world coordinates to screen coordinates (flip the y-axis)
     ymax = world.shape[0]
