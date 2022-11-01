@@ -216,7 +216,7 @@ try:
                 #print (p.getTheta())
             print(arlo.stop())
             sleep(1)
-            particle.add_uncertainty(particles, 10, 0.1*np.pi)
+            particle.add_uncertainty(particles, 10, 0.03*np.pi)
             fullTurn += 1
             if turnsAmount < fullTurn:
                 fullTurnAmount += 1
@@ -225,7 +225,7 @@ try:
         # Fetch next frame
         colour = cam.get_next_frame()
         
-        particle.add_uncertainty(particles, 2.5, 0.05*np.pi)
+        particle.add_uncertainty(particles, 2.5, 0.02*np.pi)
 
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
@@ -266,8 +266,8 @@ try:
             if not all(p == None for p in monoObjects):
             # Compute particle weights
             # XXX: You do this
-                sigma_dist = 1
-                sigma_angle = 1.5
+                sigma_dist = 10
+                sigma_angle = 0.05
                 sum_of_weights = 0
                 for p in particles:
                     for i in range(len(monoObjects)):
@@ -282,8 +282,13 @@ try:
                             #print("dist_w2: {:.2f}".format(dist_w))
                             p.setWeight(dist_w * angle_w)
                     sum_of_weights += p.getWeight()
-                for p in particles:           
+                print(sum_of_weights)
+                if sum_of_weights > 10**(-120):
+                    for p in particles:           
                         p.setWeight((p.getWeight()/sum_of_weights))
+                else:
+                    for p in particles:
+                        p.setWeight(1/num_particles)
                 
                 #Resample particles using numpy
                 #Normalize weights
