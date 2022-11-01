@@ -242,7 +242,7 @@ try:
                 # XXX: Do something for each detected object - remember, the same ID may appear several times
                 bab = angles[i]
                 if bab < 0.0:
-                    bab = angles[i] + 6.28  
+                    bab = angles[i] 
                 if objectIDs[i] == 1:
                     if monoObjects[0] == None:
                         monoObjects[0] = (dists[i]*dist_mul, bab)
