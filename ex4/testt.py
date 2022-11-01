@@ -53,14 +53,14 @@ CBLACK = (0, 0, 0)
 
 # Landmarks.
 # The robot knows the position of 2 landmarks. Their coordinates are in the unit centimeters [cm].
-landmarkIDs = [1, 2, 3, 4]
+landmarkIDs = [1, 2]
 landmarks = {
-    1: (0.0, 0.0),  # Coordinates for landmark 1
-    2: (300.0, 0.0),  # Coordinates for landmark 2
-    3: (0.0, 400.0),  # Coordinates for landmark 3
-    4: (300.0, 400.0) # Coordinates for landmark 4
+    2: (0.0, 0.0),  # Coordinates for landmark 1
+    1: (245.0, 0.0),  # Coordinates for landmark 2
+    #3: (0.0, 400.0),  # Coordinates for landmark 3
+    #4: (300.0, 400.0) # Coordinates for landmark 4
 }
-landmark_colors = [CRED, CGREEN, CBLUE, CYELLOW] # Colors used when drawing the landmarks
+landmark_colors = [CRED, CGREEN]#, CBLUE, CYELLOW] # Colors used when drawing the landmarks
 
 
 
@@ -80,8 +80,13 @@ def draw_world(est_pose, particles, world):
     This functions draws robots position in the world coordinate system."""
 
     # Fix the origin of the coordinate system
-    offsetX = 100
-    offsetY = 250
+<<<<<<< HEAD
+    offsetX = 100#50
+    offsetY = 250 #50
+=======
+    offsetX = 100 #50
+    offsetY = 250 #50
+>>>>>>> 441e26f26dd0b489945d4e524b29bbd5bddea24f
 
     # Constant needed for transforming from world coordinates to screen coordinates (flip the y-axis)
     ymax = world.shape[0]
@@ -216,7 +221,7 @@ try:
                 #print (p.getTheta())
             print(arlo.stop())
             sleep(1)
-            particle.add_uncertainty(particles, 10, 0.03*np.pi)
+            particle.add_uncertainty(particles, 10, 0.1*np.pi)
             fullTurn += 1
             if turnsAmount < fullTurn:
                 fullTurnAmount += 1
@@ -225,7 +230,7 @@ try:
         # Fetch next frame
         colour = cam.get_next_frame()
         
-        particle.add_uncertainty(particles, 2.5, 0.02*np.pi)
+        particle.add_uncertainty(particles, 2.5, 0.05*np.pi)
 
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
@@ -242,38 +247,38 @@ try:
                 # XXX: Do something for each detected object - remember, the same ID may appear several times
                 if objectIDs[i] == 1:
                     if monoObjects[0] == None:
-                        monoObjects[0] = (dists[i]*dist_mul, np.mod(angles[i]+(2.0*np.pi), 2.0*np.pi))
+                        monoObjects[0] = (dists[i]*dist_mul, angles[i])
                     elif monoObjects[0][0] < dists[i]*dist_mul:
-                        monoObjects[0] = (dists[i]*dist_mul, np.mod(angles[i]+(2.0*np.pi), 2.0*np.pi))
+                        monoObjects[0] = (dists[i]*dist_mul, angles[i])
                 elif objectIDs[i] == 2:
                     if monoObjects[1] == None:
-                        monoObjects[1] = (dists[i]*dist_mul, np.mod(angles[i]+(2.0*np.pi), 2.0*np.pi))
+                        monoObjects[1] = (dists[i]*dist_mul, angles[i])
                     elif monoObjects[1][0] < dists[i]*dist_mul:
-                        monoObjects[1] = (dists[i]*dist_mul, np.mod(angles[i]+(2.0*np.pi), 2.0*np.pi))
+                        monoObjects[1] = (dists[i]*dist_mul, angles[i])
                 elif objectIDs[i] == 3:
                     if monoObjects[2] == None:
-                        monoObjects[2] = (dists[i]*dist_mul, np.mod(angles[i]+(2.0*np.pi), 2.0*np.pi))
+                        monoObjects[2] = (dists[i]*dist_mul, angles[i])
                     elif monoObjects[2][0] < dists[i]*dist_mul:
-                        monoObjects[2] = (dists[i]*dist_mul, np.mod(angles[i]+(2.0*np.pi), 2.0*np.pi))
+                        monoObjects[2] = (dists[i]*dist_mul, angles[i])
                 elif objectIDs[i] == 4:
                     if monoObjects[3] == None:
-                        monoObjects[3] = (dists[i]*dist_mul, np.mod(angles[i]+(2.0*np.pi), 2.0*np.pi))
+                        monoObjects[3] = (dists[i]*dist_mul, angles[i])
                     elif monoObjects[3][0] < dists[i]*dist_mul:
-                        monoObjects[3] = (dists[i]*dist_mul, np.mod(angles[i]+(2.0*np.pi), 2.0*np.pi))
+                        monoObjects[3] = (dists[i]*dist_mul, angles[i])
                 
                 
 
             if not all(p == None for p in monoObjects):
             # Compute particle weights
             # XXX: You do this
-                sigma_dist = 10
-                sigma_angle = 0.05
+                sigma_dist = 1
+                sigma_angle = 1.5
                 sum_of_weights = 0
                 for p in particles:
                     for i in range(len(monoObjects)):
                         if monoObjects[i] != None:
                             d = np.sqrt((landmarks[i+1][0] - p.getX())**2 + (landmarks[i+1][1]-p.getY())**2)
-                            dist_w = 1/(np.sqrt(2*np.pi*sigma_dist**2))*(np.exp(-((((monoObjects[i][0]-d))**2)/(2*sigma_dist**2))))
+                            dist_w = 1/(np.sqrt(2*np.pi*sigma_dist**2))*(np.exp(-((((monoObjects[i][0]-d)/100)**2)/(2*sigma_dist**2))))
                             e_l = [(landmarks[i+1][0] - p.getX())/d, (landmarks[i+1][1]-p.getY())/d]
                             e_theta = [np.cos(monoObjects[i][1]), np.sin(monoObjects[i][1])]
                             e_hat_theta = [-np.sin(monoObjects[i][1]), np.cos(monoObjects[i][1])]
@@ -282,26 +287,28 @@ try:
                             #print("dist_w2: {:.2f}".format(dist_w))
                             p.setWeight(dist_w * angle_w)
                     sum_of_weights += p.getWeight()
-                print(sum_of_weights)
-                if sum_of_weights > 10**(-120):    
-                    for p in particles:           
+                for p in particles:           
                         p.setWeight((p.getWeight()/sum_of_weights))
-                else:
-                    for p in particles:
-                        p.setWeight(1/num_particles)
+                
+                #Resample particles using numpy
+                p=np.array([pa.weight for pa in particles])
+                #Normalize weights
+                p=p/np.sum(p)
+                particles = np.random.choice(particles, num_particles, p=p)
 
                 #Resampling
                 #XXX: You do this
-                new_particles = []
-                for i in range(num_particles):
-                  r = np.random.ranf()
-                  sum_of_weights = 0
-                  for p in particles:
-                      sum_of_weights += p.getWeight()
-                      if sum_of_weights >= r:
-                          new_particles.append(copy.copy(p))
-                          break
-                particles = new_particles
+                #new_particles = []
+                #for i in range(num_particles):
+                #   r = np.random.ranf()
+                #   sum_of_weights = 0
+                #   for p in particles:
+                #       sum_of_weights += p.getWeight()
+                #       if sum_of_weights >= r:
+                #           new_particles.append(copy.copy(p))
+                #           break
+                #particles = new_particles
+                
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)

@@ -3,6 +3,29 @@ import copy
 import particle
 import time
 
+def residual_resample(weights):
+    N = len(weights)
+    indexes = np.zeros(N, 'i')
+
+    # take int(N*w) copies of each weight, which ensures particles with the
+    # same weight are drawn uniformly
+    num_copies = (np.floor(N*np.asarray(weights))).astype(int)
+    k = 0
+    for i in range(N):
+        for _ in range(num_copies[i]): # make n copies
+            indexes[k] = i
+            k += 1
+
+    # use multinormal resample on the residual to fill up the rest. This
+    # maximizes the variance of the samples
+    residual = weights - num_copies     # get fractional part
+    residual /= sum(residual)           # normalize
+    cumulative_sum = np.cumsum(residual)
+    cumulative_sum[-1] = 1. # avoid round-off errors: ensures sum is exactly one
+    indexes[k:N] = np.searchsorted(cumulative_sum, random(N-k))
+
+    return indexes
+
 def initialize_particles(num_particles):
     particles = []
     for i in range(num_particles):
@@ -15,13 +38,7 @@ def initialize_particles(num_particles):
 #Time runtime of the particle filter
 start_time = time.time()
 
-num_particles = 1000
-particles = initialize_particles(num_particles)
-#Resample particles using numpy
-p=np.array([pa.weight for pa in particles])
-#Normalize weights
-p=p/np.sum(p)
-particles = np.random.choice(particles, num_particles, p=p)
+#
 
 end_time = time.time()
 print("Time elapsed for numpy filter: ", end_time - start_time)
