@@ -240,26 +240,29 @@ try:
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i]*dist_mul, ", angle = ", angles[i])
                 # XXX: Do something for each detected object - remember, the same ID may appear several times
+                bab = angles[i]
+                if bab < 0.0:
+                    bab = (2*np.pi+angles[i])
                 if objectIDs[i] == 1:
                     if monoObjects[0] == None:
-                        monoObjects[0] = (dists[i]*dist_mul, angles[i])
+                        monoObjects[0] = (dists[i]*dist_mul, bab)
                     elif monoObjects[0][0] < dists[i]*dist_mul:
-                        monoObjects[0] = (dists[i]*dist_mul, angles[i])
+                        monoObjects[0] = (dists[i]*dist_mul, bab)
                 elif objectIDs[i] == 2:
                     if monoObjects[1] == None:
-                        monoObjects[1] = (dists[i]*dist_mul, angles[i])
+                        monoObjects[1] = (dists[i]*dist_mul, bab)
                     elif monoObjects[1][0] < dists[i]*dist_mul:
-                        monoObjects[1] = (dists[i]*dist_mul, angles[i])
+                        monoObjects[1] = (dists[i]*dist_mul, bab)
                 elif objectIDs[i] == 3:
                     if monoObjects[2] == None:
-                        monoObjects[2] = (dists[i]*dist_mul, angles[i])
+                        monoObjects[2] = (dists[i]*dist_mul, bab)
                     elif monoObjects[2][0] < dists[i]*dist_mul:
-                        monoObjects[2] = (dists[i]*dist_mul, angles[i])
+                        monoObjects[2] = (dists[i]*dist_mul, bab)
                 elif objectIDs[i] == 4:
                     if monoObjects[3] == None:
-                        monoObjects[3] = (dists[i]*dist_mul, angles[i])
+                        monoObjects[3] = (dists[i]*dist_mul, bab)
                     elif monoObjects[3][0] < dists[i]*dist_mul:
-                        monoObjects[3] = (dists[i]*dist_mul, angles[i])
+                        monoObjects[3] = (dists[i]*dist_mul, bab)
                 
                 
 
