@@ -15,7 +15,7 @@ showGUI = True  # Whether or not to open GUI windows
 onRobot = True # Whether or not we are running on the Arlo robot
 
 def isRunningOnArlo():
-    return(onRobot)
+    return onRobot
     
 if isRunningOnArlo():
     # XXX: You need to change this path to point to where your robot.py file is located
