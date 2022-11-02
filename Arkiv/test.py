@@ -5,8 +5,9 @@ from turtle import right
 import robot
 
 arlo = robot.Robot()
-hello = True
+
 def timer(x):
+    hello = True
     start = time.time()
     end = start + (x*1000)
     while hello==True:
