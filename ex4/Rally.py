@@ -159,11 +159,6 @@ try:
     else:
         cam = camera.Camera(0, 'macbookpro', useCaptureThread = True)
 
-    fullTurn = 0
-    fullTurnAmount = 0
-    turns = 0
-    dist_mul = 20
-
     pissAndFecees=Loco.Localize(particles=particles,landmarks=landmarks,cam=cam,arlo=arlo)
     est_pose=pissAndFecees[0]
     particles=pissAndFecees[1]
