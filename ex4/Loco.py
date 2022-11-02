@@ -14,6 +14,8 @@ def Localize(particles,num_particles,landmarks,cam,arlo):
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
+        fullTurn = 0
+        fullTurnAmount = 0
         turnsAmount=12
         speedMultiple=0.75
         fullTurnVal=2.9/speedMultiple
