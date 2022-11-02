@@ -168,24 +168,8 @@ try:
                 # Move the robot according to user input (only for testing)
         action = cv2.waitKey(10)
         if action == ord('q'): # Quit
-            break
-    
-        if not isRunningOnArlo():
-      #  if action == ord('l'):
-            if action == ord('w'): # Forward
-                velocity += 4.0
-                print("you did it")
-            elif action == ord('x'): # Backwards
-                velocity -= 4.0
-            elif action == ord('s'): # Stop
-                velocity = 0.0
-                angular_velocity = 0.0
-            elif action == ord('a'): # Left
-                angular_velocity += 0.2
-            elif action == ord('d'): # Right
-                angular_velocity -= 0.2
-                
-                
+            break  
+            
         turnsAmount=12
         speedMultiple=0.75
         fullTurnVal=2.9/speedMultiple
