@@ -159,7 +159,7 @@ try:
     # Initialize the robot (XXX: You do this)
     arlo = robot.Robot()
     # Allocate space for world map
-    world = np.zeros((500,500,3), dtype=np.uint8)
+    world = np.zeros((400,500,3), dtype=np.uint8)
 
     # Draw map
     draw_world(est_pose, particles, world)
