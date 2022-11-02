@@ -276,8 +276,10 @@ try:
                             d = np.sqrt((landmarks[i+1][0] - p.getX())**2 + (landmarks[i+1][1]-p.getY())**2)
                             dist_w = 1/(np.sqrt(2*np.pi*sigma_dist**2))*(np.exp(-((((monoObjects[i][0]-d))**2)/(2*sigma_dist**2))))
                             e_l = [(landmarks[i+1][0] - p.getX())/d, (landmarks[i+1][1]-p.getY())/d]
-                            e_theta = [np.cos(monoObjects[i][1]), np.sin(monoObjects[i][1])]
-                            e_hat_theta = [-np.sin(monoObjects[i][1]), np.cos(monoObjects[i][1])]
+                            #e_theta = [np.cos(monoObjects[i][1]), np.sin(monoObjects[i][1])]
+                            e_theta = [np.cos(p.getTheta()), np.sin(p.getTheta())]
+                            #e_hat_theta = [-np.sin(monoObjects[i][1]), np.cos(monoObjects[i][1])]
+                            e_hat_theta = [-np.sin(p.getTheta()), np.cos(p.getTheta())]
                             phi = np.sign(e_l[0]*e_hat_theta[0]+e_l[1]*e_hat_theta[1])*np.arccos(e_l[0]*e_theta[0]+e_l[1]*e_theta[1])
                             angle_w = 1/(np.sqrt(2*np.pi*sigma_angle**2))*np.exp(-(((monoObjects[i][1]-(phi))**2)/(2*sigma_angle**2)))
                             #print("dist_w2: {:.2f}".format(dist_w))
