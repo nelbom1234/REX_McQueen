@@ -9,7 +9,7 @@ arlo = robot.Robot()
 def timer(x):
     hello = True
     start = time.time()
-    end = start + (x*1000)
+    end = start + x
     print(end)
     while time.time() < end:
         print(time.time())
