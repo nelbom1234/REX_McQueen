@@ -237,7 +237,7 @@ try:
             
             if theta_diff < 0:
                 print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
-                sleep(3.500*((-theta_diff)/(2.0*np.pi)))
+                sleep(3.300*((-theta_diff)/(2.0*np.pi)))
                 print(arlo.stop())
                 sleep(0.041)
             else:
