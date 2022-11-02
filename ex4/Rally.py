@@ -69,9 +69,13 @@ def draw_world(est_pose, particles, world):
 
     # Constant needed for transforming from world coordinates to screen coordinates (flip the y-axis)
     ymax = world.shape[0]
-
-    world[:] = CWHITE # Clear background to white
-
+    
+    #do 
+    #do
+    #do
+    world[:] = CBLACK # Clear background to white 
+    # do
+    
     # Find largest weight
     max_weight = 0
     for particle in particles:
