@@ -142,7 +142,7 @@ try:
 
 
     # Initialize particles
-    num_particles = 2000
+    num_particles = 1200
     particles = initialize_particles(num_particles)
 
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
@@ -208,7 +208,7 @@ try:
             Skip=0
 
         #SKAL DREJE 360 GRADER
-        if Skip<1 and fullTurnAmount!=5:
+        if Skip<1 and fullTurnAmount!=1:
             print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
             sleep(fullTurnVal/turnsAmount)
             for p in particles:
@@ -221,7 +221,33 @@ try:
             if turnsAmount < fullTurn:
                 fullTurnAmount += 1
                 fullTurn=0
-
+        else:
+            x = est_pose.getX()
+            y = est_pose.getY()
+            theta = est_pose.getTheta()
+            #x,y,theta = est_pose
+            dvx = 0.0-x
+            dvy = 150.0-y
+            dvtheta = np.arctan(dvy/dvx)
+            theta_deg = theta*57.29
+            dvtheta_deg = dvtheta*57.29
+            theta_diff = theta_deg-dvtheta_deg
+            if theta_diff < 0:
+                print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+                sleep(0.322*((-theta_diff)/30))
+                print(arlo.stop())
+                sleep(0.041)
+            else:
+                print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+                sleep(0.322*(theta_diff/30))
+                print(arlo.stop())
+                sleep(0.041)
+            dist = np.sqrt(dvx**2+dvy**2)
+            print(arlo.go_diff(leftForward, rightForward, 1, 1))
+            sleep(3*(dist/124))
+            print(arlo.stop())
+            sleep(0.041)
+            break
         # Fetch next frame
         colour = cam.get_next_frame()
         
