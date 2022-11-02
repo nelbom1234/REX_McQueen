@@ -161,18 +161,15 @@ try:
     fullTurn = 0
     fullTurnAmount = 0
     turns = 0
-    Skip=0
     dist_mul = 20
 
     while True:
         turnsAmount=12
         speedMultiple=0.75
         fullTurnVal=2.9/speedMultiple
-        if Skip<0:
-            Skip=0
 
         #SKAL DREJE 360 GRADER
-        if Skip<1 and fullTurnAmount!=5:
+        if fullTurnAmount!=5:
             print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
             sleep(fullTurnVal/turnsAmount)
             for p in particles:
@@ -194,10 +191,6 @@ try:
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         monoObjects = [None, None, None, None]
-
-        if Skip < 1 and fullTurnAmount != 5 and not isinstance(objectIDs, type(None)) and any(p < 5 for p in objectIDs):
-            Skip = 0
-        Skip-=1
 
         if not isinstance(objectIDs, type(None)) and any(p < 5 for p in objectIDs):
             # List detected objects
