@@ -226,7 +226,7 @@ try:
             y = est_pose.getY()
             theta = est_pose.getTheta()
             #x,y,theta = est_pose
-            dvx = 0.0-x
+            dvx = 400.0-x
             dvy = 150.0-y
             dvtheta = np.arctan(dvy/dvx)
             theta_deg = theta*57.29
