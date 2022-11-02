@@ -130,7 +130,7 @@ try:
 
 
     # Initialize particles
-    num_particles = 2000
+    num_particles = 1200
     particles = initialize_particles(num_particles)
 
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
@@ -147,7 +147,7 @@ try:
     # Initialize the robot (XXX: You do this)
     arlo = robot.Robot()
     # Allocate space for world map
-    world = np.zeros((500,500,3), dtype=np.uint8)
+    world = np.zeros((500,400,3), dtype=np.uint8)
 
     # Draw map
     draw_world(est_pose, particles, world)
