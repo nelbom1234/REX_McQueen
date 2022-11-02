@@ -165,7 +165,7 @@ try:
 
     while True:
         
-                # Move the robot according to user input (only for testing)
+        # Move the robot according to user input (only for testing)
         action = cv2.waitKey(10)
         if action == ord('q'): # Quit
             break
