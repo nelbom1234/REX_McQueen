@@ -159,20 +159,21 @@ try:
     else:
         cam = camera.Camera(0, 'macbookpro', useCaptureThread = True)
 
-    pissAndFecees=Loco.Localize(particles=particles,landmarks=landmarks,cam=cam,arlo=arlo)
-    est_pose=pissAndFecees[0]
-    particles=pissAndFecees[1]
-    colour = cam.get_next_frame()
+    while True:
+        pissAndFecees=Loco.Localize(particles=particles,num_particles=num_particles,landmarks=landmarks,cam=cam,arlo=arlo)
+        est_pose=pissAndFecees[0]
+        particles=pissAndFecees[1]
+        colour = cam.get_next_frame()
 
-    if showGUI:
-        # Draw map
-        draw_world(est_pose, particles, world)
+        if showGUI:
+            # Draw map
+            draw_world(est_pose, particles, world)
 
-        # Show frame
-        cv2.imshow(WIN_RF1, colour)
+            # Show frame
+            cv2.imshow(WIN_RF1, colour)
 
-        # Show world
-        cv2.imshow(WIN_World, world)
+            # Show world
+            cv2.imshow(WIN_World, world)
     
   
 finally: 
