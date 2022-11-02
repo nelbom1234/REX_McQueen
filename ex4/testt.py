@@ -225,7 +225,7 @@ try:
         # Fetch next frame
         colour = cam.get_next_frame()
         
-        particle.add_uncertainty(particles, 2.5, 0.02*np.pi)
+        particle.add_uncertainty(particles, 15, 0.02*np.pi)
 
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
