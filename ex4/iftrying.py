@@ -80,8 +80,8 @@ def draw_world(est_pose, particles, world):
     This functions draws robots position in the world coordinate system."""
 
     # Fix the origin of the coordinate system
-    offsetX = 50
-    offsetY = 50
+    offsetX = 50 #50
+    offsetY = 50 #50
 
     # Constant needed for transforming from world coordinates to screen coordinates (flip the y-axis)
     ymax = world.shape[0]
@@ -142,7 +142,7 @@ try:
 
 
     # Initialize particles
-    num_particles = 1200
+    num_particles = 1500
     particles = initialize_particles(num_particles)
 
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
@@ -225,7 +225,7 @@ try:
         # Fetch next frame
         colour = cam.get_next_frame()
         
-        particle.add_uncertainty(particles, 15, 0.02*np.pi)
+        particle.add_uncertainty(particles, 2.5, 0.02*np.pi)
 
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
@@ -240,26 +240,29 @@ try:
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i]*dist_mul, ", angle = ", angles[i])
                 # XXX: Do something for each detected object - remember, the same ID may appear several times
+                bab = angles[i]
+                if bab < 0.0:
+                    bab = angles[i]
                 if objectIDs[i] == 1:
                     if monoObjects[0] == None:
-                        monoObjects[0] = (dists[i]*dist_mul, angles[i])
+                        monoObjects[0] = (dists[i]*dist_mul, bab)
                     elif monoObjects[0][0] < dists[i]*dist_mul:
-                        monoObjects[0] = (dists[i]*dist_mul, angles[i])
+                        monoObjects[0] = (dists[i]*dist_mul, bab)
                 elif objectIDs[i] == 2:
                     if monoObjects[1] == None:
-                        monoObjects[1] = (dists[i]*dist_mul, angles[i])
+                        monoObjects[1] = (dists[i]*dist_mul, bab)
                     elif monoObjects[1][0] < dists[i]*dist_mul:
-                        monoObjects[1] = (dists[i]*dist_mul, angles[i])
+                        monoObjects[1] = (dists[i]*dist_mul, bab)
                 elif objectIDs[i] == 3:
                     if monoObjects[2] == None:
-                        monoObjects[2] = (dists[i]*dist_mul, angles[i])
+                        monoObjects[2] = (dists[i]*dist_mul, bab)
                     elif monoObjects[2][0] < dists[i]*dist_mul:
-                        monoObjects[2] = (dists[i]*dist_mul, angles[i])
+                        monoObjects[2] = (dists[i]*dist_mul, bab)
                 elif objectIDs[i] == 4:
                     if monoObjects[3] == None:
-                        monoObjects[3] = (dists[i]*dist_mul, angles[i])
+                        monoObjects[3] = (dists[i]*dist_mul, bab)
                     elif monoObjects[3][0] < dists[i]*dist_mul:
-                        monoObjects[3] = (dists[i]*dist_mul, angles[i])
+                        monoObjects[3] = (dists[i]*dist_mul, bab)
                 
                 
 
@@ -274,12 +277,10 @@ try:
                     for i in range(len(monoObjects)):
                         if monoObjects[i] != None:
                             d = np.sqrt((landmarks[i+1][0] - p.getX())**2 + (landmarks[i+1][1]-p.getY())**2)
-                            dist_w = 1/(np.sqrt(2*np.pi*sigma_dist**2))*np.exp(-((d-monoObjects[i][0])**2)/(2*sigma_dist**2))
+                            dist_w = 1/(np.sqrt(2*np.pi*sigma_dist**2))*(np.exp(-((((monoObjects[i][0]-d))**2)/(2*sigma_dist**2))))
                             e_l = [(landmarks[i+1][0] - p.getX())/d, (landmarks[i+1][1]-p.getY())/d]
-                            #e_theta = [np.cos(monoObjects[i][1]), np.sin(monoObjects[i][1])]
-                            e_theta = [np.cos(p.getTheta()), np.sin(p.getTheta())]
-                            #e_hat_theta = [-np.sin(monoObjects[i][1]), np.cos(monoObjects[i][1])]
-                            e_hat_theta = [-np.sin(p.getTheta()), np.cos(p.getTheta())]
+                            e_theta = [np.cos(monoObjects[i][1]), np.sin(monoObjects[i][1])]
+                            e_hat_theta = [-np.sin(monoObjects[i][1]), np.cos(monoObjects[i][1])]
                             phi = np.sign(e_l[0]*e_hat_theta[0]+e_l[1]*e_hat_theta[1])*np.arccos(e_l[0]*e_theta[0]+e_l[1]*e_theta[1])
                             angle_w = 1/(np.sqrt(2*np.pi*sigma_angle**2))*np.exp(-(((monoObjects[i][1]-(phi))**2)/(2*sigma_angle**2)))
                             #print("dist_w2: {:.2f}".format(dist_w))
