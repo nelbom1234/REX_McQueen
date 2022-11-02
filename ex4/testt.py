@@ -142,7 +142,7 @@ try:
 
 
     # Initialize particles
-    num_particles = 1000
+    num_particles = 3000
     particles = initialize_particles(num_particles)
 
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
@@ -273,10 +273,10 @@ try:
                     p.setWeight(1)
                     for i in range(len(monoObjects)):
                         if monoObjects[i] != None:
-                            d = np.sqrt((landmarks[i][0] - p.getX())**2 + (landmarks[i][1]-p.getY())**2)
+                            d = np.sqrt((landmarks[i+1][0] - p.getX())**2 + (landmarks[i+1][1]-p.getY())**2)
                             print(landmarks[i+1])
                             dist_w = 1/(np.sqrt(2*np.pi*sigma_dist**2))*np.exp(-((d-monoObjects[i][0])**2)/(2*sigma_dist**2))
-                            e_l = [(landmarks[i][0] - p.getX())/d, (landmarks[i][1]-p.getY())/d]
+                            e_l = [(landmarks[i+1][0] - p.getX())/d, (landmarks[i+1][1]-p.getY())/d]
                             e_theta = [np.cos(monoObjects[i][1]), np.sin(monoObjects[i][1])]
                             e_hat_theta = [-np.sin(monoObjects[i][1]), np.cos(monoObjects[i][1])]
                             phi = np.sign(e_l[0]*e_hat_theta[0]+e_l[1]*e_hat_theta[1])*np.arccos(e_l[0]*e_theta[0]+e_l[1]*e_theta[1])
