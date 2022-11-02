@@ -14,7 +14,7 @@ import copy
 showGUI = True  # Whether or not to open GUI windows
 onRobot = True # Whether or not we are running on the Arlo robot
 
-def IsRunningOnArlo():
+def isRunningOnArlo():
     return(onRobot)
     
 if IsRunningOnArlo():
