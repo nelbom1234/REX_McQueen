@@ -159,7 +159,7 @@ try:
     # Initialize the robot (XXX: You do this)
     arlo = robot.Robot()
     # Allocate space for world map
-    world = np.zeros((500,500,3), dtype=np.uint8)
+    world = np.zeros((400,500,3), dtype=np.uint8)
 
     # Draw map
     draw_world(est_pose, particles, world)
@@ -231,15 +231,15 @@ try:
             dvtheta = np.arctan(dvy/dvx)
             theta_deg = theta*57.29
             dvtheta_deg = dvtheta*57.29
-            theta_diff = theta_deg-dvtheta_deg
+            theta_diff = theta-dvtheta
             if theta_diff < 0:
-                print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
-                sleep(0.322*((-theta_diff)/30))
+                print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+                sleep(0.322*((-theta_diff)/0.333))
                 print(arlo.stop())
                 sleep(0.041)
             else:
-                print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
-                sleep(0.322*(theta_diff/30))
+                print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+                sleep(0.322*(theta_diff/0.333))
                 print(arlo.stop())
                 sleep(0.041)
             dist = np.sqrt(dvx**2+dvy**2)
