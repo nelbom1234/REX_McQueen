@@ -148,7 +148,7 @@ try:
     # Initialize the robot (XXX: You do this)
     arlo = robot.Robot()
     # Allocate space for world map
-    world = np.zeros((400,500,3), dtype=np.uint8)
+    world = np.zeros((500,500,3), dtype=np.uint8)
 
     # Draw map
     draw_world(est_pose, particles, world)
@@ -161,9 +161,9 @@ try:
 
     while True:
         pissAndFecees=Loco.Localize(particles=particles,num_particles=num_particles,landmarks=landmarks,cam=cam,arlo=arlo)
-        est_pose=pissAndFecees[0]
-        particles=pissAndFecees[1]
+        est_pose, particles =pissAndFecees
         colour = cam.get_next_frame()
+        cam.draw_aruco_objects(colour)
 
         if showGUI:
             # Draw map
