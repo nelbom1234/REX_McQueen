@@ -80,8 +80,8 @@ def draw_world(est_pose, particles, world):
     This functions draws robots position in the world coordinate system."""
 
     # Fix the origin of the coordinate system
-    offsetX = 100 #50
-    offsetY = 250 #50
+    offsetX = 50 #50
+    offsetY = 50 #50
 
     # Constant needed for transforming from world coordinates to screen coordinates (flip the y-axis)
     ymax = world.shape[0]
