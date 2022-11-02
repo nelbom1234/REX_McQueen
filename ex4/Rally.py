@@ -17,7 +17,7 @@ onRobot = True # Whether or not we are running on the Arlo robot
 def isRunningOnArlo():
     return(onRobot)
     
-if IsRunningOnArlo():
+if isRunningOnArlo():
     # XXX: You need to change this path to point to where your robot.py file is located
     sys.path.append("/home/pi/Arlo/Robot/git/REX_McQueen")
 
