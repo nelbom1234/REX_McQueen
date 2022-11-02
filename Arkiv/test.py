@@ -4,17 +4,7 @@ from turtle import right
 import robot
 
 arlo = robot.Robot()
-
-print("Running ...")
-
-leftSpeed = 64
-rightSpeed = 66
-arlo.go_diff(leftSpeed, rightSpeed, 1, 0)
-timer(3)
-
-
 hello = True
-
 def timer(x):
     start = time.time()
     end = start + (x*1000)
@@ -25,6 +15,19 @@ def timer(x):
             hello = False
         else:
             Print("going")
+
+
+print("Running ...")
+
+leftSpeed = 64
+rightSpeed = 66
+arlo.go_diff(leftSpeed, rightSpeed, 1, 0)
+timer(3)
+
+
+
+
+
 
 
   # request to read Front sonar ping sensor
