@@ -56,9 +56,9 @@ CBLACK = (0, 0, 0)
 landmarkIDs = [1, 2, 3, 4]
 landmarks = {
     1: (0.0, 0.0),  # Coordinates for landmark 1
-    2: (300.0, 0.0),  # Coordinates for landmark 2
-    3: (0.0, 400.0),  # Coordinates for landmark 3
-    4: (300.0, 400.0) # Coordinates for landmark 4
+    2: (0.0, 300.0),  # Coordinates for landmark 2
+    3: (400.0, 0.0),  # Coordinates for landmark 3
+    4: (400.0, 300.0) # Coordinates for landmark 4
 }
 landmark_colors = [CRED, CGREEN, CBLUE, CYELLOW] # Colors used when drawing the landmarks
 
@@ -225,7 +225,7 @@ try:
         # Fetch next frame
         colour = cam.get_next_frame()
         
-        particle.add_uncertainty(particles, 15, 0.02*np.pi)
+        particle.add_uncertainty(particles, 5, 0.02*np.pi)
 
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
