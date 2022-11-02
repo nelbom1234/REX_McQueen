@@ -13,7 +13,7 @@ def timer(x):
     print(end)
     while time.time() < end:
         print(time.time())
-        if arlo.read_front_ping_sensor() < 50:
+        if arlo.read_front_ping_sensor() < 500:
             print("i am breaking")
             break
             
