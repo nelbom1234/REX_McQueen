@@ -232,7 +232,7 @@ try:
         monoObjects = [None, None, None, None]
 
         if Skip < 1 and fullTurnAmount != 5 and not isinstance(objectIDs, type(None)) and any(p < 5 for p in objectIDs):
-            Skip = 5
+            Skip = 0
         Skip-=1
 
         if not isinstance(objectIDs, type(None)) and any(p < 5 for p in objectIDs):
