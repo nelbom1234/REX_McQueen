@@ -10,11 +10,19 @@ def timer(x):
     hello = True
     start = time.time()
     end = start + (x*1000)
-    while hello==True:
-        if time.time() > end:
-            hello = False
-        elif arlo.read_front_ping_sensor() < 50:
-            hello = False
+    while time.time() < end:
+        if arlo.read_front_ping_sensor() < 50:
+            print("i am breaking")
+            break
+            
+        
+    
+    
+    #while hello==True:
+     #   if time.time() > end:
+      #      hello = False
+       # elif arlo.read_front_ping_sensor() < 50:
+        #    hello = False
 
 
 print("Running ...")
@@ -24,7 +32,6 @@ rightSpeed = 66
 
 arlo.go_diff(leftSpeed, rightSpeed, 1, 0)
 timer(20)
-
 print(arlo.stop())
 
 
