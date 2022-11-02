@@ -10,7 +10,9 @@ def timer(x):
     hello = True
     start = time.time()
     end = start + (x*1000)
+    print(end)
     while time.time() < end:
+        print(time.time())
         if arlo.read_front_ping_sensor() < 50:
             print("i am breaking")
             break
