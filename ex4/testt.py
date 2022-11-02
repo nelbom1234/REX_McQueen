@@ -234,12 +234,12 @@ try:
             theta_diff = theta-dvtheta
             if theta_diff < 0:
                 print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
-                sleep(0.322*((-theta_diff)/0.166))
+                sleep(0.322*((-theta_diff)*0.166))
                 print(arlo.stop())
                 sleep(0.041)
             else:
                 print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
-                sleep(0.322*(theta_diff/0.166))
+                sleep(0.322*(theta_diff*0.166))
                 print(arlo.stop())
                 sleep(0.041)
             dist = np.sqrt(dvx**2+dvy**2)
