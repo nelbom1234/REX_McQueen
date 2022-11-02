@@ -174,7 +174,7 @@ try:
     fullTurnAmount = 0
     turns = 0
     Skip=0
-    dist_add = 20
+    dist_mul = 20
 
     while True:
 
