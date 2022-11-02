@@ -22,7 +22,7 @@ print("Running ...")
 leftSpeed = 64
 rightSpeed = 66
 arlo.go_diff(leftSpeed, rightSpeed, 1, 0)
-timer(3)
+timer(20)
 
 
 
