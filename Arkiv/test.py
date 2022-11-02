@@ -16,7 +16,7 @@ def timer(x):
         elif arlo.read_front_ping_sensor() < 50:
             hello = False
         else:
-            Print("going")
+            print("going")
 
 
 print("Running ...")
