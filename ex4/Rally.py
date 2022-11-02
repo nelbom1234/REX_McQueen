@@ -14,22 +14,9 @@ import copy
 showGUI = True  # Whether or not to open GUI windows
 onRobot = True # Whether or not we are running on the Arlo robot
 
-
-def isRunningOnArlo():
-    """Return True if we are running on Arlo, otherwise False.
-      You can use this flag to switch the code from running on you laptop to Arlo - you need to do the programming here!
-    """
-    input1 = cv2.waitKey(10)
-    if (input1 == 'l'):
-        onRobot == False
-    else:
-        return onRobot
-
-
 if isRunningOnArlo():
     # XXX: You need to change this path to point to where your robot.py file is located
     sys.path.append("/home/pi/Arlo/Robot/git/REX_McQueen")
-
 
 try:
     import robot
@@ -37,9 +24,6 @@ try:
 except ImportError:
     print("selflocalize.py: robot module not present - forcing not running on Arlo!")
     onRobot = False
-
-
-
 
 # Some color constants in BGR format
 CRED = (0, 0, 255)
@@ -61,9 +45,6 @@ landmarks = {
     4: (400.0, 300.0) # Coordinates for landmark 4
 }
 landmark_colors = [CRED, CGREEN, CBLUE, CYELLOW] # Colors used when drawing the landmarks
-
-
-
 
 
 def jet(x):
@@ -138,7 +119,7 @@ try:
 
         WIN_World = "World view"
         cv2.namedWindow(WIN_World)
-        cv2.moveWindow(WIN_World, 500, 50)
+        cv2.moveWindow(WIN_World, 400, 50)
 
 
     # Initialize particles
