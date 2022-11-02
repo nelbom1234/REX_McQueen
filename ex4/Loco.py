@@ -18,6 +18,7 @@ def Localize(particles,num_particles,landmarks,cam,arlo):
         speedMultiple=0.75
         fullTurnVal=2.9/speedMultiple
         dist_mul = 20
+        Skip=0
         if Skip<0:
             Skip=0
 
