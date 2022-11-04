@@ -234,6 +234,8 @@ try:
             theta_diff = theta-dvtheta
             
             turns = theta_diff/(0.166*np.pi)
+            print(f"pos: {x}, {y}")
+            print(f"dvpos: {dvx}, {dvy}")
             print(f"theta: {theta}")
             print(f"dvtheta: {dvtheta}")
             print(f"theta_diff: {theta_diff}")
