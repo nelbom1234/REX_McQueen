@@ -253,8 +253,8 @@ try:
 
 
             if theta_diff < 0.0:
-                if x < 0:
-                    turns = turns + 6.0
+                if dvx < 0:
+                    turns = turns - 6.0
                 while -turns > 0.0:
                     if -turns > 1:
                         print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1))
@@ -269,7 +269,7 @@ try:
                         sleep(0.1)
                         turns = 0
             else:
-                if x < 0:
+                if dvx < 0:
                     turns = turns + 6.0
                 while turns > 0.0:
                     if turns > 1.0:
