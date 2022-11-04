@@ -2,8 +2,8 @@ from turtle import right
 import cv2
 import particle
 import camera
-import Loco
 import numpy as np
+import AuxFunctions
 import time
 from time import sleep
 from timeit import default_timer as timer
@@ -148,7 +148,7 @@ try:
     # Initialize the robot (XXX: You do this)
     arlo = robot.Robot()
     # Allocate space for world map
-    world = np.zeros((500,500,3), dtype=np.uint8)
+    world = np.zeros((400,500,3), dtype=np.uint8)
 
     # Draw map
     draw_world(est_pose, particles, world)
@@ -159,21 +159,9 @@ try:
     else:
         cam = camera.Camera(0, 'macbookpro', useCaptureThread = True)
 
-    while True:
-        pissAndFecees=Loco.Localize(particles=particles,num_particles=num_particles,landmarks=landmarks,cam=cam,arlo=arlo)
-        est_pose, particles =pissAndFecees
-        colour = cam.get_next_frame()
-        cam.draw_aruco_objects(colour)
+    AuxFunctions.LocalizeRobot(particles=particles, num_particles=num_particles,landmarks=landmarks,cam=cam,arlo=arlo,world=world)
 
-        if showGUI:
-            # Draw map
-            draw_world(est_pose, particles, world)
-
-            # Show frame
-            cv2.imshow(WIN_RF1, colour)
-
-            # Show world
-            cv2.imshow(WIN_World, world)
+    
     
   
 finally: 

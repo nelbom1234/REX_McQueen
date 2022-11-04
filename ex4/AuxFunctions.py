@@ -1,5 +1,6 @@
 from turtle import right
 import cv2
+import Rally
 import particle
 import camera
 import numpy as np
@@ -9,23 +10,26 @@ from timeit import default_timer as timer
 import sys
 import copy
 
-def Localize(particles,num_particles,landmarks,cam,arlo):
+def LocalizeRobot(particles,num_particles,landmarks,cam,arlo,world):
+    fullTurn = 0
+    fullTurnAmount = 0
+    turns = 0
+    dist_mul = 20
+    WIN_RF1 = "Robot view"
+    WIN_World = "World view"
+
     while True:
-        # Use motor controls to update particles
-        # XXX: Make the robot drive
-        # XXX: You do this
-        fullTurn = 0
-        fullTurnAmount = 0
+        # Move the robot according to user input (only for testing)
+        action = cv2.waitKey(10)
+        if action == ord('q'): # Quit
+            break  
+            
         turnsAmount=12
         speedMultiple=0.75
         fullTurnVal=2.9/speedMultiple
-        dist_mul = 20
-        Skip=0
-        if Skip<0:
-            Skip=0
 
         #SKAL DREJE 360 GRADER
-        if Skip<1 and fullTurnAmount!=5:
+        if fullTurnAmount!=5:
             print(arlo.go_diff(64*speedMultiple, 64*speedMultiple, 1, 0))
             sleep(fullTurnVal/turnsAmount)
             for p in particles:
@@ -36,10 +40,8 @@ def Localize(particles,num_particles,landmarks,cam,arlo):
             particle.add_uncertainty(particles, 10, 0.03*np.pi)
             fullTurn += 1
             if turnsAmount < fullTurn:
-                fullTurnAmount += 1
-                fullTurn=0
-                est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
-                return [est_pose, particles]
+                print("Finished full turn")
+                return None
 
         # Fetch next frame
         colour = cam.get_next_frame()
@@ -49,10 +51,6 @@ def Localize(particles,num_particles,landmarks,cam,arlo):
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         monoObjects = [None, None, None, None]
-
-        if Skip < 1 and fullTurnAmount != 5 and not isinstance(objectIDs, type(None)) and any(p < 5 for p in objectIDs):
-            Skip = 5
-        Skip-=1
 
         if not isinstance(objectIDs, type(None)) and any(p < 5 for p in objectIDs):
             # List detected objects
@@ -119,19 +117,31 @@ def Localize(particles,num_particles,landmarks,cam,arlo):
                 #XXX: You do this
                 new_particles = []
                 for i in range(num_particles):
-                    r = np.random.ranf()
-                    sum_of_weights = 0
-                    for p in particles:
-                        sum_of_weights += p.getWeight()
-                        if sum_of_weights >= r:
-                            new_particles.append(copy.copy(p))
-                            break
+                  r = np.random.ranf()
+                  sum_of_weights = 0
+                  for p in particles:
+                      sum_of_weights += p.getWeight()
+                      if sum_of_weights >= r:
+                          new_particles.append(copy.copy(p))
+                          break
                 particles = new_particles
                 
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
         #else:
-            #No observation - reset weights to uniform distribution
+             #No observation - reset weights to uniform distribution
         #    for p in particles:
         #        p.setWeight(1.0/num_particles)
+
+
+        est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
+
+        # Draw map
+        Rally.draw_world(est_pose, particles, world)
+
+        # Show frame
+        cv2.imshow(WIN_RF1, colour)
+
+        # Show world
+        cv2.imshow(WIN_World, world)
