@@ -240,8 +240,8 @@ try:
             print(f"turns: {turns}")
 
 
-            if theta_diff < 0:
-                while -turns > 0:
+            if theta_diff < 0.0:
+                while -turns > 0.0:
                     if -turns > 1:
                         print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1))
                         sleep(0.322)
@@ -254,8 +254,8 @@ try:
                         print(arlo.stop())
                         sleep(0.1)
             else:
-                while turns > 0:
-                    if turns > 1:
+                while turns > 0.0:
+                    if turns > 1.0:
                         print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
                         sleep(0.322)
                         print(arlo.stop())
