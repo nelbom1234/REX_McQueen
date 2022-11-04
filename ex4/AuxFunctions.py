@@ -212,6 +212,9 @@ def LocalizeRobot(particles,num_particles,cam,arlo,world):
 
         est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
 
+        # Draw map
+        draw_world(est_pose, particles, world)
+
         # Show frame
         cv2.imshow(WIN_RF1, colour)
 
