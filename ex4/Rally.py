@@ -82,7 +82,7 @@ def drive_to_coordinates(x_end, y_end, est_pose):
 
     if theta_diff < 0.0:
         if dvx < 0:
-            turns = turns - 3.5
+            turns = turns - 5.0
         while -turns > 0.0:
             if -turns > 1:
                 print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1))
@@ -98,7 +98,7 @@ def drive_to_coordinates(x_end, y_end, est_pose):
                 turns = 0
     else:
         if dvx < 0:
-            turns = turns + 3.5
+            turns = turns + 5.0
         while turns > 0.0:
             if turns > 1.0:
                 print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
@@ -118,6 +118,20 @@ def drive_to_coordinates(x_end, y_end, est_pose):
     print(arlo.stop())
     sleep(0.041)
 
+def DrivingPlan(ListOfCoordinates):
+    est_pose, particles=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+    for i in range(len(ListOfCoordinates)):
+        drive_to_coordinates(ListOfCoordinates[i][0], ListOfCoordinates[i][1], est_pose)
+        est_pose, particles=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+        print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
+        #Check if est_pose is close to ListOfCoordinates[i]
+        if est_pose.getX() < ListOfCoordinates[i][0]+10 and est_pose.getX() > ListOfCoordinates[i][0]-10 and est_pose.getY() < ListOfCoordinates[i][1]+10 and est_pose.getY() > ListOfCoordinates[i][1]-10:
+            print("Reached the destination")
+        else:
+            print("Not reached the destination")
+            #If not reached the destination, then call the function again
+            drive_to_coordinates(ListOfCoordinates[i][0], ListOfCoordinates[i][1], est_pose)
+            print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
 
 # Main program #
 try:
@@ -150,23 +164,27 @@ try:
         cam = camera.Camera(0, 'arlo', useCaptureThread = True)
     else:
         cam = camera.Camera(0, 'macbookpro', useCaptureThread = True)
-        
-    print(est_pose.x,est_pose.y,est_pose.theta)
-    est_pose, particles=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
-    print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
-    drive_to_coordinates(30, 30, est_pose)
-    est_pose, particles=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
-    print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
-    drive_to_coordinates(30, 250, est_pose)
-    est_pose, particles=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
-    print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
-    drive_to_coordinates(370, 30, est_pose)
-    est_pose, particles=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
-    print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
-    drive_to_coordinates(370, 250, est_pose)
-    est_pose, particles=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
-    print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
-    drive_to_coordinates(30, 30, est_pose)
+    
+    ListOfCoordinates = [[30, 30], [30, 250], [370, 30], [370, 250], [30, 30]]
+
+    DrivingPlan(ListOfCoordinates)
+
+    #print(est_pose.x,est_pose.y,est_pose.theta)
+    #est_pose, particles=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+    #print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
+    #drive_to_coordinates(30, 30, est_pose)
+    #est_pose, particles=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+    #print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
+    #drive_to_coordinates(30, 250, est_pose)
+    #est_pose, particles=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+    #print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
+    #drive_to_coordinates(370, 30, est_pose)
+    #est_pose, particles=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+    #print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
+    #drive_to_coordinates(370, 250, est_pose)
+    #est_pose, particles=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+    #print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
+    #drive_to_coordinates(30, 30, est_pose)
     
 
 
