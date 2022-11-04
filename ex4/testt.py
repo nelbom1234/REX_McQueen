@@ -263,7 +263,7 @@ try:
                         sleep(0.1)
                         turns = turns - 1.0
                     else:
-                        print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1))
+                        print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
                         sleep(0.322*turns)
                         print(arlo.stop())
                         sleep(0.1)
