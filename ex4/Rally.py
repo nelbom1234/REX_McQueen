@@ -76,7 +76,7 @@ def drive_to_coordinates(x_end, y_end, est_pose):
     leftTurn=64
     rightTurn=64
     leftForward=64
-    rightForward=64
+    rightForward=66
             
     turns = theta_diff/(0.166*np.pi)
 
