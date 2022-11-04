@@ -39,17 +39,6 @@ CMAGENTA = (255, 0, 255)
 CWHITE = (255, 255, 255)
 CBLACK = (0, 0, 0)
 
-# Landmarks.
-# The robot knows the position of 2 landmarks. Their coordinates are in the unit centimeters [cm].
-landmarkIDs = [1, 2, 3, 4]
-landmarks = {
-    1: (0.0, 0.0),  # Coordinates for landmark 1
-    2: (0.0, 300.0),  # Coordinates for landmark 2
-    3: (400.0, 0.0),  # Coordinates for landmark 3
-    4: (400.0, 300.0) # Coordinates for landmark 4
-}
-landmark_colors = [CRED, CGREEN, CBLUE, CYELLOW] # Colors used when drawing the landmarks
-
 def initialize_particles(num_particles):
     particles = []
     for i in range(num_particles):
@@ -83,6 +72,11 @@ def drive_to_coordinates(x_end, y_end, est_pose):
     dvy = y_end-y
     dvtheta = np.arctan(dvy/dvx)
     theta_diff = theta-dvtheta
+    speedMultiple=0.75
+    leftTurn=64
+    rightTurn=64
+    leftForward=64
+    rightForward=64
             
     turns = theta_diff/(0.166*np.pi)
 
