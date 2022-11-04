@@ -145,7 +145,6 @@ try:
 
     # Draw map
     AuxFunctions.draw_world(est_pose, particles, world)
-    print("nutsack")
     print("Opening and initializing camera")
     if isRunningOnArlo():
         cam = camera.Camera(0, 'arlo', useCaptureThread = True)
@@ -155,8 +154,8 @@ try:
     print(est_pose.x,est_pose.y,est_pose.theta)
     est_pose, particles=AuxFunctions.LocalizeRobot(particles=particles, num_particles=num_particles,cam=cam,arlo=arlo,world=world)
     print(est_pose.x,est_pose.y,est_pose.theta)
-    sleep(20)
-  
+    drive_to_coordinates(30, 30, est_pose)
+    
 finally: 
     # Make sure to clean up even if an exception occurred
     
