@@ -62,15 +62,6 @@ try:
 
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
 
-    # Driving parameters
-    velocity = 0.0 # cm/sec
-    angular_velocity = 0.0 # radians/sec
-
-    leftForward = 64
-    rightForward = 66
-    leftTurn = 64
-    rightTurn = 64
-
     # Initialize the robot (XXX: You do this)
     arlo = robot.Robot()
     # Allocate space for world map
@@ -84,13 +75,11 @@ try:
         cam = camera.Camera(0, 'arlo', useCaptureThread = True)
     else:
         cam = camera.Camera(0, 'macbookpro', useCaptureThread = True)
-
+        
+    print(est_pose.x,est_pose.y,est_pose.theta)
     est_pose, particles=AuxFunctions.LocalizeRobot(particles=particles, num_particles=num_particles,cam=cam,arlo=arlo,world=world)
-    AuxFunctions.draw_world(est_pose, particles, world)
     print(est_pose.x,est_pose.y,est_pose.theta)
     sleep(20)
-    
-    
   
 finally: 
     # Make sure to clean up even if an exception occurred
