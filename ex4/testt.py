@@ -270,7 +270,7 @@ try:
                         turns = 0
             dist = np.sqrt(dvx**2+dvy**2)
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
-            sleep(3*(dist/124))
+            sleep(3*(dist/120))
             print(arlo.stop())
             sleep(0.041)
             break
