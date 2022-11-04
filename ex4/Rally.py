@@ -145,7 +145,7 @@ try:
 
     # Draw map
     AuxFunctions.draw_world(est_pose, particles, world)
-
+    print("nutsack")
     print("Opening and initializing camera")
     if isRunningOnArlo():
         cam = camera.Camera(0, 'arlo', useCaptureThread = True)
