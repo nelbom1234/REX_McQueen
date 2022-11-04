@@ -34,10 +34,10 @@ def timer(x):
         if arlo.read_front_ping_sensor() < 250:
             print("something in front")
             break
-        elif arlo.read_left_ping_sensor() < 250:
+        elif arlo.read_left_ping_sensor() < 150:
             print("something in the left")
             break
-        elif arlo.read_right_ping_sensor() < 250:
+        elif arlo.read_right_ping_sensor() < 150:
             print("something in the right")
             break
 
