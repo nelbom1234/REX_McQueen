@@ -153,15 +153,19 @@ try:
         
     print(est_pose.x,est_pose.y,est_pose.theta)
     est_pose, particles=AuxFunctions.LocalizeRobot(particles=particles, num_particles=num_particles,cam=cam,arlo=arlo,world=world)
-    print(est_pose.x,est_pose.y,est_pose.theta)
+    print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
     drive_to_coordinates(30, 30, est_pose)
     est_pose, particles=AuxFunctions.LocalizeRobot(particles=particles, num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+    print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
     drive_to_coordinates(30, 250, est_pose)
     est_pose, particles=AuxFunctions.LocalizeRobot(particles=particles, num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+    print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
     drive_to_coordinates(370, 30, est_pose)
     est_pose, particles=AuxFunctions.LocalizeRobot(particles=particles, num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+    print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
     drive_to_coordinates(370, 250, est_pose)
     est_pose, particles=AuxFunctions.LocalizeRobot(particles=particles, num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+    print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
     drive_to_coordinates(30, 30, est_pose)
     
 
