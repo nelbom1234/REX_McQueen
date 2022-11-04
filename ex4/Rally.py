@@ -87,6 +87,7 @@ try:
 
     est_pose, particles=AuxFunctions.LocalizeRobot(particles=particles, num_particles=num_particles,cam=cam,arlo=arlo,world=world)
     AuxFunctions.draw_world(est_pose, particles, world)
+    print(est_pose)
     sleep(20)
     
     
