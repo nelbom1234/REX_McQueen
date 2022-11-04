@@ -253,6 +253,7 @@ try:
                         sleep(0.322*(-turns))
                         print(arlo.stop())
                         sleep(0.1)
+                        turns = 0
             else:
                 while turns > 0.0:
                     if turns > 1.0:
@@ -266,6 +267,7 @@ try:
                         sleep(0.322*turns)
                         print(arlo.stop())
                         sleep(0.1)
+                        turns = 0
             dist = np.sqrt(dvx**2+dvy**2)
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
             sleep(3*(dist/124))
