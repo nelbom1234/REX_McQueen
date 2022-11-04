@@ -56,9 +56,9 @@ CBLACK = (0, 0, 0)
 landmarkIDs = [1, 2, 3, 4]
 landmarks = {
     1: (0.0, 0.0),  # Coordinates for landmark 1
-    2: (0.0, 300.0),  # Coordinates for landmark 2
+    2: (0.0, 285.0),  # Coordinates for landmark 2
     3: (400.0, 0.0),  # Coordinates for landmark 3
-    4: (400.0, 300.0) # Coordinates for landmark 4
+    4: (400.0, 275.0) # Coordinates for landmark 4
 }
 landmark_colors = [CRED, CGREEN, CBLUE, CYELLOW] # Colors used when drawing the landmarks
 
@@ -226,44 +226,51 @@ try:
             y = est_pose.getY()
             theta = est_pose.getTheta()
             #x,y,theta = est_pose
-            dvx = 400.0-x
-            dvy = 300.0-y
+            dvx = 30.0-x
+            dvy = 30.0-y
             dvtheta = np.arctan(dvy/dvx)
             theta_deg = theta*57.29
             dvtheta_deg = dvtheta*57.29
             theta_diff = theta-dvtheta
             
             turns = theta_diff/(0.166*np.pi)
+            print(f"theta: {theta}")
+            print(f"dvtheta: {dvtheta}")
+            print(f"theta_diff: {theta_diff}")
+            print(f"turns: {turns}")
 
-            if theta_diff < 0:
-                while -turns > 0:
+
+            if theta_diff < 0.0:
+                while -turns > 0.0:
                     if -turns > 1:
                         print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1))
                         sleep(0.322)
                         print(arlo.stop())
-                        sleep(0.041)
+                        sleep(0.1)
                         turns = turns + 1.0
                     else:
                         print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1))
                         sleep(0.322*(-turns))
                         print(arlo.stop())
-                        sleep(0.041)
+                        sleep(0.1)
+                        turns = 0
             else:
-                while turns > 0:
-                    if turns > 1:
+                while turns > 0.0:
+                    if turns > 1.0:
                         print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
                         sleep(0.322)
                         print(arlo.stop())
-                        sleep(0.041)
+                        sleep(0.1)
                         turns = turns - 1.0
                     else:
-                        print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1))
+                        print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
                         sleep(0.322*turns)
                         print(arlo.stop())
-                        sleep(0.041)
+                        sleep(0.1)
+                        turns = 0
             dist = np.sqrt(dvx**2+dvy**2)
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
-            sleep(3*(dist/124))
+            sleep(3*(dist/120))
             print(arlo.stop())
             sleep(0.041)
             break
