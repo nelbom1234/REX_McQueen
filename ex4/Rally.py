@@ -155,7 +155,17 @@ try:
     est_pose, particles=AuxFunctions.LocalizeRobot(particles=particles, num_particles=num_particles,cam=cam,arlo=arlo,world=world)
     print(est_pose.x,est_pose.y,est_pose.theta)
     drive_to_coordinates(30, 30, est_pose)
+    est_pose, particles=AuxFunctions.LocalizeRobot(particles=particles, num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+    drive_to_coordinates(30, 250, est_pose)
+    est_pose, particles=AuxFunctions.LocalizeRobot(particles=particles, num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+    drive_to_coordinates(370, 30, est_pose)
+    est_pose, particles=AuxFunctions.LocalizeRobot(particles=particles, num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+    drive_to_coordinates(370, 250, est_pose)
+    est_pose, particles=AuxFunctions.LocalizeRobot(particles=particles, num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+    drive_to_coordinates(30, 30, est_pose)
     
+
+
 finally: 
     # Make sure to clean up even if an exception occurred
     
