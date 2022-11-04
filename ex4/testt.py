@@ -34,7 +34,12 @@ def timer(x):
         if arlo.read_front_ping_sensor() < 250:
             print("i am breaking")
             break
-            
+        elif arlo.read_left_ping_sensor() < 250:
+            print("i am breaking")
+            break
+        elif arlo.read_right_ping_sensor() < 250:
+            print("i am breaking")
+            break
 
 if isRunningOnArlo():
     # XXX: You need to change this path to point to where your robot.py file is located
@@ -254,7 +259,7 @@ try:
 
             if theta_diff < 0.0:
                 if dvx < 0:
-                    turns = turns - 5.0
+                    turns = turns - 6.0
                 while -turns > 0.0:
                     if -turns > 1:
                         print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1))
@@ -270,7 +275,7 @@ try:
                         turns = 0
             else:
                 if dvx < 0:
-                    turns = turns + 5.0
+                    turns = turns + 6.0
                 while turns > 0.0:
                     if turns > 1.0:
                         print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
