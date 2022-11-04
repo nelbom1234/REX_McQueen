@@ -232,19 +232,35 @@ try:
             theta_deg = theta*57.29
             dvtheta_deg = dvtheta*57.29
             theta_diff = theta-dvtheta
-            print(f"theta:{theta}")
-            print(f"dvtheta:{dvtheta}")
             
+            turns = theta_diff/(0.166*np.pi)
+
             if theta_diff < 0:
-                print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
-                sleep(2.675*((-theta_diff)/(2.0*np.pi)))
-                print(arlo.stop())
-                sleep(0.041)
+                while -turns > 0:
+                    if -turns > 1:
+                        print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1))
+                        sleep(0.322)
+                        print(arlo.stop())
+                        sleep(0.041)
+                        turns = turns + 1.0
+                    else:
+                        print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1))
+                        sleep(0.322*(-turns))
+                        print(arlo.stop())
+                        sleep(0.041)
             else:
-                print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
-                sleep(2.675*(theta_diff/(2.0*np.pi)))
-                print(arlo.stop())
-                sleep(0.041)
+                while turns > 0:
+                    if turns > 1:
+                        print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
+                        sleep(0.322)
+                        print(arlo.stop())
+                        sleep(0.041)
+                        turns = turns - 1.0
+                    else:
+                        print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1))
+                        sleep(0.322*turns)
+                        print(arlo.stop())
+                        sleep(0.041)
             dist = np.sqrt(dvx**2+dvy**2)
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
             sleep(3*(dist/124))
