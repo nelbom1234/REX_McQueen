@@ -25,6 +25,16 @@ def isRunningOnArlo():
     else:
         return onRobot
 
+def timer(x):
+    start = time.time()
+    end = start + x
+    print(end)
+    while time.time() < end:
+        print(time.time())
+        if arlo.read_front_ping_sensor() < 500:
+            print("i am breaking")
+            break
+            
 
 if isRunningOnArlo():
     # XXX: You need to change this path to point to where your robot.py file is located
@@ -276,7 +286,7 @@ try:
                         turns = 0
             dist = np.sqrt(dvx**2+dvy**2)
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
-            sleep(3*(dist/120))
+            Timer(3*(dist/120))
             print(arlo.stop())
             sleep(0.041)
             break
