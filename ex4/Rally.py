@@ -161,6 +161,7 @@ try:
 
     est_pose, particles=AuxFunctions.LocalizeRobot(particles=particles, num_particles=num_particles,landmarks=landmarks,cam=cam,arlo=arlo,world=world)
     draw_world(est_pose, particles, world)
+    sleep(20)
     
     
   
