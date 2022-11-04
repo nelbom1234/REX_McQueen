@@ -1,6 +1,5 @@
 from turtle import right
 import cv2
-import Rally
 import particle
 import camera
 import numpy as np
@@ -41,7 +40,8 @@ def LocalizeRobot(particles,num_particles,landmarks,cam,arlo,world):
             fullTurn += 1
             if turnsAmount < fullTurn:
                 print("Finished full turn")
-                return None
+
+                return est_pose, particles
 
         # Fetch next frame
         colour = cam.get_next_frame()
@@ -136,9 +136,6 @@ def LocalizeRobot(particles,num_particles,landmarks,cam,arlo,world):
 
 
         est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
-
-        # Draw map
-        Rally.draw_world(est_pose, particles, world)
 
         # Show frame
         cv2.imshow(WIN_RF1, colour)
