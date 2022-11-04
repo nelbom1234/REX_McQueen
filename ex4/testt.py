@@ -32,13 +32,13 @@ def timer(x):
     while time.time() < end:
         print(time.time())
         if arlo.read_front_ping_sensor() < 250:
-            print("i am breaking")
+            print("something in front")
             break
-        elif arlo.read_left_ping_sensor() < 250:
-            print("i am breaking")
+        elif arlo.read_left_ping_sensor() < 150:
+            print("something in the left")
             break
-        elif arlo.read_right_ping_sensor() < 250:
-            print("i am breaking")
+        elif arlo.read_right_ping_sensor() < 150:
+            print("something in the right")
             break
 
 if isRunningOnArlo():
