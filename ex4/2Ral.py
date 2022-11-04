@@ -14,12 +14,33 @@ import copy
 showGUI = True  # Whether or not to open GUI windows
 onRobot = True # Whether or not we are running on the Arlo robot
 
+
 def isRunningOnArlo():
-    return onRobot
+    """Return True if we are running on Arlo, otherwise False.
+      You can use this flag to switch the code from running on you laptop to Arlo - you need to do the programming here!
+    """
+    input1 = cv2.waitKey(10)
+    if (input1 == 'l'):
+        onRobot == False
+    else:
+        return onRobot
+
+def timer(x):
+    start = time.time()
+    end = start + x
+    print(end)
+    while time.time() < end:
+        print(time.time())
+        if arlo.read_front_ping_sensor() < 500:
+            print("i am breaking")
+            break
     
+    
+
 if isRunningOnArlo():
     # XXX: You need to change this path to point to where your robot.py file is located
     sys.path.append("/home/pi/Arlo/Robot/git/REX_McQueen")
+
 
 try:
     import robot
@@ -27,6 +48,9 @@ try:
 except ImportError:
     print("selflocalize.py: robot module not present - forcing not running on Arlo!")
     onRobot = False
+
+
+
 
 # Some color constants in BGR format
 CRED = (0, 0, 255)
@@ -43,11 +67,14 @@ CBLACK = (0, 0, 0)
 landmarkIDs = [1, 2, 3, 4]
 landmarks = {
     1: (0.0, 0.0),  # Coordinates for landmark 1
-    2: (0.0, 300.0),  # Coordinates for landmark 2
+    2: (0.0, 285.0),  # Coordinates for landmark 2
     3: (400.0, 0.0),  # Coordinates for landmark 3
-    4: (400.0, 300.0) # Coordinates for landmark 4
+    4: (400.0, 275.0) # Coordinates for landmark 4
 }
 landmark_colors = [CRED, CGREEN, CBLUE, CYELLOW] # Colors used when drawing the landmarks
+
+
+
 
 
 def jet(x):
@@ -69,13 +96,9 @@ def draw_world(est_pose, particles, world):
 
     # Constant needed for transforming from world coordinates to screen coordinates (flip the y-axis)
     ymax = world.shape[0]
-    
-    #do 
-    #do
-    #do
-    world[:] = CBLACK # Clear background to white 
-    # do
-    
+
+    world[:] = CWHITE # Clear background to white
+
     # Find largest weight
     max_weight = 0
     for particle in particles:
@@ -127,7 +150,7 @@ try:
         WIN_World = "World view"
         cv2.namedWindow(WIN_World)
         cv2.moveWindow(WIN_World, 500, 50)
-    
+
 
     # Initialize particles
     num_particles = 1200
@@ -161,21 +184,42 @@ try:
     fullTurn = 0
     fullTurnAmount = 0
     turns = 0
+    Skip=0
     dist_mul = 20
 
     while True:
-        
+
         # Move the robot according to user input (only for testing)
         action = cv2.waitKey(10)
         if action == ord('q'): # Quit
-            break  
-            
+            break
+    
+        if not isRunningOnArlo():
+      #  if action == ord('l'):
+            if action == ord('w'): # Forward
+                velocity += 4.0
+                print("you did it")
+            elif action == ord('x'): # Backwards
+                velocity -= 4.0
+            elif action == ord('s'): # Stop
+                velocity = 0.0
+                angular_velocity = 0.0
+            elif action == ord('a'): # Left
+                angular_velocity += 0.2
+            elif action == ord('d'): # Right
+                angular_velocity -= 0.2
+
+        # Use motor controls to update particles
+        # XXX: Make the robot drive
+        # XXX: You do this
         turnsAmount=12
         speedMultiple=0.75
         fullTurnVal=2.9/speedMultiple
+        if Skip<0:
+            Skip=0
 
         #SKAL DREJE 360 GRADER
-        if fullTurnAmount!=5:
+        if Skip<1 and fullTurnAmount!=1:
             print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
             sleep(fullTurnVal/turnsAmount)
             for p in particles:
@@ -188,7 +232,61 @@ try:
             if turnsAmount < fullTurn:
                 fullTurnAmount += 1
                 fullTurn=0
+        else:
+            x = est_pose.getX()
+            y = est_pose.getY()
+            theta = est_pose.getTheta()
+            #x,y,theta = est_pose
+            dvx = 30.0-x
+            dvy = 30.0-y
+            dvtheta = np.arctan(dvy/dvx)
+            theta_deg = theta*57.29
+            dvtheta_deg = dvtheta*57.29
+            theta_diff = theta-dvtheta
+            
+            turns = theta_diff/(0.166*np.pi)
+            print(f"pos: {x}, {y}")
+            print(f"dvpos: {dvx}, {dvy}")
+            print(f"theta: {theta}")
+            print(f"dvtheta: {dvtheta}")
+            print(f"theta_diff: {theta_diff}")
+            print(f"turns: {turns}")
 
+
+            if theta_diff < 0.0:
+                while -turns > 0.0:
+                    if -turns > 1:
+                        print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1))
+                        sleep(0.322)
+                        print(arlo.stop())
+                        sleep(0.1)
+                        turns = turns + 1.0
+                    else:
+                        print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1))
+                        sleep(0.322*(-turns))
+                        print(arlo.stop())
+                        sleep(0.1)
+                        turns = 0
+            else:
+                while turns > 0.0:
+                    if turns > 1.0:
+                        print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
+                        sleep(0.322)
+                        print(arlo.stop())
+                        sleep(0.1)
+                        turns = turns - 1.0
+                    else:
+                        print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
+                        sleep(0.322*turns)
+                        print(arlo.stop())
+                        sleep(0.1)
+                        turns = 0
+            dist = np.sqrt(dvx**2+dvy**2)
+            print(arlo.go_diff(leftForward, rightForward, 1, 1))
+            timer(3*(dist/120))
+            print(arlo.stop())
+            sleep(0.041)
+            break
         # Fetch next frame
         colour = cam.get_next_frame()
         
@@ -197,6 +295,10 @@ try:
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         monoObjects = [None, None, None, None]
+
+        if Skip < 1 and fullTurnAmount != 5 and not isinstance(objectIDs, type(None)) and any(p < 5 for p in objectIDs):
+            Skip = 0
+        Skip-=1
 
         if not isinstance(objectIDs, type(None)) and any(p < 5 for p in objectIDs):
             # List detected objects
@@ -282,9 +384,8 @@ try:
 
 
         est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
-        print("before")
+
         if showGUI:
-            print("after")
             # Draw map
             draw_world(est_pose, particles, world)
     
