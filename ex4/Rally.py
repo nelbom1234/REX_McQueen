@@ -119,14 +119,15 @@ def drive_to_coordinates(x_end, y_end, est_pose):
     sleep(0.041)
 
 def DrivingPlan(ListOfCoordinates):
-    est_pose, particles=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+    est_pose=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
     for i in range(len(ListOfCoordinates)):
         drive_to_coordinates(ListOfCoordinates[i][0], ListOfCoordinates[i][1], est_pose)
-        est_pose, particles=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+        est_pose=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
         print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
         #Check if est_pose is close to ListOfCoordinates[i]
         if est_pose.getX() < ListOfCoordinates[i][0]+10 and est_pose.getX() > ListOfCoordinates[i][0]-10 and est_pose.getY() < ListOfCoordinates[i][1]+10 and est_pose.getY() > ListOfCoordinates[i][1]-10:
             print("Reached the destination")
+            #est_pose=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
         else:
             print("Not reached the destination")
             #If not reached the destination, then call the function again
