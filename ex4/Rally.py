@@ -52,7 +52,6 @@ def timer(x):
     start = time.time()
     end = start + x
     while time.time() < end:
-        print(time.time())
         if arlo.read_front_ping_sensor() < 250:
             print("something in front")
             break
