@@ -78,6 +78,14 @@ def drive_to_coordinates(x_end, y_end, est_pose):
             
     turns = theta_diff/(0.205*np.pi)
 
+    print("===========")
+    print("Robot at ({}, {})".format(x, y))
+    print("Robot heading {}".format(theta))
+    print("Robot moving towards ({}, {})".format(x_end, y_end))
+    print("Robot heading towards {}".format(dvtheta))
+    print("Distance to destination: {}".format(dist))
+    print("===========")
+
     if theta_diff < 0.0:
         if dvx < 0:
             turns = turns - 3.5
@@ -115,6 +123,8 @@ def drive_to_coordinates(x_end, y_end, est_pose):
                 sleep(0.1)
                 turns = 0
     dist = np.sqrt(dvx**2+dvy**2)
+    
+
     arlo.go_diff(leftForward, rightForward, 1, 1)
     timer(3.2*(dist/120))
     arlo.stop()
