@@ -164,7 +164,7 @@ try:
     else:
         cam = camera.Camera(0, 'macbookpro', useCaptureThread = True)
     
-    ListOfCoordinates = [[30, 30], [30, 270], [370, 30], [370, 270], [30, 30]]
+    ListOfCoordinates = [[20, 20], [20, 280], [380, 20], [380, 280], [20, 20]]
 
     DrivingPlan(ListOfCoordinates)
 
