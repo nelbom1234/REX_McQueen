@@ -82,32 +82,32 @@ def drive_to_coordinates(x_end, y_end, est_pose):
 
     if theta_diff < 0.0:
         if dvx < 0:
-            turns = turns - 4.0
+            turns = turns - 3.5
         while -turns > 0.0:
             if -turns > 1:
-                print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
+                print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1))
                 sleep(0.322)
                 print(arlo.stop())
                 sleep(0.1)
                 turns = turns + 1.0
             else:
-                print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
+                print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1))
                 sleep(0.322*(-turns))
                 print(arlo.stop())
                 sleep(0.1)
                 turns = 0
     else:
         if dvx < 0:
-            turns = turns + 4.0
+            turns = turns + 3.5
         while turns > 0.0:
             if turns > 1.0:
-                print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1))
+                print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
                 sleep(0.322)
                 print(arlo.stop())
                 sleep(0.1)
                 turns = turns - 1.0
             else:
-                print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1))
+                print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
                 sleep(0.322*turns)
                 print(arlo.stop())
                 sleep(0.1)
