@@ -76,7 +76,7 @@ def drive_to_coordinates(x_end, y_end, est_pose):
     leftForward=64
     rightForward=66
             
-    turns = theta_diff/(0.233*np.pi)
+    turns = theta_diff/(0.216*np.pi)
 
     if theta_diff < 0.0:
         if dvx < 0:
@@ -112,7 +112,7 @@ def drive_to_coordinates(x_end, y_end, est_pose):
                 turns = 0
     dist = np.sqrt(dvx**2+dvy**2)
     arlo.go_diff(leftForward, rightForward, 1, 1)
-    timer(3.3*(dist/120))
+    timer(3.2*(dist/120))
     arlo.stop()
     sleep(0.041)
 
