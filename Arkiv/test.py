@@ -25,7 +25,7 @@ def timer(x):
             
             sleep(0.041)
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
-            timer(2)
+            sleep(1.5)
             print(arlo.stop())
             
             sleep(0.041)
@@ -43,10 +43,10 @@ def timer(x):
             print(arlo.stop())
             
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
-            timer(2)
+            timer(1.5)
             print(arlo.stop())
 
-        elif arlo.read_left_ping_sensor() < 150:
+        elif arlo.read_left_ping_sensor() < 100:
             print(arlo.stop())
             print("something in the left")
             print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
@@ -55,7 +55,7 @@ def timer(x):
             
             sleep(0.041)
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
-            timer(2)
+            sleep(1.5)
             print(arlo.stop())
             
             sleep(0.041)
@@ -73,7 +73,7 @@ def timer(x):
             print(arlo.stop())
             
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
-            timer(2)
+            timer(1.5)
             print(arlo.stop())
             
         elif arlo.read_right_ping_sensor() < 150:
@@ -85,7 +85,7 @@ def timer(x):
             
             sleep(0.041)
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
-            timer(2)
+            sleep(1.5)
             print(arlo.stop())
             
             sleep(0.041)
@@ -103,7 +103,7 @@ def timer(x):
             print(arlo.stop())
             
             print(arlo.go_diff(leftForward, rightForward, 1, 1))
-            timer(2)
+            timer(1.5)
             print(arlo.stop())
 
 
