@@ -112,7 +112,7 @@ def drive_to_coordinates(x_end, y_end, est_pose):
                 turns = 0
     dist = np.sqrt(dvx**2+dvy**2)
     print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(3.1*(dist/120))
+    timer(3.3*(dist/120))
     print(arlo.stop())
     sleep(0.041)
 
