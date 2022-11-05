@@ -6,17 +6,103 @@ import robot
 
 arlo = robot.Robot()
 
+
 def timer(x):
     start = time.time()
     end = start + x
     print(end)
     while time.time() < end:
         print(time.time())
-        if arlo.read_front_ping_sensor() < 500:
-            print("i am breaking")
-            break
+        if arlo.read_front_ping_sensor() < 250:
+            print(arlo.stop())
+            print("something in front")
+            print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+            sleep(0.637)
+            print(arlo.stop())
             
-        
+            sleep(0.041)
+            print(arlo.go_diff(leftForward, rightForward, 1, 1))
+            timer(2)
+            print(arlo.stop())
+            
+            sleep(0.041)
+            print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+            sleep(0.637)
+            print(arlo.stop())
+            
+            print(arlo.go_diff(leftForward, rightForward, 1, 1))
+            timer(2)
+            print(arlo.stop())
+            
+            sleep(0.041)
+            print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+            sleep(0.637)
+            print(arlo.stop())
+            
+            print(arlo.go_diff(leftForward, rightForward, 1, 1))
+            timer(2)
+            print(arlo.stop())
+
+        elif arlo.read_left_ping_sensor() < 150:
+            print(arlo.stop())
+            print("something in the left")
+            print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+            sleep(0.637)
+            print(arlo.stop())
+            
+            sleep(0.041)
+            print(arlo.go_diff(leftForward, rightForward, 1, 1))
+            timer(2)
+            print(arlo.stop())
+            
+            sleep(0.041)
+            print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+            sleep(0.637)
+            print(arlo.stop())
+            
+            print(arlo.go_diff(leftForward, rightForward, 1, 1))
+            timer(2)
+            print(arlo.stop())
+            
+            sleep(0.041)
+            print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+            sleep(0.637)
+            print(arlo.stop())
+            
+            print(arlo.go_diff(leftForward, rightForward, 1, 1))
+            timer(2)
+            print(arlo.stop())
+            
+        elif arlo.read_right_ping_sensor() < 150:
+            print(arlo.stop())
+            print("something in the right")
+            print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+            sleep(0.637)
+            print(arlo.stop())
+            
+            sleep(0.041)
+            print(arlo.go_diff(leftForward, rightForward, 1, 1))
+            timer(2)
+            print(arlo.stop())
+            
+            sleep(0.041)
+            print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+            sleep(0.637)
+            print(arlo.stop())
+            
+            print(arlo.go_diff(leftForward, rightForward, 1, 1))
+            timer(2)
+            print(arlo.stop())
+            
+            sleep(0.041)
+            print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+            sleep(0.637)
+            print(arlo.stop())
+            
+            print(arlo.go_diff(leftForward, rightForward, 1, 1))
+            timer(2)
+            print(arlo.stop())
+
 
 print("Running ...")
 
