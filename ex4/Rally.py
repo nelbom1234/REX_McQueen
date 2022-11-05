@@ -65,9 +65,9 @@ def timer(x):
             break
 
 def drive_to_coordinates(x_end, y_end, est_pose):
-    x = est_pose.getX()
-    y = est_pose.getY()
-    theta = est_pose.getTheta()
+    x = est_pose.X
+    y = est_pose.Y
+    theta = est_pose.Theta
     dvx = x_end-x
     dvy = y_end-y
     dvtheta = np.arctan(dvy/dvx)
