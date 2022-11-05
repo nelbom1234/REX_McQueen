@@ -51,7 +51,6 @@ def initialize_particles(num_particles):
 def timer(x):
     start = time.time()
     end = start + x
-    print(end)
     while time.time() < end:
         print(time.time())
         if arlo.read_front_ping_sensor() < 250:
