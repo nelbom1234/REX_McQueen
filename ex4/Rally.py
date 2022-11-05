@@ -82,7 +82,8 @@ def drive_to_coordinates(x_end, y_end, est_pose):
 
     if theta_diff < 0.0:
         if dvx < 0:
-            turns = turns - 5.0
+            #turns = turns - 3.5
+            pass
         while -turns > 0.0:
             if -turns > 1:
                 print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1))
@@ -98,7 +99,8 @@ def drive_to_coordinates(x_end, y_end, est_pose):
                 turns = 0
     else:
         if dvx < 0:
-            turns = turns + 5.0
+            #turns = turns + 3.5
+            pass
         while turns > 0.0:
             if turns > 1.0:
                 print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
@@ -117,6 +119,10 @@ def drive_to_coordinates(x_end, y_end, est_pose):
     timer(3.1*(dist/120))
     print(arlo.stop())
     sleep(0.041)
+ 
+#Dennie
+Reached = False
+#Dennie
 
 def DrivingPlan(ListOfCoordinates):
     est_pose=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
@@ -127,7 +133,18 @@ def DrivingPlan(ListOfCoordinates):
         #Check if est_pose is close to ListOfCoordinates[i]
         if est_pose.getX() < ListOfCoordinates[i][0]+10 and est_pose.getX() > ListOfCoordinates[i][0]-10 and est_pose.getY() < ListOfCoordinates[i][1]+10 and est_pose.getY() > ListOfCoordinates[i][1]-10:
             print("Reached the destination")
+            # Dennie
+            Reached = True 
+            # Dennie
             #est_pose=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+            # Dennie
+        elif Reached = False:
+            print("Not reached the destination")
+            #If not reached the destination, then call the function again
+            drive_to_coordinates(ListOfCoordinates[i][0], ListOfCoordinates[i][1], est_pose)
+            est_pose=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+            print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
+            # Dennie
         else:
             print("Not reached the destination")
             #If not reached the destination, then call the function again
