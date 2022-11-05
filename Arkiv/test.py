@@ -76,7 +76,7 @@ def timer(x):
             timer(1.5)
             print(arlo.stop())
             
-        elif arlo.read_right_ping_sensor() < 100:
+        elif arlo.read_right_ping_sensor() < 150:
             print(arlo.stop())
             print("something in the right")
             print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
