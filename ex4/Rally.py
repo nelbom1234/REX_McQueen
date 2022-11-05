@@ -98,9 +98,9 @@ def drive_to_coordinates(x_end, y_end, est_pose):
                 turns = 0
     else:
         if dvx < 0:
-            turns = turns + 2.5
+            turns = turns + 4.0
         if dvy < 0:
-            turns = turns + 2.5
+            turns = turns + 1.0
         while turns > 0.0:
             if turns > 1.0:
                 arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0)
