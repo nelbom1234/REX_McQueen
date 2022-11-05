@@ -80,7 +80,9 @@ def drive_to_coordinates(x_end, y_end, est_pose):
 
     if theta_diff < 0.0:
         if dvx < 0:
-            turns = turns - 5.0
+            turns = turns - 2.5
+        if dvy < 0:
+            turns = turns - 2.5
         while -turns > 0.0:
             if -turns > 1:
                 arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1)
@@ -96,7 +98,9 @@ def drive_to_coordinates(x_end, y_end, est_pose):
                 turns = 0
     else:
         if dvx < 0:
-            turns = turns + 5.0
+            turns = turns + 2.5
+        if dvy < 0:
+            turns = turns + 2.5
         while turns > 0.0:
             if turns > 1.0:
                 arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0)
@@ -164,7 +168,7 @@ try:
     else:
         cam = camera.Camera(0, 'macbookpro', useCaptureThread = True)
     
-    ListOfCoordinates = [[20, 280], [20,20], [380, 20], [380, 280], [20, 20]]
+    ListOfCoordinates = [[20, 20], [20, 280], [380, 20], [380, 280], [20, 20]]
 
     DrivingPlan(ListOfCoordinates)
 
