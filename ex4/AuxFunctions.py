@@ -127,7 +127,7 @@ def LocalizeRobot(num_particles,cam,arlo,world):
             if turnsAmount < fullTurn:
                 print("Finished full turn")
 
-                return est_pose, particles
+                return est_pose
 
         # Fetch next frame
         colour = cam.get_next_frame()
