@@ -7,7 +7,6 @@ import robot
 arlo = robot.Robot()
 
 def timer(x):
-    hello = True
     start = time.time()
     end = start + x
     print(end)
@@ -18,14 +17,6 @@ def timer(x):
             break
             
         
-    
-    
-    #while hello==True:
-     #   if time.time() > end:
-      #      hello = False
-       # elif arlo.read_front_ping_sensor() < 50:
-        #    hello = False
-
 
 print("Running ...")
 
