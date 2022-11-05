@@ -123,9 +123,9 @@ def DrivingPlan(ListOfCoordinates):
     i = 0
     est_pose=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
     while i < len(ListOfCoordinates):
+        print(f"driving to {i+1}")
         drive_to_coordinates(ListOfCoordinates[i][0], ListOfCoordinates[i][1], est_pose)
         est_pose=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
-        print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
         #Check if est_pose is close to ListOfCoordinates[i]
         if est_pose.getX() < ListOfCoordinates[i][0]+50 and est_pose.getX() > ListOfCoordinates[i][0]-50 and est_pose.getY() < ListOfCoordinates[i][1]+50 and est_pose.getY() > ListOfCoordinates[i][1]-50:
             print("Reached the destination")
