@@ -78,7 +78,7 @@ def drive_to_coordinates(x_end, y_end, est_pose):
     leftForward=64
     rightForward=66
             
-    turns = theta_diff/(0.233*np.pi)
+    turns = theta_diff/(0.2*np.pi)
 
     if theta_diff < 0.0:
         if dvx < 0:
@@ -138,7 +138,7 @@ def DrivingPlan(ListOfCoordinates):
             # Dennie
             #est_pose=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
             # Dennie
-        elif Reached = False:
+        elif Reached == False:
             print("Not reached the destination")
             #If not reached the destination, then call the function again
             drive_to_coordinates(ListOfCoordinates[i][0], ListOfCoordinates[i][1], est_pose)
@@ -151,7 +151,7 @@ def DrivingPlan(ListOfCoordinates):
             drive_to_coordinates(ListOfCoordinates[i][0], ListOfCoordinates[i][1], est_pose)
             est_pose=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
             print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
-
+            Reached = False:
 # Main program #
 try:
     if showGUI:
