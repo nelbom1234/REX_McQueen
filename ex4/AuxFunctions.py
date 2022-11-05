@@ -115,12 +115,12 @@ def LocalizeRobot(num_particles,cam,arlo,world):
 
         #SKAL DREJE 360 GRADER
         if fullTurnAmount!=5:
-            print(arlo.go_diff(64*speedMultiple, 64*speedMultiple, 1, 0))
+            arlo.go_diff(64*speedMultiple, 64*speedMultiple, 1, 0)
             sleep(fullTurnVal/turnsAmount)
             for p in particles:
                 particle.move_particle(p, 0, 0, -(2*np.pi)/turnsAmount)
                 #print (p.getTheta())
-            print(arlo.stop())
+            arlo.stop()
             sleep(0.300)
             particle.add_uncertainty(particles, 10, 0.03*np.pi)
             fullTurn += 1
@@ -188,7 +188,6 @@ def LocalizeRobot(num_particles,cam,arlo,world):
                             #print("dist_w2: {:.2f}".format(dist_w))
                             p.setWeight(p.getWeight()*dist_w * angle_w)
                     sum_of_weights += p.getWeight()
-                print(sum_of_weights)
                 if sum_of_weights > 10**(-120):
                     for p in particles:           
                         p.setWeight((p.getWeight()/sum_of_weights))
