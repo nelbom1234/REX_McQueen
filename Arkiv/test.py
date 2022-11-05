@@ -5,7 +5,10 @@ from turtle import right
 import robot
 
 arlo = robot.Robot()
-
+leftForward = 64
+rightForward = 66
+leftTurn = 64
+rightTurn = 64
 
 def timer(x):
     start = time.time()
