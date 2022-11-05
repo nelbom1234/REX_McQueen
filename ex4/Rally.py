@@ -132,6 +132,8 @@ def DrivingPlan(ListOfCoordinates):
         if est_pose.getX() < ListOfCoordinates[i][0]+50 and est_pose.getX() > ListOfCoordinates[i][0]-50 and est_pose.getY() < ListOfCoordinates[i][1]+50 and est_pose.getY() > ListOfCoordinates[i][1]-50:
             print("Reached the destination")
             i += 1
+        else:
+            print("not reached destination")
 # Main program #
 try:
     if showGUI:
