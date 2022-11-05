@@ -82,7 +82,7 @@ def drive_to_coordinates(x_end, y_end, est_pose):
 
     if theta_diff < 0.0:
         if dvx < 0:
-            turns = turns - 5.0
+            turns = turns - 3.0
         while -turns > 0.0:
             if -turns > 1:
                 print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1))
@@ -98,7 +98,7 @@ def drive_to_coordinates(x_end, y_end, est_pose):
                 turns = 0
     else:
         if dvx < 0:
-            turns = turns + 5.0
+            turns = turns + 3.0
         while turns > 0.0:
             if turns > 1.0:
                 print(arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0))
