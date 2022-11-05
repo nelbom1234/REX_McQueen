@@ -78,7 +78,7 @@ def drive_to_coordinates(x_end, y_end, est_pose):
     leftForward=64
     rightForward=66
             
-    turns = theta_diff/(0.2*np.pi)
+    turns = theta_diff/(0.233*np.pi)
 
     if theta_diff < 0.0:
         if dvx < 0:
