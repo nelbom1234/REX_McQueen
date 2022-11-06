@@ -140,11 +140,15 @@ def LocalizeRobot(num_particles,cam,arlo,world,goal):
 
         if not isinstance(objectIDs, type(None)) and any(p < 5 for p in objectIDs):
             # List detected objects
+            print("not instance")
             if any(p == goal for p in objectIDs):
+                print("p == goal")
                 return None
             elif any(p == 1 for p in objectIDs) and goal == 5:
+                prrint("goal == 5")
                 return None
             else:
+                print("holy samples")
                 for i in range(len(objectIDs)):
                     print("Object ID = ", objectIDs[i], ", Distance = ", dists[i]+dist_mul, ", angle = ", angles[i])
                     # XXX: Do something for each detected object - remember, the same ID may appear several times
