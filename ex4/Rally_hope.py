@@ -175,12 +175,7 @@ def DrivingPlan(ListOfCoordinates):
             drive_to_coordinates(ListOfCoordinates[i][0], ListOfCoordinates[i][1], est_pose,time_multiple=0.5)
             est_pose=AuxFunctions_hope.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world, goal=i+1)
             #Check if est_pose is close to ListOfCoordinates[i]
-            if not isinstance(est_pose, type(None)):  
-                if est_pose.getX() < ListOfCoordinates[i][0]+50 and est_pose.getX() > ListOfCoordinates[i][0]-50 and est_pose.getY() < ListOfCoordinates[i][1]+50 and est_pose.getY() > ListOfCoordinates[i][1]-50:
-                    print("Reached the coordinate destination")
-                    i += 1
-                else:
-                    print("not reached coordinate destination")
+            print("done driving coordinates")
         else:
             print(f"driving to box {i+1}")
             drive_to_box(i+1)
