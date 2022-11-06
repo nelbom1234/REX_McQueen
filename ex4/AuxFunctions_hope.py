@@ -138,8 +138,9 @@ def LocalizeRobot(num_particles,cam,arlo,world,goal):
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         monoObjects = [None, None, None, None]
 
-        if not isinstance(objectIDs, type(None)) and any(p == goal or (p == 1 and goal == 5) for p in objectIDs):
-            return None
+        if not isinstance(objectIDs, type(None)):
+            if any(p == goal or (p == 1 and goal == 5) for p in objectIDs):
+                return None
 
         if not isinstance(objectIDs, type(None)) and any(p < 5 for p in objectIDs):
             # List detected objects
