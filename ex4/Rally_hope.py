@@ -165,6 +165,7 @@ def drive_to_box(goal):
             timer(3.2*((dist-20)/120))
             arlo.stop()
             sleep(0.041)
+            break
 
 
 est_pose = None
