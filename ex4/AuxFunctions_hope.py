@@ -257,7 +257,7 @@ def Avoid_to_the_Front(arlo):
     print(arlo.stop())
 
     print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(2)
+    timer(2,arlo)
     print(arlo.stop())
 
     sleep(0.041)
@@ -266,7 +266,7 @@ def Avoid_to_the_Front(arlo):
     print(arlo.stop())
 
     print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(1.5)
+    timer(1.5,arlo)
     print(arlo.stop())
     
     sleep(0.041)
@@ -290,7 +290,7 @@ def Avoid_to_the_Right(arlo):
     print(arlo.stop())
 
     print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(2)
+    timer(2,arlo)
     print(arlo.stop())
 
     sleep(0.041)
@@ -299,7 +299,7 @@ def Avoid_to_the_Right(arlo):
     print(arlo.stop())
 
     print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(0.5)
+    timer(0.5,arlo)
     print(arlo.stop())
     
     sleep(0.041)
@@ -325,7 +325,7 @@ def Avoid_to_the_left(arlo):
     print(arlo.stop())
 
     print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(2)
+    timer(2,arlo)
     print(arlo.stop())
 
     sleep(0.041)
@@ -334,7 +334,7 @@ def Avoid_to_the_left(arlo):
     print(arlo.stop())
 
     print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(0.5)
+    timer(0.5,arlo)
     print(arlo.stop())
     
     sleep(0.041)
@@ -343,3 +343,21 @@ def Avoid_to_the_left(arlo):
     print(arlo.stop())
  
 
+def timer(x,arlo):
+    start = time.time()
+    end = start + x
+    while time.time() < end:
+        if arlo.read_front_ping_sensor() < 250:
+            print(arlo.stop())
+            print("something in front")
+            Avoid_to_the_Front(arlo=arlo)
+
+        elif arlo.read_left_ping_sensor() < 100:
+            print(arlo.stop())
+            print("something in the left")
+            Avoid_to_the_Right(arlo=arlo)
+            
+        elif arlo.read_right_ping_sensor() < 150:
+            print(arlo.stop())
+            print("something in the right")
+            Avoid_to_the_left(arlo=arlo)
