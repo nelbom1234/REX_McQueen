@@ -313,6 +313,7 @@ class Camera(object):
             # Make sure we always return properly shaped arrays
             dists = dists.reshape((dists.shape[0],))
             ids = self.ids.reshape((self.ids.shape[0],))
+            ids = (p != 5 for p in ids)
 
             # Compute angles
             angles = np.zeros(dists.shape, dtype=dists.dtype)
