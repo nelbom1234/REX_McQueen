@@ -48,19 +48,85 @@ def initialize_particles(num_particles):
 
     return particles
 
+def Avoid_to_the_Right():
+    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+    sleep(0.637)
+    print(arlo.stop())
+
+    sleep(0.041)
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    sleep(1.5)
+    print(arlo.stop())
+
+    sleep(0.041)
+    print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+    sleep(0.637)
+    print(arlo.stop())
+
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    timer(2)
+    print(arlo.stop())
+
+    sleep(0.041)
+    print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+    sleep(0.637)
+    print(arlo.stop())
+
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    timer(1.5)
+    print(arlo.stop())
+  
+def Avoid_to_the_left():
+    print(arlo.stop())
+    print("something in the right")
+    print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+    sleep(0.637)
+    print(arlo.stop())
+
+    sleep(0.041)
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    sleep(1.5)
+    print(arlo.stop())
+
+    sleep(0.041)
+    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+    sleep(0.637)
+    print(arlo.stop())
+
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    timer(2)
+    print(arlo.stop())
+
+    sleep(0.041)
+    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+    sleep(0.637)
+    print(arlo.stop())
+
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    timer(1.5)
+    print(arlo.stop())
+ 
+
 def timer(x):
     start = time.time()
     end = start + x
+    print(end)
     while time.time() < end:
+        print(time.time())
         if arlo.read_front_ping_sensor() < 250:
+            print(arlo.stop())
             print("something in front")
-            break
-        elif arlo.read_left_ping_sensor() < 150:
+            Avoid_to_the_Right()
+
+        elif arlo.read_left_ping_sensor() < 100:
+            print(arlo.stop())
             print("something in the left")
-            break
+            Avoid_to_the_Right()
+            
         elif arlo.read_right_ping_sensor() < 150:
+            print(arlo.stop())
             print("something in the right")
-            break
+            Avoid_to_the_left()
 
 def drive_to_coordinates(x_end, y_end, est_pose):
     x = est_pose.getX()
