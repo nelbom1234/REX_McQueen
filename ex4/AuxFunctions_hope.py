@@ -137,7 +137,7 @@ def LocalizeRobot(num_particles,cam,arlo,world,goal):
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         monoObjects = [None, None, None, None]
-
+        print("wtf")
         if not isinstance(objectIDs, type(None)) and any(p < 5 for p in objectIDs):
             # List detected objects
             print("not instance")
