@@ -145,7 +145,7 @@ def LocalizeRobot(num_particles,cam,arlo,world,goal):
                 print("p == goal")
                 return None
             elif any(p == 1 for p in objectIDs) and goal == 5:
-                prrint("goal == 5")
+                print("goal == 5")
                 return None
             else:
                 print("holy samples")
