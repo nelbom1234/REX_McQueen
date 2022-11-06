@@ -141,7 +141,7 @@ def drive_to_box(goal):
     arlo.go_diff(64*speedMultiple, 64*speedMultiple, 0, 1)
     sleep(fullTurnVal/12)
     arlo.stop()
-    sleep(0.1)
+    sleep(3)
     colour= cam.get_next_frame()
     objectIDs, dists, angles = cam.detect_aruco_objects(colour)
     for i in range(len(objectIDs)):
