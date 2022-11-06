@@ -187,7 +187,7 @@ def DrivingPlan(ListOfCoordinates):
         else:
             print(f"driving to box {i+1}")
             drive_to_box(i+1)
-            est_pose=AuxFunctions_hope.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world, goal=i)
+            est_pose=AuxFunctions_hope.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world, goal=i+1)
             if not isinstance(est_pose, type(None)):
                 print("Reached the box destination")
                 i += 1
