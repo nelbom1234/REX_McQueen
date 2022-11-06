@@ -132,11 +132,14 @@ def drive_to_coordinates(x_end, y_end, est_pose):
 
 def drive_to_box(goal):
     speedMultiple=0.75
+    fullTurnVal=2.9/speedMultiple
     leftTurn=64
     rightTurn=64
     leftForward=64
     rightForward=66
 
+    arlo.go_diff(64*speedMultiple, 64*speedMultiple, 0, 1)
+    sleep(fullTurnVal/12)
     colour= cam.get_next_frame()
     objectIDs, dists, angles = cam.detect_aruco_objects(colour)
     for i in range(len(objectIDs)):
