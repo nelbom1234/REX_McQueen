@@ -177,7 +177,7 @@ def DrivingPlan(ListOfCoordinates):
         if not isinstance(est_pose, type(None)):
             print(f"driving to coordinates {i+1}")
             drive_to_coordinates(ListOfCoordinates[i][0], ListOfCoordinates[i][1], est_pose)
-            est_pose=AuxFunctions_hope.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world, goal=i)
+            est_pose=AuxFunctions_hope.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world, goal=i+1)
             #Check if est_pose is close to ListOfCoordinates[i]
             if not isinstance(est_pose, type(None)):  
                 if est_pose.getX() < ListOfCoordinates[i][0]+50 and est_pose.getX() > ListOfCoordinates[i][0]-50 and est_pose.getY() < ListOfCoordinates[i][1]+50 and est_pose.getY() > ListOfCoordinates[i][1]-50:
