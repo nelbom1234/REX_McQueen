@@ -148,7 +148,8 @@ def drive_to_box(goal):
         if objectIDs[i] == goal or objectIDs[i] == 1 and goal == 5:
             dist = dists[i]
             angle = angles[i]
-            turn = abs(angle)/(0.205*np.pi)
+            print(f"dist: {dist}, angle: {angle}")
+            turn = abs(angle)/(0.166*np.pi)
             if angle < 0:
                 arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1)
                 sleep(0.322*turn)
