@@ -343,21 +343,3 @@ def Avoid_to_the_left(arlo):
     print(arlo.stop())
  
 
-def timer(x, arlo):
-    start = time.time()
-    end = start + x
-    while time.time() < end:
-        if arlo.read_front_ping_sensor() < 250:
-            print(arlo.stop())
-            print("something in front")
-            Avoid_to_the_Front()
-
-        elif arlo.read_left_ping_sensor() < 100:
-            print(arlo.stop())
-            print("something in the left")
-            Avoid_to_the_Right()
-            
-        elif arlo.read_right_ping_sensor() < 150:
-            print(arlo.stop())
-            print("something in the right")
-            Avoid_to_the_left()

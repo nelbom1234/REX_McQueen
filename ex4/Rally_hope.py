@@ -39,6 +39,25 @@ CMAGENTA = (255, 0, 255)
 CWHITE = (255, 255, 255)
 CBLACK = (0, 0, 0)
 
+def timer(x):
+    start = time.time()
+    end = start + x
+    while time.time() < end:
+        if arlo.read_front_ping_sensor() < 250:
+            print(arlo.stop())
+            print("something in front")
+            AuxFunctions_hope.Avoid_to_the_Front()
+
+        elif arlo.read_left_ping_sensor() < 100:
+            print(arlo.stop())
+            print("something in the left")
+            AuxFunctions_hope.Avoid_to_the_Right()
+            
+        elif arlo.read_right_ping_sensor() < 150:
+            print(arlo.stop())
+            print("something in the right")
+            AuxFunctions_hope.Avoid_to_the_left()
+
 def drive_to_coordinates(x_end, y_end, est_pose,time_multiple):
     x = est_pose.getX()
     y = est_pose.getX()
@@ -103,7 +122,7 @@ def drive_to_coordinates(x_end, y_end, est_pose,time_multiple):
     
 
     arlo.go_diff(leftForward, rightForward, 1, 1)
-    AuxFunctions_hope.timer((3.2*(dist/120))*time_multiple, arlo=arlo)
+    timer((3.2*(dist/120))*time_multiple)
     arlo.stop()
     sleep(0.041)
 
