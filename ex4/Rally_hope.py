@@ -53,7 +53,9 @@ rightForward = 66
 leftTurn = 64
 rightTurn = 64
 
-def Avoid_to_the_Right():
+
+
+def Avoid_to_the_Front():
     print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
     sleep(0.637)
     print(arlo.stop())
@@ -80,7 +82,35 @@ def Avoid_to_the_Right():
     print(arlo.go_diff(leftForward, rightForward, 1, 1))
     timer(1.5)
     print(arlo.stop())
-  
+
+def Avoid_to_the_Right():
+    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+    sleep(0.637)
+    print(arlo.stop())
+
+    sleep(0.041)
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    sleep(0.5)
+    print(arlo.stop())
+
+    sleep(0.041)
+    print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+    sleep(0.637)
+    print(arlo.stop())
+
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    timer(2)
+    print(arlo.stop())
+
+    sleep(0.041)
+    print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+    sleep(0.637)
+    print(arlo.stop())
+
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    timer(0.5)
+    print(arlo.stop())
+
 def Avoid_to_the_left():
     print(arlo.stop())
     print("something in the right")
@@ -90,7 +120,7 @@ def Avoid_to_the_left():
 
     sleep(0.041)
     print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    sleep(1.5)
+    sleep(0.5)
     print(arlo.stop())
 
     sleep(0.041)
@@ -108,7 +138,7 @@ def Avoid_to_the_left():
     print(arlo.stop())
 
     print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(1.5)
+    timer(0.5)
     print(arlo.stop())
  
 
@@ -119,7 +149,7 @@ def timer(x):
         if arlo.read_front_ping_sensor() < 250:
             print(arlo.stop())
             print("something in front")
-            Avoid_to_the_Right()
+            Avoid_to_the_Front()
 
         elif arlo.read_left_ping_sensor() < 100:
             print(arlo.stop())

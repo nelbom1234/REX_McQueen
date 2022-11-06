@@ -140,7 +140,7 @@ def LocalizeRobot(num_particles,cam,arlo,world,goal):
 
         if not isinstance(objectIDs, type(None)) and any(p < 5 for p in objectIDs):
             # List detected objects
-            if any(p == goal and p != 5 for p in objectIDs):
+            if any(p == goal for p in objectIDs):
                 return None
             elif any(p == 1 for p in objectIDs) and goal == 5:
                 return None
