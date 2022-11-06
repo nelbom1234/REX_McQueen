@@ -39,143 +39,6 @@ CMAGENTA = (255, 0, 255)
 CWHITE = (255, 255, 255)
 CBLACK = (0, 0, 0)
 
-def initialize_particles(num_particles):
-    particles = []
-    for i in range(num_particles):
-        # Random starting points. 
-        p = particle.Particle(600.0*np.random.ranf() - 100.0, 600.0*np.random.ranf() - 250.0, np.mod(2.0*np.pi*np.random.ranf(), 2.0*np.pi), 1.0/num_particles)
-        particles.append(p)
-
-    return particles
-
-leftForward = 64
-rightForward = 66
-leftTurn = 64
-rightTurn = 64
-
-
-
-def Avoid_to_the_Front():
-    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
-    sleep(0.637)
-    print(arlo.stop())
-
-    sleep(0.041)
-    print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    sleep(1.5)
-    print(arlo.stop())
-
-    sleep(0.041)
-    print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
-    sleep(0.637)
-    print(arlo.stop())
-
-    print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(2)
-    print(arlo.stop())
-
-    sleep(0.041)
-    print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
-    sleep(0.637)
-    print(arlo.stop())
-
-    print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(1.5)
-    print(arlo.stop())
-    
-    sleep(0.041)
-    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
-    sleep(0.637)
-    print(arlo.stop())
-
-def Avoid_to_the_Right():
-    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
-    sleep(0.637)
-    print(arlo.stop())
-
-    sleep(0.041)
-    print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    sleep(0.5)
-    print(arlo.stop())
-
-    sleep(0.041)
-    print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
-    sleep(0.637)
-    print(arlo.stop())
-
-    print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(2)
-    print(arlo.stop())
-
-    sleep(0.041)
-    print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
-    sleep(0.637)
-    print(arlo.stop())
-
-    print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(0.5)
-    print(arlo.stop())
-    
-    sleep(0.041)
-    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
-    sleep(0.637)
-    print(arlo.stop())
-
-def Avoid_to_the_left():
-    print(arlo.stop())
-    print("something in the right")
-    print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
-    sleep(0.637)
-    print(arlo.stop())
-
-    sleep(0.041)
-    print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    sleep(0.5)
-    print(arlo.stop())
-
-    sleep(0.041)
-    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
-    sleep(0.637)
-    print(arlo.stop())
-
-    print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(2)
-    print(arlo.stop())
-
-    sleep(0.041)
-    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
-    sleep(0.637)
-    print(arlo.stop())
-
-    print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(0.5)
-    print(arlo.stop())
-    
-    sleep(0.041)
-    print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
-    sleep(0.637)
-    print(arlo.stop())
- 
-
-def timer(x):
-    start = time.time()
-    end = start + x
-    while time.time() < end:
-        if arlo.read_front_ping_sensor() < 250:
-            print(arlo.stop())
-            print("something in front")
-            Avoid_to_the_Front()
-
-        elif arlo.read_left_ping_sensor() < 100:
-            print(arlo.stop())
-            print("something in the left")
-            Avoid_to_the_Right()
-            
-        elif arlo.read_right_ping_sensor() < 150:
-            print(arlo.stop())
-            print("something in the right")
-            Avoid_to_the_left()
-
 def drive_to_coordinates(x_end, y_end, est_pose,time_multiple):
     x = est_pose.getX()
     y = est_pose.getX()
@@ -240,7 +103,7 @@ def drive_to_coordinates(x_end, y_end, est_pose,time_multiple):
     
 
     arlo.go_diff(leftForward, rightForward, 1, 1)
-    timer((3.2*(dist/120))*time_multiple)
+    AuxFunctions_hope.timer((3.2*(dist/120))*time_multiple, arlo=arlo)
     arlo.stop()
     sleep(0.041)
 
@@ -324,7 +187,7 @@ try:
 
     # Initialize particles
     num_particles = 1200
-    particles = initialize_particles(num_particles)
+    particles = AuxFunctions_hope.initialize_particles(num_particles)
 
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
 
@@ -361,8 +224,6 @@ try:
     #est_pose, particles=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
     #print(f"est_pose.x: {est_pose.getX()},est_pose.y: {est_pose.getY()},est_pose.theta: {est_pose.getTheta()}")
     #drive_to_coordinates(30, 30, est_pose)
-    
-
 
 finally: 
     # Make sure to clean up even if an exception occurred
