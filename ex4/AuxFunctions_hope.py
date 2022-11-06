@@ -121,7 +121,7 @@ def LocalizeRobot(num_particles,cam,arlo,world,goal):
                 particle.move_particle(p, 0, 0, -(2*np.pi)/turnsAmount)
                 #print (p.getTheta())
             arlo.stop()
-            sleep(0.300)
+            sleep(0.500)
             particle.add_uncertainty(particles, 10, 0.03*np.pi)
             fullTurn += 1
             if turnsAmount < fullTurn:
