@@ -133,7 +133,6 @@ def DrivingPlan(ListOfCoordinates):
         #Check if est_pose is close to ListOfCoordinates[i]
         if est_pose.getX() < ListOfCoordinates[i][0]+50 and est_pose.getX() > ListOfCoordinates[i][0]-50 and est_pose.getY() < ListOfCoordinates[i][1]+50 and est_pose.getY() > ListOfCoordinates[i][1]-50:
             print("Reached the destination")
-            arlo.go_diff(64, 66, 0, 0)
             i += 1
         else:
             print("not reached destination")
