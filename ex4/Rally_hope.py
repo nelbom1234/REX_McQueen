@@ -131,7 +131,7 @@ def timer(x):
             print("something in the right")
             Avoid_to_the_left()
 
-def drive_to_coordinates(x_end, y_end, est_pose):
+def drive_to_coordinates(x_end, y_end, est_pose,time_multiple):
     x = est_pose.getX()
     y = est_pose.getX()
     theta = est_pose.getTheta()
@@ -195,7 +195,7 @@ def drive_to_coordinates(x_end, y_end, est_pose):
     
 
     arlo.go_diff(leftForward, rightForward, 1, 1)
-    timer(3.2*(dist/120))
+    timer((3.2*(dist/120))*time_multiple)
     arlo.stop()
     sleep(0.041)
 
@@ -245,7 +245,7 @@ def DrivingPlan(ListOfCoordinates):
     while i < len(ListOfCoordinates):
         if not isinstance(est_pose, type(None)):
             print(f"driving to coordinates {i+1}")
-            drive_to_coordinates(ListOfCoordinates[i][0], ListOfCoordinates[i][1], est_pose)
+            drive_to_coordinates(ListOfCoordinates[i][0], ListOfCoordinates[i][1], est_pose,time_multiple=0.5)
             est_pose=AuxFunctions_hope.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world, goal=i+1)
             #Check if est_pose is close to ListOfCoordinates[i]
             if not isinstance(est_pose, type(None)):  

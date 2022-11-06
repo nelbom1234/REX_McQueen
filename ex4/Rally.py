@@ -62,7 +62,7 @@ def timer(x):
             print("something in the right")
             break
 
-def drive_to_coordinates(x_end, y_end, est_pose):
+def drive_to_coordinates(x_end, y_end, est_pose, time_multiple):
     x = est_pose.getX()
     y = est_pose.getX()
     theta = est_pose.getTheta()
@@ -72,7 +72,7 @@ def drive_to_coordinates(x_end, y_end, est_pose):
     theta_diff = theta-dvtheta
     speedMultiple=0.75
     leftTurn=64
-    rightTurn=64
+    rightTurn=64 #64
     leftForward=64
     rightForward=66
             
@@ -125,9 +125,9 @@ def drive_to_coordinates(x_end, y_end, est_pose):
                 turns = 0
 
     
-
+    
     arlo.go_diff(leftForward, rightForward, 1, 1)
-    timer(3.2*(dist/120))
+    timer((3.2*(dist/120))*time_multiple)
     arlo.stop()
     sleep(0.041)
 
@@ -139,7 +139,9 @@ def DrivingPlan(ListOfCoordinates):
     est_pose=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
     while i < len(ListOfCoordinates):
         print(f"driving to {i+1}")
-        drive_to_coordinates(ListOfCoordinates[i][0], ListOfCoordinates[i][1], est_pose)
+        drive_to_coordinates(ListOfCoordinates[i][0], ListOfCoordinates[i][1], est_pose,time_multiple=0.5)
+        est_pose=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+        drive_to_coordinates(ListOfCoordinates[i][0], ListOfCoordinates[i][1], est_pose,time_multiple=1.0)
         est_pose=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
         #Check if est_pose is close to ListOfCoordinates[i]
         if est_pose.getX() < ListOfCoordinates[i][0]+50 and est_pose.getX() > ListOfCoordinates[i][0]-50 and est_pose.getY() < ListOfCoordinates[i][1]+50 and est_pose.getY() > ListOfCoordinates[i][1]-50:
