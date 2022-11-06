@@ -140,32 +140,34 @@ def LocalizeRobot(num_particles,cam,arlo,world,goal):
 
         if not isinstance(objectIDs, type(None)) and any(p < 5 for p in objectIDs):
             # List detected objects
-            #if any(p == goal or (p == 1 and goal == 5) for p in objectIDs):
-            #    return None
-            #else:
-            for i in range(len(objectIDs)):
-                print("Object ID = ", objectIDs[i], ", Distance = ", dists[i]+dist_mul, ", angle = ", angles[i])
-                # XXX: Do something for each detected object - remember, the same ID may appear several times
-                if objectIDs[i] == 1:
-                    if monoObjects[0] == None:
-                        monoObjects[0] = (dists[i]+dist_mul, angles[i])
-                    elif monoObjects[0][0] < dists[i]+dist_mul:
-                        monoObjects[0] = (dists[i]+dist_mul, angles[i])
-                elif objectIDs[i] == 2:
-                    if monoObjects[1] == None:
-                        monoObjects[1] = (dists[i]+dist_mul, angles[i])
-                    elif monoObjects[1][0] < dists[i]+dist_mul:
-                        monoObjects[1] = (dists[i]+dist_mul, angles[i])
-                elif objectIDs[i] == 3:
-                    if monoObjects[2] == None:
-                        monoObjects[2] = (dists[i]+dist_mul, angles[i])
-                    elif monoObjects[2][0] < dists[i]+dist_mul:
-                        monoObjects[2] = (dists[i]+dist_mul, angles[i])
-                elif objectIDs[i] == 4:
-                    if monoObjects[3] == None:
-                        monoObjects[3] = (dists[i]+dist_mul, angles[i])
-                    elif monoObjects[3][0] < dists[i]+dist_mul:
-                        monoObjects[3] = (dists[i]+dist_mul, angles[i])
+            if any(p == goal for p in objectIDs):
+                return None
+            elif any(p == 1 and goal == 5 for p in objectIDs):
+                return None
+            else:
+                for i in range(len(objectIDs)):
+                    print("Object ID = ", objectIDs[i], ", Distance = ", dists[i]+dist_mul, ", angle = ", angles[i])
+                    # XXX: Do something for each detected object - remember, the same ID may appear several times
+                    if objectIDs[i] == 1:
+                        if monoObjects[0] == None:
+                            monoObjects[0] = (dists[i]+dist_mul, angles[i])
+                        elif monoObjects[0][0] < dists[i]+dist_mul:
+                            monoObjects[0] = (dists[i]+dist_mul, angles[i])
+                    elif objectIDs[i] == 2:
+                        if monoObjects[1] == None:
+                            monoObjects[1] = (dists[i]+dist_mul, angles[i])
+                        elif monoObjects[1][0] < dists[i]+dist_mul:
+                            monoObjects[1] = (dists[i]+dist_mul, angles[i])
+                    elif objectIDs[i] == 3:
+                        if monoObjects[2] == None:
+                            monoObjects[2] = (dists[i]+dist_mul, angles[i])
+                        elif monoObjects[2][0] < dists[i]+dist_mul:
+                            monoObjects[2] = (dists[i]+dist_mul, angles[i])
+                    elif objectIDs[i] == 4:
+                        if monoObjects[3] == None:
+                            monoObjects[3] = (dists[i]+dist_mul, angles[i])
+                        elif monoObjects[3][0] < dists[i]+dist_mul:
+                            monoObjects[3] = (dists[i]+dist_mul, angles[i])
                 
                 
 
