@@ -152,12 +152,12 @@ def drive_to_box(goal):
             turn = abs(angle)/(0.166*np.pi)
             if angle < 0:
                 arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0)
-                sleep(0.322*turn)
+                sleep(0.260*turn)
                 arlo.stop()
                 sleep(0.1)
             else:
                 arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1)
-                sleep(0.322*turn)
+                sleep(0.260*turn)
                 arlo.stop()
                 sleep(0.1)
 
