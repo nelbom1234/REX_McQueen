@@ -142,7 +142,7 @@ def LocalizeRobot(num_particles,cam,arlo,world,goal):
             # List detected objects
             if any(p == goal for p in objectIDs):
                 return None
-            elif any(p == 1 and goal == 5 for p in objectIDs):
+            elif any((p == 1 and goal == 5) for p in objectIDs):
                 return None
             else:
                 for i in range(len(objectIDs)):
