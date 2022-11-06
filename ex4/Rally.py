@@ -77,6 +77,7 @@ def drive_to_coordinates(x_end, y_end, est_pose):
     rightForward=66
             
     turns = theta_diff/(0.205*np.pi)
+    dist = np.sqrt(dvx**2+dvy**2)
 
     print("===========")
     print("Robot at ({}, {})".format(x, y))
@@ -122,7 +123,7 @@ def drive_to_coordinates(x_end, y_end, est_pose):
                 print(arlo.stop())
                 sleep(0.1)
                 turns = 0
-    dist = np.sqrt(dvx**2+dvy**2)
+
     
 
     arlo.go_diff(leftForward, rightForward, 1, 1)
