@@ -76,8 +76,8 @@ def drive_to_coordinates(x_end, y_end, est_pose):
     leftForward=64
     rightForward=66
             
-    turns = theta_diff/(0.205*np.pi)
     dist = np.sqrt(dvx**2+dvy**2)
+    turns = theta_diff/(0.205*np.pi)
 
     print("===========")
     print("Robot at ({}, {})".format(x, y))
