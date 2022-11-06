@@ -121,7 +121,7 @@ def LocalizeRobot(num_particles,cam,arlo,world,goal):
                 particle.move_particle(p, 0, 0, -(2*np.pi)/turnsAmount)
                 #print (p.getTheta())
             arlo.stop()
-            sleep(0.500)
+            sleep(0.300)
             particle.add_uncertainty(particles, 10, 0.03*np.pi)
             fullTurn += 1
             if turnsAmount < fullTurn:
@@ -140,9 +140,9 @@ def LocalizeRobot(num_particles,cam,arlo,world,goal):
 
         if not isinstance(objectIDs, type(None)) and any(p < 5 for p in objectIDs):
             # List detected objects
-            if any(p == goal or (p == 1 and goal == 5) for p in objectIDs):
-                return None
-            else:
+            #if any(p == goal or (p == 1 and goal == 5) for p in objectIDs):
+            #    return None
+            #else:
                 for i in range(len(objectIDs)):
                     print("Object ID = ", objectIDs[i], ", Distance = ", dists[i]+dist_mul, ", angle = ", angles[i])
                     # XXX: Do something for each detected object - remember, the same ID may appear several times
