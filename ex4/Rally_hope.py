@@ -4,7 +4,7 @@ import particle
 import camera
 import numpy as np
 import time
-import AuxFunctions
+import AuxFunctions_hope
 from time import sleep
 from timeit import default_timer as timer
 import sys
@@ -130,22 +130,63 @@ def drive_to_coordinates(x_end, y_end, est_pose):
     arlo.stop()
     sleep(0.041)
 
+def drive_to_box(goal):
+    speedMultiple=0.75
+    leftTurn=64
+    rightTurn=64
+    leftForward=64
+    rightForward=66
+
+    colour= cam.get_next_frame()
+    objectIDs, dists, angles = cam.detect_aruco_objects(colour)
+    for i in range(len(objectIDs)):
+        if objectIDs[i] == goal or objectIDs[i] == 1 and goal == 5:
+            dist = dists[i]
+            angle = angles[i]
+            turn = abs(angle)/(0.205*np.pi)
+            if angle < 0:
+                arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 0, 1)
+                sleep(0.322*turn)
+                arlo.stop()
+                sleep(0.1)
+            else:
+                arlo.go_diff(leftTurn*speedMultiple, rightTurn*speedMultiple, 1, 0)
+                sleep(0.322*turn)
+                arlo.stop()
+                sleep(0.1)
+
+            arlo.go_diff(leftForward, rightForward, 1, 1)
+            timer(3.2*((dist-20)/120))
+            arlo.stop()
+            sleep(0.041)
+
 
 est_pose = None
 
 def DrivingPlan(ListOfCoordinates):
     i = 0
-    est_pose=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
+    est_pose=AuxFunctions_hope.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world, goal=i+1)
     while i < len(ListOfCoordinates):
-        print(f"driving to {i+1}")
-        drive_to_coordinates(ListOfCoordinates[i][0], ListOfCoordinates[i][1], est_pose)
-        est_pose=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world)
-        #Check if est_pose is close to ListOfCoordinates[i]
-        if est_pose.getX() < ListOfCoordinates[i][0]+50 and est_pose.getX() > ListOfCoordinates[i][0]-50 and est_pose.getY() < ListOfCoordinates[i][1]+50 and est_pose.getY() > ListOfCoordinates[i][1]-50:
-            print("Reached the destination")
-            i += 1
+        if not isinstance(est_pose, type(None)):
+            print(f"driving to coordinates {i+1}")
+            drive_to_coordinates(ListOfCoordinates[i][0], ListOfCoordinates[i][1], est_pose)
+            est_pose=AuxFunctions_hope.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world, goal=i)
+            #Check if est_pose is close to ListOfCoordinates[i]
+            if est_pose.getX() < ListOfCoordinates[i][0]+50 and est_pose.getX() > ListOfCoordinates[i][0]-50 and est_pose.getY() < ListOfCoordinates[i][1]+50 and est_pose.getY() > ListOfCoordinates[i][1]-50:
+                print("Reached the coordinate destination")
+                i += 1
+            else:
+                print("not reached coordinate destination")
         else:
-            print("not reached destination")
+            print(f"driving to box {i+1}")
+            drive_to_box(i+1)
+            est_pose=AuxFunctions_hope.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world, goal=i)
+            if not isinstance(est_pose, type(None)):
+                print("Reached the box destination")
+                i += 1
+            else:
+                print("not reached box destination")
+
 # Main program #
 try:
     if showGUI:
@@ -171,7 +212,7 @@ try:
     world = np.zeros((400,500,3), dtype=np.uint8)
 
     # Draw map
-    AuxFunctions.draw_world(est_pose, particles, world)
+    AuxFunctions_hope.draw_world(est_pose, particles, world)
     print("Opening and initializing camera")
     if isRunningOnArlo():
         cam = camera.Camera(0, 'arlo', useCaptureThread = True)
