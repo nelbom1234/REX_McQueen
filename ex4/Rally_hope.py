@@ -46,17 +46,17 @@ def timer(x):
         if arlo.read_front_ping_sensor() < 250:
             print(arlo.stop())
             print("something in front")
-            AuxFunctions_hope.Avoid_to_the_Front()
+            AuxFunctions_hope.Avoid_to_the_Front(arlo=arlo)
 
         elif arlo.read_left_ping_sensor() < 100:
             print(arlo.stop())
             print("something in the left")
-            AuxFunctions_hope.Avoid_to_the_Right()
+            AuxFunctions_hope.Avoid_to_the_Right(arlo=arlo)
             
         elif arlo.read_right_ping_sensor() < 150:
             print(arlo.stop())
             print("something in the right")
-            AuxFunctions_hope.Avoid_to_the_left()
+            AuxFunctions_hope.Avoid_to_the_left(arlo=arlo)
 
 def drive_to_coordinates(x_end, y_end, est_pose,time_multiple):
     x = est_pose.getX()
