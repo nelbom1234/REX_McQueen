@@ -48,6 +48,11 @@ def initialize_particles(num_particles):
 
     return particles
 
+leftForward = 64
+rightForward = 66
+leftTurn = 64
+rightTurn = 64
+
 def Avoid_to_the_Right():
     print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
     sleep(0.637)
@@ -110,9 +115,7 @@ def Avoid_to_the_left():
 def timer(x):
     start = time.time()
     end = start + x
-    print(end)
     while time.time() < end:
-        print(time.time())
         if arlo.read_front_ping_sensor() < 250:
             print(arlo.stop())
             print("something in front")
