@@ -4,7 +4,7 @@ import particle
 import camera
 import numpy as np
 import time
-import AuxFunctions_hope
+import AuxFunctions
 from time import sleep
 from timeit import default_timer as timer
 import sys
