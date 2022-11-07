@@ -103,7 +103,7 @@ def drive_to_coordinates(x_end, y_end, est_pose,time_multiple):
     
 
     arlo.go_diff(leftForward, rightForward, 1, 1)
-    timer((3.2*(dist/120))*time_multiple,arlo=arlo)
+    AuxFunctions_hope.timer((3.2*(dist/120))*time_multiple,arlo=arlo)
     arlo.stop()
     sleep(0.041)
 
@@ -139,7 +139,7 @@ def drive_to_box(goal):
                 sleep(0.1)
 
             arlo.go_diff(leftForward, rightForward, 1, 1)
-            timer(3.2*((dist-20)/120),arlo=arlo)
+            AuxFunctions_hope.timer(3.2*((dist-20)/120),arlo=arlo)
             arlo.stop()
             sleep(0.041)
             break
