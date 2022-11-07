@@ -147,6 +147,7 @@ def drive_to_box(goal):
 
 est_pose = None
 
+#Hovedhjerne i koden
 def DrivingPlan(ListOfCoordinates):
     i = 0
     est_pose=AuxFunctions_hope.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world, goal=i+1)
