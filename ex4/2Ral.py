@@ -149,18 +149,18 @@ est_pose = None
 
 def DrivingPlan(ListOfCoordinates):
     i = 0
-    est_pose=AuxFunctions_hope.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world, goal=i+1)
+    est_pose=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world, goal=i+1)
     while i < len(ListOfCoordinates):
         if not isinstance(est_pose, type(None)):
             print(f"driving to coordinates {i+1}")
             drive_to_coordinates(ListOfCoordinates[i][0], ListOfCoordinates[i][1], est_pose,time_multiple=0.5)
-            est_pose=AuxFunctions_hope.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world, goal=i+1)
+            est_pose=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world, goal=i+1)
             #Check if est_pose is close to ListOfCoordinates[i]
             print("done driving coordinates")
         else:
             print(f"driving to box {i+1}")
             drive_to_box(i+1)
-            est_pose=AuxFunctions_hope.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world, goal=i+1)
+            est_pose=AuxFunctions.LocalizeRobot(num_particles=num_particles,cam=cam,arlo=arlo,world=world, goal=i+1)
             if not isinstance(est_pose, type(None)):
                 print("Reached the box destination")
                 i += 1
@@ -182,7 +182,7 @@ try:
 
     # Initialize particles
     num_particles = 1200
-    particles = AuxFunctions_hope.initialize_particles(num_particles)
+    particles = AuxFunctions.initialize_particles(num_particles)
 
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
 
@@ -192,7 +192,7 @@ try:
     world = np.zeros((400,500,3), dtype=np.uint8)
 
     # Draw map
-    AuxFunctions_hope.draw_world(est_pose, particles, world)
+    AuxFunctions.draw_world(est_pose, particles, world)
     print("Opening and initializing camera")
     if isRunningOnArlo():
         cam = camera.Camera(0, 'arlo', useCaptureThread = True)
