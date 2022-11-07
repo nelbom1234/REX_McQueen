@@ -243,10 +243,6 @@ leftTurn = 64
 rightTurn = 64
 
 def Avoid_to_the_Front(arlo):
-    print(arlo.go_diff(leftForward, rightForward, 0, 0))
-    sleep(1.0)
-    print(arlo.stop())
-
     print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
     sleep(0.637)
     print(arlo.stop())
@@ -262,7 +258,7 @@ def Avoid_to_the_Front(arlo):
     print(arlo.stop())
 
     print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(1,arlo)
+    timer(2,arlo)
     print(arlo.stop())
 
     sleep(0.041)
@@ -270,11 +266,16 @@ def Avoid_to_the_Front(arlo):
     sleep(0.637)
     print(arlo.stop())
 
-def Avoid_to_the_Right(arlo):
-    print(arlo.go_diff(leftForward, rightForward, 0, 0))
-    sleep(1.0)
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    timer(1.5,arlo)
+    print(arlo.stop())
+    
+    sleep(0.041)
+    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+    sleep(0.637)
     print(arlo.stop())
 
+def Avoid_to_the_Right(arlo):
     print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
     sleep(0.637)
     print(arlo.stop())
@@ -290,22 +291,26 @@ def Avoid_to_the_Right(arlo):
     print(arlo.stop())
 
     print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(1,arlo)
+    timer(2,arlo)
     print(arlo.stop())
 
     sleep(0.041)
     print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+    sleep(0.637)
+    print(arlo.stop())
+
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    timer(0.5,arlo)
+    print(arlo.stop())
+    
+    sleep(0.041)
+    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
     sleep(0.637)
     print(arlo.stop())
 
 def Avoid_to_the_left(arlo):
     print(arlo.stop())
     print("something in the right")
-
-    print(arlo.go_diff(leftForward, rightForward, 0, 0))
-    sleep(1.0)
-    print(arlo.stop())
-
     print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
     sleep(0.637)
     print(arlo.stop())
@@ -321,11 +326,20 @@ def Avoid_to_the_left(arlo):
     print(arlo.stop())
 
     print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(1,arlo)
+    timer(2,arlo)
     print(arlo.stop())
 
     sleep(0.041)
     print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+    sleep(0.637)
+    print(arlo.stop())
+
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    timer(0.5,arlo)
+    print(arlo.stop())
+    
+    sleep(0.041)
+    print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
     sleep(0.637)
     print(arlo.stop())
 
