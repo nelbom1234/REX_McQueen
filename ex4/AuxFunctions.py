@@ -93,7 +93,7 @@ def initialize_particles(num_particles):
 
     return particles
 
-def LocalizeRobot(num_particles,cam,arlo,world):
+def LocalizeRobot(num_particles,cam,arlo,world,goal):
     particles = initialize_particles(num_particles)
 
     fullTurn = 0
@@ -117,11 +117,11 @@ def LocalizeRobot(num_particles,cam,arlo,world):
         if fullTurnAmount!=5:
             arlo.go_diff(64*speedMultiple, 64*speedMultiple, 1, 0)
             sleep(fullTurnVal/turnsAmount)
-            for p in particles:
-                particle.move_particle(p, 0, 0, -(2*np.pi)/turnsAmount)
                 #print (p.getTheta())
             arlo.stop()
-            sleep(0.300)
+            sleep(0.100)
+            for p in particles:
+                particle.move_particle(p, 0, 0, -(2*np.pi)/turnsAmount)
             particle.add_uncertainty(particles, 10, 0.03*np.pi)
             fullTurn += 1
             if turnsAmount < fullTurn:
@@ -140,29 +140,34 @@ def LocalizeRobot(num_particles,cam,arlo,world):
 
         if not isinstance(objectIDs, type(None)) and any(p < 5 for p in objectIDs):
             # List detected objects
-            for i in range(len(objectIDs)):
-                print("Object ID = ", objectIDs[i], ", Distance = ", dists[i]+dist_mul, ", angle = ", angles[i])
-                # XXX: Do something for each detected object - remember, the same ID may appear several times
-                if objectIDs[i] == 1:
-                    if monoObjects[0] == None:
-                        monoObjects[0] = (dists[i]+dist_mul, angles[i])
-                    elif monoObjects[0][0] < dists[i]+dist_mul:
-                        monoObjects[0] = (dists[i]+dist_mul, angles[i])
-                elif objectIDs[i] == 2:
-                    if monoObjects[1] == None:
-                        monoObjects[1] = (dists[i]+dist_mul, angles[i])
-                    elif monoObjects[1][0] < dists[i]+dist_mul:
-                        monoObjects[1] = (dists[i]+dist_mul, angles[i])
-                elif objectIDs[i] == 3:
-                    if monoObjects[2] == None:
-                        monoObjects[2] = (dists[i]+dist_mul, angles[i])
-                    elif monoObjects[2][0] < dists[i]+dist_mul:
-                        monoObjects[2] = (dists[i]+dist_mul, angles[i])
-                elif objectIDs[i] == 4:
-                    if monoObjects[3] == None:
-                        monoObjects[3] = (dists[i]+dist_mul, angles[i])
-                    elif monoObjects[3][0] < dists[i]+dist_mul:
-                        monoObjects[3] = (dists[i]+dist_mul, angles[i])
+            if any(p == goal for p in objectIDs):
+                return None
+            elif any(p == 1 for p in objectIDs) and goal == 5:
+                return None
+            else:
+                for i in range(len(objectIDs)):
+                    print("Object ID = ", objectIDs[i], ", Distance = ", dists[i]+dist_mul, ", angle = ", angles[i])
+                    # XXX: Do something for each detected object - remember, the same ID may appear several times
+                    if objectIDs[i] == 1:
+                        if monoObjects[0] == None:
+                            monoObjects[0] = (dists[i]+dist_mul, angles[i])
+                        elif monoObjects[0][0] < dists[i]+dist_mul:
+                            monoObjects[0] = (dists[i]+dist_mul, angles[i])
+                    elif objectIDs[i] == 2:
+                        if monoObjects[1] == None:
+                            monoObjects[1] = (dists[i]+dist_mul, angles[i])
+                        elif monoObjects[1][0] < dists[i]+dist_mul:
+                            monoObjects[1] = (dists[i]+dist_mul, angles[i])
+                    elif objectIDs[i] == 3:
+                        if monoObjects[2] == None:
+                            monoObjects[2] = (dists[i]+dist_mul, angles[i])
+                        elif monoObjects[2][0] < dists[i]+dist_mul:
+                            monoObjects[2] = (dists[i]+dist_mul, angles[i])
+                    elif objectIDs[i] == 4:
+                        if monoObjects[3] == None:
+                            monoObjects[3] = (dists[i]+dist_mul, angles[i])
+                        elif monoObjects[3][0] < dists[i]+dist_mul:
+                            monoObjects[3] = (dists[i]+dist_mul, angles[i])
                 
                 
 
@@ -230,3 +235,129 @@ def LocalizeRobot(num_particles,cam,arlo,world):
 
         # Show world
         cv2.imshow(WIN_World, world)
+
+leftForward = 64
+rightForward = 66
+leftTurn = 64
+rightTurn = 64
+
+def Avoid_to_the_Front(arlo):
+    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+    sleep(0.637)
+    print(arlo.stop())
+
+    sleep(0.041)
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    sleep(1.5)
+    print(arlo.stop())
+
+    sleep(0.041)
+    print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+    sleep(0.637)
+    print(arlo.stop())
+
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    timer(2,arlo)
+    print(arlo.stop())
+
+    sleep(0.041)
+    print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+    sleep(0.637)
+    print(arlo.stop())
+
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    timer(1.5,arlo)
+    print(arlo.stop())
+    
+    sleep(0.041)
+    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+    sleep(0.637)
+    print(arlo.stop())
+
+def Avoid_to_the_Right(arlo):
+    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+    sleep(0.637)
+    print(arlo.stop())
+
+    sleep(0.041)
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    sleep(0.5)
+    print(arlo.stop())
+
+    sleep(0.041)
+    print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+    sleep(0.637)
+    print(arlo.stop())
+
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    timer(2,arlo)
+    print(arlo.stop())
+
+    sleep(0.041)
+    print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+    sleep(0.637)
+    print(arlo.stop())
+
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    timer(0.5,arlo)
+    print(arlo.stop())
+    
+    sleep(0.041)
+    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+    sleep(0.637)
+    print(arlo.stop())
+
+def Avoid_to_the_left(arlo):
+    print(arlo.stop())
+    print("something in the right")
+    print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+    sleep(0.637)
+    print(arlo.stop())
+
+    sleep(0.041)
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    sleep(0.5)
+    print(arlo.stop())
+
+    sleep(0.041)
+    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+    sleep(0.637)
+    print(arlo.stop())
+
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    timer(2,arlo)
+    print(arlo.stop())
+
+    sleep(0.041)
+    print(arlo.go_diff(leftTurn, rightTurn, 1, 0))
+    sleep(0.637)
+    print(arlo.stop())
+
+    print(arlo.go_diff(leftForward, rightForward, 1, 1))
+    timer(0.5,arlo)
+    print(arlo.stop())
+    
+    sleep(0.041)
+    print(arlo.go_diff(leftTurn, rightTurn, 0, 1))
+    sleep(0.637)
+    print(arlo.stop())
+ 
+
+def timer(x,arlo):
+    start = time.time()
+    end = start + x
+    while time.time() < end:
+        if arlo.read_front_ping_sensor() < 250:
+            print(arlo.stop())
+            print("something in front")
+            Avoid_to_the_Front(arlo=arlo)
+
+        elif arlo.read_left_ping_sensor() < 100:
+            print(arlo.stop())
+            print("something in the left")
+            Avoid_to_the_Right(arlo=arlo)
+            
+        elif arlo.read_right_ping_sensor() < 150:
+            print(arlo.stop())
+            print("something in the right")
+            Avoid_to_the_left(arlo=arlo)
