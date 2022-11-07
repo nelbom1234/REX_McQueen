@@ -102,6 +102,7 @@ def LocalizeRobot(num_particles,cam,arlo,world,goal):
     dist_mul = 20
     WIN_RF1 = "Robot view"
     WIN_World = "World view"
+    real_goal = goal
 
     while True:
         # Move the robot according to user input (only for testing)
@@ -140,9 +141,9 @@ def LocalizeRobot(num_particles,cam,arlo,world,goal):
 
         if not isinstance(objectIDs, type(None)) and any(p < 5 for p in objectIDs):
             # List detected objects
-            if any(p == goal for p in objectIDs):
-                return None
-            elif any(p == 1 for p in objectIDs) and goal == 5:
+            if real_goal == 5:
+                real_goal = 1
+            if any(p == real_goal for p in objectIDs):
                 return None
             else:
                 for i in range(len(objectIDs)):
