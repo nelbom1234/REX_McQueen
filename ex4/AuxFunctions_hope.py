@@ -261,7 +261,7 @@ def Avoid_to_the_Front(arlo):
     print(arlo.stop())
 
     print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(2,arlo)
+    timer(1,arlo)
     print(arlo.stop())
 
     sleep(0.041)
@@ -298,7 +298,7 @@ def Avoid_to_the_Right(arlo):
     print(arlo.stop())
 
     print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(2,arlo)
+    timer(1,arlo)
     print(arlo.stop())
 
     sleep(0.041)
@@ -338,7 +338,7 @@ def Avoid_to_the_left(arlo):
     print(arlo.stop())
 
     print(arlo.go_diff(leftForward, rightForward, 1, 1))
-    timer(2,arlo)
+    timer(1,arlo)
     print(arlo.stop())
 
     sleep(0.041)
